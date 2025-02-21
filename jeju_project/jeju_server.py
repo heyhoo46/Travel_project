@@ -30,5 +30,10 @@ def entertain():
 def mountain():
     return render_template('mountain.html')
 
+@app.route('/beach.html')
+def beach():
+    return render_template('beach.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
