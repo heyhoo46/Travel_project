@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈페이지</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: sans-serif; /* 폰트 변경 (선택 사항) */
+            background-color: #f8f8f8; /* 페이지 배경색 */
+        }
+
+        .left-section {
+            width: 20%;
+            padding: 20px;
+            background-color: #fff; /* 왼쪽 섹션 배경색 */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 (선택 사항) */
+        }
+
+        .right-section {
+            width: 80%;
+            padding: 20px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ddd; /* 검색창 테두리 */
+            border-radius: 5px; /* 검색창 모서리 둥글게 */
+        }
+
+        .category-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* 테이블 셀 동일 간격 */
+        }
+
+        .category-table td {
+            width: 33.33%;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle; /* 셀 내용 가운데 정렬 */
+        }
+
+        .category-image {
+            width: 100px; 
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%; /* 이미지 동그랗게 */
+            margin-bottom: 5px; /* 이미지 아래 여백 */
+        }
+
+        /* 카테고리 텍스트 스타일 */
+        .category-table span {
+            display: block; /* 텍스트를 이미지 아래에 배치 */
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> </head>
+    <body>
+        <div class="left-section">
+            Information
+        </div>
+    
+        <div class="right-section" style="max-width: 960px; margin: 0 auto;">
+            
+            <div class="center-content"> <form method="POST">
+                <input type="text" name="address" placeholder="주소를 입력하세요">
+                <button type="submit">이동</button>
+            </form>
+    
+            <h2>명소 카테고리 선택</h2>
+            <p>위치를 기반으로 맛집과 카페 추천</p>
+        </div>
+        
+        <table class="category-table">
+                <tr>
+                    <td><a href="market.html"><img src="../static/JEJU/market.png" alt="시장" class="category-image">시장</a></td>
+                    <td><a href="orem.html"><img src="../static/JEJU/orem.png" alt="오름" class="category-image">오름</a></td>
+                    <td><a href="dullegil.html"><img src="../static/JEJU/dullegil.png" alt="둘레길" class="category-image">둘레길</a></td>
+                </tr>
+                <tr>
+                    <td><a href="museum.html"><img src="../static/JEJU/museum.png" alt="박물관" class="category-image">박물관</a></td>
+                    <td><a href="entertain.html"><img src="../static/JEJU/entertain.png" alt="엔터테인먼트" class="category-image">엔터테인</a></td>
+                    <td><a href="mountain.html"><img src="../static/JEJU/mountain.png" alt="산" class="category-image">산</a></td>
+                </tr>
+            </table>
+        
+        </div>
+    </body>
+</html>
