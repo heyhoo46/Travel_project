@@ -4,65 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈페이지</title>
-    <style>
-        body {
-            display: flex;
-            margin: 0;
-            font-family: sans-serif; /* 폰트 변경 (선택 사항) */
-            background-color: #f8f8f8; /* 페이지 배경색 */
-        }
-
-        .left-section {
-            width: 20%;
-            padding: 20px;
-            background-color: #fff; /* 왼쪽 섹션 배경색 */
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 (선택 사항) */
-        }
-
-        .right-section {
-            width: 80%;
-            padding: 20px;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            border: 1px solid #ddd; /* 검색창 테두리 */
-            border-radius: 5px; /* 검색창 모서리 둥글게 */
-        }
-
-        .category-table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed; /* 테이블 셀 동일 간격 */
-        }
-
-        .category-table td {
-            width: 33.33%;
-            padding: 10px;
-            text-align: center;
-            vertical-align: middle; /* 셀 내용 가운데 정렬 */
-        }
-
-        .category-image {
-            width: 100px; 
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%; /* 이미지 동그랗게 */
-            margin-bottom: 5px; /* 이미지 아래 여백 */
-        }
-
-        /* 카테고리 텍스트 스타일 */
-        .category-table span {
-            display: block; /* 텍스트를 이미지 아래에 배치 */
-            font-size: 14px;
-            color: #333;
-        }
-    </style>
+   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="../static/JEJU/css/styles.css"> </head>
     <body>
         <div class="left-section">
             Information
@@ -81,13 +25,88 @@
         
         <table class="category-table">
             <tr>
-                <td></td> <td><a href="orem.html"><img src="../static/JEJU/orem.png" alt="오름" class="category-image"><span>오름</span></a></td> <td></td> <td><a href="dullegil.html"><img src="../static/JEJU/dullegil.png" alt="둘레길" class="category-image"><span>둘레길</span></a></td>
+                <td></td>
+                <td>
+                    <a href="orem.html">
+                        <div class="product-info-card">
+                            <div class="image">
+                                <img src="../static/JEJU/orem.png" alt="오름" class="category-image">
+                            </div>
+                            <span>오름</span>
+                        </div>
+                    </a>
+                </td>
+                <td></td>
+                <td>
+                    <a href="dullegil.html">
+                        <div class="product-info-card">
+                            <div class="image">
+                                <img src="../static/JEJU/dullegil.png" alt="둘레길" class="category-image">
+                            </div>
+                            <span>둘레길</span>
+                        </div>
+                    </a>
+                </td>
+                <td></td> <td></td>
             </tr>
             <tr>
-                <td><a href="museum.html"><img src="../static/JEJU/museum.png" alt="박물관" class="category-image"><span>박물관</span></a></td> <td></td> <td><a href="beach.html"><img src="../static/JEJU/beach.png" alt="해변" class="category-image"><span>해변</span></a></td> <td></td> <td><a href="mountain.html"><img src="../static/JEJU/mountain.png" alt="산" class="category-image"><span>산</span></a></td>
+                <td>
+                    <a href="museum.html">
+                        <div class="product-info-card">
+                            <div class="image">
+                                <img src="../static/JEJU/museum.png" alt="박물관" class="category-image">
+                            </div>
+                            <span>박물관</span>
+                        </div>
+                    </a>
+                </td>
+                <td></td>
+                <td>
+                    <a href="beach.html">
+                        <div class="product-info-card">
+                            <div class="image">
+                                <img src="../static/JEJU/beach.png" alt="해변" class="category-image">
+                            </div>
+                            <span>해변</span>
+                        </div>
+                    </a>
+                </td>
+                <td></td>
+                <td>
+                    <a href="mountain.html">
+                        <div class="product-info-card">
+                            <div class="image">
+                                <img src="../static/JEJU/mountain.png" alt="산" class="category-image">
+                            </div>
+                            <span>산</span>
+                        </div>
+                    </a>
+                </td>
             </tr>
             <tr>
-                <td></td> <td><a href="entertain.html"><img src="../static/JEJU/entertain.png" alt="테마파크" class="category-image"><span>테마파크</span></a></td> <td></td> <td><a href="market.html"><img src="../static/JEJU/market.png" alt="시장" class="category-image"><span>시장</span></a></td>
+                <td></td>
+                <td>
+                    <a href="entertain.html">
+                        <div class="product-info-card">
+                            <div class="image">
+                                <img src="../static/JEJU/entertain.png" alt="테마파크" class="category-image">
+                            </div>
+                            <span>테마파크</span>
+                        </div>
+                    </a>
+                </td>
+                <td></td>
+                <td>
+                    <a href="market.html">
+                        <div class="product-info-card">
+                            <div class="image">
+                                <img src="../static/JEJU/market.png" alt="시장" class="category-image">
+                            </div>
+                            <span>시장</span>
+                        </div>
+                    </a>
+                </td>
+                <td></td> <td></td>
             </tr>
         </table>
         
