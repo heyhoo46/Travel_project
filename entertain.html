@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테마파크 정보</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #f4f4f4;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .content {
+            width: 50%;
+            padding: 20px;
+            text-align: center;
+        }
+        .image-section {
+            width: 30%;
+            padding: 20px;
+            text-align: center;
+        }
+        .museum-name, .restaurant-name {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .museum-name:hover, .restaurant-name:hover {
+            background-color: #ddd;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .restaurant-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .restaurant-details {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .image-section img {
+            margin-bottom: 20px; /* 이미지 간격 조정 */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="museumList">
+        <!-- 테마파크 이름 목록 -->
+    </div>
+    <div class="content" id="museumInfo">
+        <h2>테마파크 정보</h2>
+        <p>테마파크을 선택하세요.</p>
+    </div>
+    <div class="image-section" id="museumImage">
+        <h2>테마파크 사진</h2>
+        <div id="mountainImage"></div>
+        <!-- <h2>테마파크 사진 및 정보</h2> -->
+        <div id="restaurantImage"></div>
+    </div>
+
+    <script>
+        const museums = [
+        {
+            name: "신화테마파크",
+            address: "제주특별자치도 서귀포시 특별자치도, 안덕면 신화역사로304번길 98",
+            hours: "월요일 오전 10:00~오후 8:00\n화요일 오전 10:00~오후 8:00\n수요일 오전 10:00~오후 8:00\n목요일 오전 10:00~오후 8:00\n금요일 오전 10:00~오후 8:00\n토요일 오전 10:00~오후 8:00\n일요일 오전 10:00~오후 8:00\n",
+            summary: "신화테마파크는 2017년 9월 30일에 개장한 대한민국 제주특별자치도에 있는 테마파크이며, 제주신화월드에 위치해 있다. 대한민국의 주요 인기 애니메이션들을 테마로 한 테마파크이다.",
+            image: "../static/JEJU/제주도 테마파크/신화테마파크.jpg",
+            restaurants: [
+                    { name: "고근산 식당1", address: "서귀포시", hours: "10:00 ~ 20:00", comment: "고근산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ]
+        },
+        {
+            name: "에코랜드",
+            address: "제주특별자치도 제주시 특별자치도, 조천읍 번영로 1278-169 KR",
+            hours: "월요일 오전 8:30~오후 6:30\n화요일 오전 8:30~오후 6:30\n수요일 오전 8:30~오후 6:30\n목요일 오전 8:30~오후 6:30\n금요일 오전 8:30~오후 6:30\n토요일 오전 8:30~오후 6:30\n일요일 오전 8:30~오후 6:30\n",
+            summary: "에코랜드는 제주특별자치도 제주시 조천읍 대흘리에 위치한 테마파크이다. 에코랜드 테마파크와 에코랜드 골프&리조트으로 나뉜다. 테마파크는 기차를 타며 숲을 구경할 수 있게 되어 있으며 숲은 각각 4개의 역으로 구성되어있다. 기차를 타고 간이역으로 내려 관람할 수 있다.",
+            image: "../static/JEJU/제주도 테마파크/에코랜드.jpg",
+            restaurants: [
+                    { name: "고근산 식당1", address: "서귀포시", hours: "10:00 ~ 20:00", comment: "고근산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ]
+        },
+        {
+            name: "9.81 파크",
+            address: "제주특별자치도 제주시 애월읍 천덕로 880-24",
+            hours: "월요일 오전 9:00~오후 6:00\n화요일 오전 9:00~오후 6:00\n수요일 오전 9:00~오후 6:00\n목요일 오전 9:00~오후 6:00\n금요일 오전 9:00~오후 6:00\n토요일 오전 9:00~오후 6:00\n일요일 오전 9:00~오후 6:00\n",
+            summary: "",
+            image: "../static/JEJU/제주도 테마파크/9.81 파크.jpg",
+            restaurants: [
+                    { name: "고근산 식당1", address: "서귀포시", hours: "10:00 ~ 20:00", comment: "고근산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ]
+        },
+        {
+            name: "스누피가든",
+            address: "제주특별자치도 제주시 특별자치도 구좌읍 금백조로 930",
+            hours: "월요일 오전 9:00~오후 6:00\n화요일 오전 9:00~오후 6:00\n수요일 오전 9:00~오후 6:00\n목요일 오전 9:00~오후 6:00\n금요일 오전 9:00~오후 6:00\n토요일 오전 9:00~오후 6:00\n일요일 오전 9:00~오후 6:00\n",
+            summary: "",
+            image: "../static/JEJU/제주도 테마파크/스누피가든.jpg",
+            restaurants: [
+                    { name: "고근산 식당1", address: "서귀포시", hours: "10:00 ~ 20:00", comment: "고근산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+            ]
+        },
+        {
+            name: "소인국 테마파크",
+            address: "제주특별자치도 서귀포시 안덕면 화순서동로 347",
+            hours: "월요일 오전 9:00~오후 6:00\n화요일 오전 9:00~오후 6:00\n수요일 오전 9:00~오후 6:00\n목요일 오전 9:00~오후 6:00\n금요일 오전 9:00~오후 6:00\n토요일 오전 9:00~오후 6:00\n일요일 오전 9:00~오후 6:00\n",
+            summary: "소인국 테마파크는 제주특별자치도 서귀포시 안덕면 중산간서로 1878에 위치한 미니어처 테마파크이다. 2002년 4월 2일 문을 열었으며, 116개의 모형이 전시되어 있다.",
+            image: "../static/JEJU/제주도 테마파크/소인국 테마파크.jpg",
+            restaurants: [
+                    { name: "고근산 식당1", address: "서귀포시", hours: "10:00 ~ 20:00", comment: "고근산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+            ]
+        },
+        {
+            name: "윈드1947카트 테마파크",
+            address: "제주특별자치도 서귀포시 특별자치도, 토평공단로 78-27",
+            hours: "월요일 오전 10:00~오후 6:00\n화요일 오전 10:00~오후 6:00\n수요일 오전 10:00~오후 6:00\n목요일 오전 10:00~오후 6:00\n금요일 오전 10:00~오후 6:00\n토요일 오전 10:00~오후 6:00\n일요일 오전 10:00~오후 6:00\n",
+            summary: "",
+            image: "../static/JEJU/제주도 테마파크/윈드1947카트 테마파크.jpg",
+            restaurants: [
+                    { name: "고근산 식당1", address: "서귀포시", hours: "10:00 ~ 20:00", comment: "고근산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+            ]
+        },
+        {
+            name: "수목원테마파크",
+            address: "제주특별자치도 제주시 특별자치도, 연동 1320",
+            hours: "월요일 오전 9:00~오후 7:00\n화요일 오전 9:00~오후 7:00\n수요일 오전 9:00~오후 7:00\n목요일 오전 9:00~오후 7:00\n금요일 오전 9:00~오후 7:00\n토요일 오전 9:00~오후 7:00\n일요일 오전 9:00~오후 7:00\n",
+            summary: "",
+            image: "../static/JEJU/제주도 테마파크/수목원테마파크.jpg",
+            restaurants: [
+                    { name: "그러므로 part2", address: "제주특별자치도 제주시 특별자치도 수목원길 16-14", hours: "월요일 휴무일 화요일 오전 10:00~오후 9:00 수요일 오전 10:00~오후 9:00 목요일 오전 10:00~오후 9:00 금요일 오전 10:00~오후 9:00 토요일 오전 10:00~오후 9:00 일요일 오전 10:00~오후 9:00", comment: "", image: "../static/JEJU/제주시 카페/그러므로 part2.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+            ]
+        },
+        {
+            name: "루나폴",
+            address: "제주특별자치도 서귀포시 특별자치도, 안덕면 일주서로 1836",
+            hours: "월요일 오후 7:00~오전 12:00\n화요일 오후 7:00~오전 12:00\n수요일 오후 7:00~오전 12:00\n목요일 오후 7:00~오전 12:00\n금요일 오후 7:00~오전 12:00\n토요일 오후 7:00~오전 12:00\n일요일 오후 7:00~오전 12:00\n",
+            summary: "",
+            image: "../static/JEJU/제주도 테마파크/루나폴.jpg",
+            restaurants: [
+                    { name: "고근산 식당1", address: "제주특별자치도 제주시 특별자치도 수목원길 16-14", hours: "월요일 휴무일\n화요일 오전 10:00~오후 9:00\n수요일 오전 10:00~오후 9:00\n목요일 오전 10:00~오후 9:00\n", comment: "고근산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+            ]
+        },
+        {
+            name: "뽀로로&타요테마파크 제주",
+            address: "제주특별자치도 서귀포시 안덕면 병악로 269",
+            hours: "월요일 오전 10:00~오후 6:00\n화요일 오전 10:00~오후 6:00\n수요일 오전 10:00~오후 6:00\n목요일 오전 10:00~오후 6:00\n금요일 오전 10:00~오후 6:00\n토요일 오전 10:00~오후 6:00\n일요일 오전 10:00~오후 6:00\n",
+            summary: "",
+            image: "../static/JEJU/제주도 테마파크/뽀로로&타요테마파크 제주.jpg",
+            restaurants: [
+                    { name: "고근산 식당1", address: "서귀포시", hours: "10:00 ~ 20:00", comment: "고근산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "고근산 식당2", address: "서귀포시", hours: "09:00 ~ 21:00", comment: "고근산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+            ]
+        }
+        ];
+
+        const museumList = document.getElementById("museumList");
+        const museumInfo = document.getElementById("museumInfo");
+        const mountainImage = document.getElementById("mountainImage");
+        const restaurantImage = document.getElementById("restaurantImage");
+
+        // 테마파크 목록 생성
+        museums.forEach(museum => {
+            const div = document.createElement("div");
+            div.className = "museum-name";
+            div.textContent = museum.name;
+            div.onclick = () => displayMuseumInfo(museum);
+            museumList.appendChild(div);
+        });
+
+        // 테마파크 정보 표시 함수
+        function displayMuseumInfo(museum) {
+            let summaryHTML = "";
+            if (museum.summary) { // 개요 정보가 있는 경우에만 표시
+                summaryHTML = `<p><span style="color:blue;font-weight:bold" align="center">개요</br></span>${museum.summary}</p>`;
+            }
+            museumInfo.innerHTML = `
+                <h2>${museum.name}</h2>
+                <p><span style="color:blue;font-weight:bold" align="center">주소</br></span>${museum.address}</p>
+                <p><span style="color:blue;font-weight:bold" align="center">영업시간</br></span>${museum.hours.replace(/\n/g, "<br>")}</p>
+                ${summaryHTML}
+                <div class="restaurant-info">
+                    <h3>주변 식당</h3>
+                    ${museum.restaurants.map(restaurant => `
+                        <div class="restaurant-name" onclick="displayRestaurantInfo('${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.comment}', '${restaurant.image}')">
+                            ${restaurant.name}
+                        </div>
+                    `).join("")}
+                </div>
+            `;
+            mountainImage.innerHTML = `<img src="${museum.image}" alt="${museum.name} 이미지">`;
+            restaurantImage.innerHTML = ""; // 테마파크를 선택할 때 식당 이미지 및 정보 초기화
+        }
+
+        // 식당 정보 표시 함수
+        function displayRestaurantInfo(name, address, hours, comment, image) {
+            restaurantImage.innerHTML = `
+                <h2>식당 사진 및 정보</h2>
+                <img src="${image}" alt="식당 이미지">
+                <div class="restaurant-details">
+                    <h3>${name}</h3>
+                    <p><span style="color:blue;font-weight:bold">주소</span>: ${address}</p>
+                    <p><span style="color:blue;font-weight:bold">영업시간</span>: ${hours.replace(/\n/g, "<br>")}</p>
+                    <p><span style="color:blue;font-weight:bold">설명</span>: ${comment}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
