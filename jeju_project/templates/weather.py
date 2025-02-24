@@ -12,7 +12,7 @@ today1 = today.strftime('%m%d')
 
 # 크롬 브라우저 실행
 driver = wb.Chrome()
-url = "https://www.kr-weathernews.com/mv4/html/weekly.html?loc=1100000000"
+url = "https://www.kr-weathernews.com/mv4/html/today.html?loc=1100000000"
 driver.get(url)
 
 # '검색' 버튼 클릭
@@ -30,22 +30,23 @@ time.sleep(1)
 okay = driver.find_element(By.CLASS_NAME, "searchedPlaceData")
 okay.click()
 time.sleep(1)
-okay2 = driver.find_element(By.CLASS_NAME, "tablet-weekly-nav")
-okay2.click()
 
 # tw = TodayWeather #오늘 날씨 정보
-tw_list = driver.find_element(By.CSS_SELECTOR, ".weekly-middle-left .mint")   # maxt일때랑 mint일때 선택할 수 있게 !
-print(f"오늘 기온은 {tw_list.text}C 입니다")
+tw_list = driver.find_element(By.CSS_SELECTOR, ".flex-between .temp")  
+print(f"현재 기온은 {tw_list.text}C 입니다")
+time.sleep(0.5)
+
+okay2 = driver.find_element(By.CLASS_NAME, "tablet-weekly-nav")
+okay2.click()
 time.sleep(1)
 
+# 모든 요소의 텍스트 출력 # 두번째 요소에서만 텍스트를 출력하도록 함.
 tw_ment = driver.find_elements(By.CSS_SELECTOR, "p.weather-txt")
 
-# 모든 요소의 텍스트 출력 # 두번째 요소에서만 텍스트를 출력하도록 함.
 if tw_ment:
     print(f"오늘, {tw_ment[1].text}")  # 두 번째 요소의 텍스트만 출력
 else:
     print("요소를 찾을 수 없습니다.")
-
 
 # 날짜별로 10일 기온 정보 출력
 for i in range(10):
