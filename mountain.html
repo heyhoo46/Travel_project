@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>산 정보</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #f4f4f4;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .content {
+            width: 50%;
+            padding: 20px;
+            text-align: center;
+        }
+        .image-section {
+            width: 30%;
+            padding: 20px;
+            text-align: center;
+        }
+        .museum-name, .category-tab, .place-name {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .museum-name:hover, .category-tab:hover, .place-name:hover {
+            background-color: #ddd;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .restaurant-info, .cafe-info, .accommodation-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .place-details {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .image-section img {
+            margin-bottom: 20px; /* 이미지 간격 조정 */
+        }
+        .category-tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .category-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .category-tab.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="museumList">
+        <!-- 산 이름 목록 -->
+    </div>
+    <div class="content" id="museumInfo">
+        <h2>산 정보</h2>
+        <p>산을 선택하세요.</p>
+        <!-- <div class="category-tabs" id="categoryTabs">
+            <div class="category-tab" onclick="showCategory('restaurant')">식당</div>
+            <div class="category-tab" onclick="showCategory('cafe')">카페</div>
+            <div class="category-tab" onclick="showCategory('accommodation')">숙소</div>
+        </div>
+        <div id="restaurantInfo" class="restaurant-info"></div>
+        <div id="cafeInfo" class="cafe-info"></div>
+        <div id="accommodationInfo" class="accommodation-info"></div> -->
+    </div>
+    <div class="image-section" id="museumImage">
+        <h2>산 사진</h2>
+        <div id="mountainImage"></div>
+        <h2>장소 사진 및 정보</h2>
+        <div id="placeImage"></div>
+    </div>
+
+    <script>
+        const museums = [
+            { 
+                name: "산방산", 
+                address: "제주특별자치도 서귀포시 안덕면 사계리", 
+                hours: "24시간", 
+                summary: "산방산은 대한민국 제주특별자치도 서귀포시 안덕면 사계리에 있는 산이다. '산방'이라는 말은 굴이 있는 산을 뜻한다. 높이는 해발 395m이며, 남쪽 해발 150m 쯤에 해식동굴이 있어서 산방산이라 이름을 지었다. 대한민국의 명승으로 지정되었다.",
+                image : "../static/JEJU/제주도 산/산방산.jpg",
+                restaurants: [
+                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
+                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
+                ],
+                cafes: [
+                    { name: "산방산 카페1", address: "서귀포시 안덕면 사계리", hours: "08:00 ~ 22:00", comment: "산방산 근처의 아늑한 카페입니다. 제주도 전통 차를 즐길 수 있습니다.", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+                accommodations: [
+                    { name: "산방산 숙소1", address: "서귀포시 안덕면 사계리", hours: "체크인: 15:00, 체크아웃: 11:00", comment: "산방산 근처의 아늑한 게스트하우스입니다.", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
+            },
+            { 
+                name: "한라산", 
+                address: "제주특별자치도 제주시", 
+                hours: "06:00 ~ 18:00", 
+                summary: "한라산은 대한민국 제주도 중앙부에 있는 해발 1,947.06m, 면적 약 1,820km²의 화산으로, 제주도의 면적 대부분을 차지하고 있다. 정상에 백록담이라는 화산호가 있는데, 백록담이라는 이름은 흰 사슴이 물을 먹는 곳이라는 뜻에서 왔다고 전해진다.",
+                image : "../static/JEJU/제주도 산/한라산.jpg",
+                restaurants: [
+                    { name: "한라산 식당1", address: "제주시", hours: "11:00 ~ 22:00", comment: "한라산 근처의 맛집입니다. 신선한 해산물 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당3.jpg" },
+                    { name: "한라산 식당2", address: "제주시", hours: "10:00 ~ 20:00", comment: "한라산에서 도보로 15분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당4.jpg" }
+                ],
+                cafes: [
+                    { name: "한라산 카페1", address: "제주시", hours: "09:00 ~ 21:00", comment: "한라산 근처의 아늑한 카페입니다. 제주도 전통 차를 즐길 수 있습니다.", image: "../static/JEJU/제주도 카페/카페2.jpg" }
+                ],
+                accommodations: [
+                    { name: "한라산 숙소1", address: "제주시", hours: "체크인: 14:00, 체크아웃: 12:00", comment: "한라산 근처의 아늑한 게스트하우스입니다.", image: "../static/JEJU/제주도 숙소/숙소2.jpg" }
+                ]
+            }
+        ];
+
+        const museumList = document.getElementById("museumList");
+        const museumInfo = document.getElementById("museumInfo");
+        const mountainImage = document.getElementById("mountainImage");
+        const placeImage = document.getElementById("placeImage");
+        const restaurantInfo = document.getElementById("restaurantInfo");
+        const cafeInfo = document.getElementById("cafeInfo");
+        const accommodationInfo = document.getElementById("accommodationInfo");
+        const categoryTabs = document.getElementById("categoryTabs");
+
+        // 산 목록 생성
+        museums.forEach(museum => {
+            const div = document.createElement("div");
+            div.className = "museum-name";
+            div.textContent = museum.name;
+            div.onclick = () => displayMuseumInfo(museum);
+            museumList.appendChild(div);
+        });
+
+        // 산 정보 표시 함수
+        function displayMuseumInfo(museum) {
+            let summaryHTML = "";
+            if (museum.summary) { // 개요 정보가 있는 경우에만 표시
+                summaryHTML = `<p><span style="color:blue;font-weight:bold" align="center">개요</br></span>${museum.summary}</p>`;
+            }
+            museumInfo.innerHTML = `
+                <h2>${museum.name}</h2>
+                <p><span style="color:blue;font-weight:bold" align="center">주소</br></span>${museum.address}</p>
+                <p><span style="color:blue;font-weight:bold" align="center">영업시간</br></span>${museum.hours.replace(/\n/g, "<br>")}</p>
+                ${summaryHTML}
+            `;
+            mountainImage.innerHTML = `<img src="${museum.image}" alt="${museum.name} 이미지">`;
+            placeImage.innerHTML = `<div class="category-tabs" id="categoryTabs">
+                                        <div class="category-tab" onclick="showCategory('restaurant')">식당</div>
+                                        <div class="category-tab" onclick="showCategory('cafe')">카페</div>
+                                        <div class="category-tab" onclick="showCategory('accommodation')">숙소</div>
+                                    </div>
+                                    <div id="restaurantInfo" class="restaurant-info"></div>
+                                    <div id="cafeInfo" class="cafe-info"></div>
+                                    <div id="accommodationInfo" class="accommodation-info"></div>`; // 산을 선택할 때 장소 이미지 및 정보 초기화
+            showCategory('restaurant', museum); // 기본적으로 식당 탭 표시
+        }
+
+        // 카테고리 탭 표시 함수
+        function showCategory(category, museum) {
+            // 모든 탭 비활성화
+            Array.from(categoryTabs.children).forEach(tab => tab.classList.remove("active"));
+            // 선택한 탭 활성화
+            document.querySelector(`.category-tab[onclick*="${category}"]`).classList.add("active");
+
+            // 선택한 카테고리 정보 표시
+            if (category === 'restaurant') {
+                restaurantInfo.innerHTML = `
+                    <h3>주변 식당</h3>
+                    ${museum.restaurants.map(restaurant => `
+                        <div class="place-name" onclick="displayPlaceInfo('${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.comment}', '${restaurant.image}')">
+                            ${restaurant.name}
+                        </div>
+                    `).join("")}
+                `;
+                cafeInfo.innerHTML = "";
+                accommodationInfo.innerHTML = "";
+            } else if (category === 'cafe') {
+                cafeInfo.innerHTML = `
+                    <h3>주변 카페</h3>
+                    ${museum.cafes.map(cafe => `
+                        <div class="place-name" onclick="displayPlaceInfo('${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.comment}', '${cafe.image}')">
+                            ${cafe.name}
+                        </div>
+                    `).join("")}
+                `;
+                restaurantInfo.innerHTML = "";
+                accommodationInfo.innerHTML = "";
+            } else if (category === 'accommodation') {
+                accommodationInfo.innerHTML = `
+                    <h3>주변 숙소</h3>
+                    ${museum.accommodations.map(accommodation => `
+                        <div class="place-name" onclick="displayPlaceInfo('${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.comment}', '${accommodation.image}')">
+                            ${accommodation.name}
+                        </div>
+                    `).join("")}
+                `;
+                restaurantInfo.innerHTML = "";
+                cafeInfo.innerHTML = "";
+            }
+        }
+
+        // 장소 정보 표시 함수
+        function displayPlaceInfo(name, address, hours, comment, image) {
+            placeImage.innerHTML = `
+                <h2>장소 사진 및 정보</h2>
+                <img src="${image}" alt="장소 이미지">
+                <div class="place-details">
+                    <h3>${name}</h3>
+                    <p><span style="color:blue;font-weight:bold">주소</span>: ${address}</p>
+                    <p><span style="color:blue;font-weight:bold">영업시간</span>: ${hours}</p>
+                    <p><span style="color:blue;font-weight:bold">설명</span>: ${comment}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
