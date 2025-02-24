@@ -3,22 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오름</title>
-    <link rel="stylesheet" href="style.css">
+    <title>오름 목록</title>
+
+    <!-- PapaParse 라이브러리 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
-    <div class="left-section">
-        Information
+    <h1>오름 정보</h1>
+    <h4>가고싶은 오름이 있습니까?</h4>
+
+    <!-- 지역을 선택할 수 있는 select 요소 -->
+    <select id="region-list">
+        <option value="">지역을 선택하세요</option>
+    </select>
+
+    <br><br>
+
+    <!-- 날짜를 선택할 수 있는 input 요소 -->
+    <label for="date-picker">날짜를 선택하세요:</label>
+    <input type="date" id="date-picker">
+
+    <br><br>
+
+    <!-- 전송 버튼 (JavaScript로 처리) -->
+    <button id="submit-button">전송</button>
+
+    <!-- 오른쪽 섹션 (여기를 동적으로 변경할 것입니다) -->
+    <div class="sidebar" id="region-list">
+        <!--산 이름 목록-->
+    </div>
+    <div id="rightsection">
+        <h2>선택된 오름에 대한 정보가 여기에 표시됩니다.</h2>
     </div>
 
-    <div class="right-section" style="max-width: 960px; margin: 0 auto;">
-        <h1>오름</h1>
-        <ul>
-            <li>용눈이오름</li>
-            <li>새별오름</li>
-            <li>금오름</li>
-        </ul>
-        <p>오름 관련 내용입니다.</p>
-    </div>
+    <script>
+        // CSV 파일을 불러오고 지역명을 추출하여 select 박스에 추가하는 함수
+        function loadRegionsFromCSV() {
+            Papa.parse('제주도_오름.csv', {
+                download: true,  // CSV 파일을 다운로드하여 파싱
+                header: true,  // 첫 번째 행을 헤더로 처리
+                dynamicTyping: true,  // 데이터 타입 자동 변환
+                complete: function(results) {
+                    var regions = results.data; // 파싱된 CSV 데이터
+
+                    // select 요소를 가져옴
+                    var select = document.getElementById('region-list');
+
+                    // 각 행에서 'place' 열의 값을 추출하여 select에 추가
+                    regions.forEach(function(row) {
+                        var regionName = row.place;  // 'place' 열에서 지역명 가져오기
+                        if (regionName) {
+                            var option = document.createElement('option');
+                            option.value = regionName;
+                            option.textContent = regionName;
+                            select.appendChild(option);
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.error('CSV 파일을 불러오는 데 오류가 발생했습니다:', error);
+                }
+            });
+        }
+
+        // 페이지가 로드되면 CSV 파일을 불러옴
+        window.onload = function() {
+            loadRegionsFromCSV();
+        };
+
+        // 전송 버튼 클릭 시 rightsection 부분 변경
+        document.getElementById('submit-button').addEventListener('click', function() {
+            var selectedRegion = document.getElementById('region-list').value;
+            var selectedDate = document.getElementById('date-picker').value;
+
+            // 지역 또는 날짜가 선택되었을 때 rightsection의 내용 변경
+            var rightSection = document.getElementById('rightsection');
+            if (selectedRegion && selectedDate) {
+                rightSection.innerHTML = `<h2>선택된 오름: ${selectedRegion}</h2>
+                                          <p>선택된 날짜: ${selectedDate}</p>
+                                          <p>선택된 오름에 대한 정보가 여기에 표시됩니다.</p>`;
+            } else if (selectedRegion) {
+                rightSection.innerHTML = `<h2>선택된 오름: ${selectedRegion}</h2>
+                                          <p>선택된 오름에 대한 정보가 여기에 표시됩니다.</p>`;
+            } else if (selectedDate) {
+                rightSection.innerHTML = `<h2>선택된 날짜: ${selectedDate}</h2>
+                                          <p>해당 날짜에 대한 정보가 여기에 표시됩니다.</p>`;
+            } else {
+                alert('지역 또는 날짜를 선택해 주세요.');
+            }
+        });
+    </script>
+
 </body>
 </html>
