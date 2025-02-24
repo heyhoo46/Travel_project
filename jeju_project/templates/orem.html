@@ -5,39 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오름 목록</title>
 
+    <style>
+        /* 간단한 레이아웃을 위한 스타일 */
+        body {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* sidebar 스타일 */
+        .sidebar {
+            width: 200px;
+            border-right: 2px solid #ccc;
+            padding-right: 10px;
+            margin-right: 20px;
+        }
+
+        .sidebar div {
+            padding: 10px;
+            cursor: pointer;
+            margin: 5px 0;
+            background-color: #f1f1f1;
+        }
+
+        .sidebar div:hover {
+            background-color: #ddd;
+        }
+
+        /* rightside 스타일 */
+        #rightside {
+            flex-grow: 1;
+            padding: 20px;
+            border: 2px solid #ccc;
+        }
+    </style>
+
     <!-- PapaParse 라이브러리 로드 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
-    <h1>오름 정보</h1>
-    <h4>가고싶은 오름이 있습니까?</h4>
 
-    <!-- 지역을 선택할 수 있는 select 요소 -->
-    <select id="region-list">
-        <option value="">지역을 선택하세요</option>
-    </select>
-
-    <br><br>
-
-    <!-- 날짜를 선택할 수 있는 input 요소 -->
-    <label for="date-picker">날짜를 선택하세요:</label>
-    <input type="date" id="date-picker">
-
-    <br><br>
-
-    <!-- 전송 버튼 (JavaScript로 처리) -->
-    <button id="submit-button">전송</button>
-
-    <!-- 오른쪽 섹션 (여기를 동적으로 변경할 것입니다) -->
-    <div class="sidebar" id="region-list">
-        <!--산 이름 목록-->
+    <!-- 사이드바 (지역 목록 클릭 영역) -->
+    <div class="sidebar" id="sidebar">
+        <h3>지역 선택</h3>
+        <!-- 지역 항목들이 동적으로 추가될 곳 -->
     </div>
-    <div id="rightsection">
+
+    <!-- 날짜 선택 및 오른쪽에 표시할 내용 -->
+    <div id="rightside">
         <h2>선택된 오름에 대한 정보가 여기에 표시됩니다.</h2>
+        <label for="date-picker">날짜를 선택하세요:</label>
+        <input type="date" id="date-picker">
+
+        <br><br>
+
+        <!-- 선택된 지역 및 날씨 정보가 표시될 부분 -->
+        <div id="weather-info">
+            <h3>날씨 정보와 이미지가 여기에 표시됩니다.</h3>
+        </div>
     </div>
 
     <script>
-        // CSV 파일을 불러오고 지역명을 추출하여 select 박스에 추가하는 함수
+        // CSV 파일을 불러오고 지역명을 추출하여 sidebar에 추가하는 함수
         function loadRegionsFromCSV() {
             Papa.parse('제주도_오름.csv', {
                 download: true,  // CSV 파일을 다운로드하여 파싱
@@ -46,17 +75,19 @@
                 complete: function(results) {
                     var regions = results.data; // 파싱된 CSV 데이터
 
-                    // select 요소를 가져옴
-                    var select = document.getElementById('region-list');
+                    // sidebar 요소를 가져옴
+                    var sidebar = document.getElementById('sidebar');
 
-                    // 각 행에서 'place' 열의 값을 추출하여 select에 추가
+                    // 각 행에서 'place' 열의 값을 추출하여 sidebar에 추가
                     regions.forEach(function(row) {
                         var regionName = row.place;  // 'place' 열에서 지역명 가져오기
                         if (regionName) {
-                            var option = document.createElement('option');
-                            option.value = regionName;
-                            option.textContent = regionName;
-                            select.appendChild(option);
+                            var regionDiv = document.createElement('div');
+                            regionDiv.textContent = regionName;
+                            regionDiv.addEventListener('click', function() {
+                                handleRegionSelection(regionName, row);  // 지역 선택 처리
+                            });
+                            sidebar.appendChild(regionDiv);
                         }
                     });
                 },
@@ -71,27 +102,31 @@
             loadRegionsFromCSV();
         };
 
-        // 전송 버튼 클릭 시 rightsection 부분 변경
-        document.getElementById('submit-button').addEventListener('click', function() {
-            var selectedRegion = document.getElementById('region-list').value;
-            var selectedDate = document.getElementById('date-picker').value;
+        // 지역이 선택되었을 때 처리하는 함수
+        function handleRegionSelection(regionName, regionData) {
+            // 선택된 지역에 대한 날씨 정보를 표시할 부분
+            var rightside = document.getElementById('rightside');
+            var weatherInfo = document.getElementById('weather-info');
 
-            // 지역 또는 날짜가 선택되었을 때 rightsection의 내용 변경
-            var rightSection = document.getElementById('rightsection');
-            if (selectedRegion && selectedDate) {
-                rightSection.innerHTML = `<h2>선택된 오름: ${selectedRegion}</h2>
-                                          <p>선택된 날짜: ${selectedDate}</p>
-                                          <p>선택된 오름에 대한 정보가 여기에 표시됩니다.</p>`;
-            } else if (selectedRegion) {
-                rightSection.innerHTML = `<h2>선택된 오름: ${selectedRegion}</h2>
-                                          <p>선택된 오름에 대한 정보가 여기에 표시됩니다.</p>`;
-            } else if (selectedDate) {
-                rightSection.innerHTML = `<h2>선택된 날짜: ${selectedDate}</h2>
-                                          <p>해당 날짜에 대한 정보가 여기에 표시됩니다.</p>`;
-            } else {
-                alert('지역 또는 날짜를 선택해 주세요.');
-            }
-        });
+            // 날짜를 선택했을 때 처리할 준비
+            var datePicker = document.getElementById('date-picker');
+
+            // 지역에 해당하는 날씨 정보와 이미지를 업데이트
+            weatherInfo.innerHTML = `<h3>${regionName}의 날씨 정보</h3>
+                                     <p>오름 이름: ${regionData.place}</p>
+                                     <p>날씨: ${regionData.score} (기타 정보)</p> 
+                                     <img src="https://via.placeholder.com/300?text=${regionName}" alt="지역 이미지">`;
+
+            // 날짜 선택에 따른 날씨 정보 갱신 처리
+            datePicker.addEventListener('change', function() {
+                var selectedDate = datePicker.value;
+
+                if (selectedDate) {
+                    weatherInfo.innerHTML += `<p>선택된 날짜: ${selectedDate}</p>
+                                              <p>날짜에 맞는 날씨 정보와 이미지가 여기에 표시됩니다.</p>`;
+                }
+            });
+        }
     </script>
 
 </body>
