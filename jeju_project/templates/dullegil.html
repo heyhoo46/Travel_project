@@ -5,91 +5,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>둘레길 정보</title>
     <style>
-        body {
+         body {
             display: flex;
             height: 100vh;
             margin: 0;
+            font-family: "Noto Sans KR", sans-serif; /* 폰트 변경 */
+            color: #333; /* 글자색 변경 */
         }
+
         .sidebar {
             width: 20%;
-            background-color: #f4f4f4;
-            padding: 10px;
+            background-color: #f8f8f8; /* 배경색 변경 */
+            padding: 20px;
             overflow-y: auto;
+            border-right: 1px solid #ddd; /* 테두리 추가 */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
         }
+
         .content {
             width: 50%;
-            padding: 20px;
-            text-align: center;
+            padding: 30px; /* padding 증가 */
+            text-align: left; /* 텍스트 정렬 변경 */
+            background-color: #fff; /* 배경색 변경 */
         }
+
         .image-section {
             width: 30%;
             padding: 20px;
             text-align: center;
+            border-left: 1px solid #ddd; /* 테두리 추가 */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            background-color: #f8f8f8; /* 배경색 변경 */
         }
-        .museum-name, .category-tab, .place-name {
+
+        .museum-name {
             cursor: pointer;
-            padding: 5px;
-            border-bottom: 1px solid #ccc;
+            padding: 10px; /* padding 증가 */
+            margin: 5px 0; /* margin 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #eee; /* 테두리 추가 */
+            transition: background-color 0.3s ease; /* 호버 효과를 부드럽게 */
         }
-        .museum-name:hover, .category-tab:hover, .place-name:hover {
+
+        .museum-name:hover {
+            background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+        }
+
+        .category-tab,
+        .place-name {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.3s ease; /* 호버 효과를 부드럽게 */
+        }
+
+        .category-tab:hover,
+        .place-name:hover {
             background-color: #ddd;
         }
+
         img {
             max-width: 100%;
             height: auto;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+            border-radius: 5px; /* 둥근 테두리 */
         }
-        .restaurant-info, .cafe-info, .accommodation-info {
+
+        .restaurant-info,
+        .cafe-info,
+        .accommodation-info {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 20px; /* padding 증가 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #ddd; /* 테두리 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
         }
+
         .place-details {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 20px; /* padding 증가 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #ddd; /* 테두리 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
         }
+
         .image-section img {
-            margin-bottom: 20px; /* 이미지 간격 조정 */
+            margin-bottom: 20px;
         }
+
         .category-tabs {
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
         }
+
         .category-tab {
             flex: 1;
             text-align: center;
-            padding: 10px;
-            background-color: #f4f4f4;
+            padding: 15px; /* padding 증가 */
+            background-color: #eee; /* 배경색 변경 */
             border: 1px solid #ccc;
             border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease; /* transition 추가 */
         }
+
         .category-tab.active {
             background-color: #4CAF50;
             color: white;
+            border: none; /* active 탭 테두리 제거 */
+        }
+
+        h2 {
+            color: #333; /* 글자색 변경 */
+            font-size: 1.8em; /* 글자 크기 변경 */
+            margin-bottom: 10px; /* margin 조정 */
+        }
+
+        p {
+            margin-bottom: 15px; /* margin 조정 */
+            line-height: 1.6; /* 줄 간격 조정 */
+        }
+        .weather-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            display: block;
+        }
+        .hidden {
+            display: none;
         }
     </style>
-
 </head>
 <body>
     <div class="sidebar" id="museumList">
-        <!-- 산 이름 목록 -->
+        <!-- 테마파크 이름 목록 -->
+        <div class="weather-box">
+            <h1>제주시 현재 날씨</h1>
+            <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
+            <p>현재 기온: {{ today_temp }}</p>
+            <p>날씨 상태: {{ today_weather }}</p>
+            <p>상세 기온: {{ today_temp_detail }}</p>
+            
+            <!-- 10일간의 날씨 예보 -->
+            <h2>10일간의 날씨 예보</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>날씨</th>
+                        <th>최고 기온</th>
+                        <th>최저 기온</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in weather_data %}
+                    <tr>
+                        <td>{{ data.date }}</td>
+                        <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
+                        <td>{{ data.max_temp }}C</td>
+                        <td>{{ data.min_temp }}C</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
+
     <div class="content" id="museumInfo">
-        <h2>산 정보</h2>
-        <p>산을 선택하세요.</p>
+        <h2>둘레길 정보</h2>
+        <p>둘레길을 선택하세요.</p>
     </div>
     <div class="image-section" id="museumImage">
-        <h2>산 사진</h2>
+        <h2>둘레길 사진</h2>
         <div id="mountainImage"></div>
         <!-- <h2>장소 사진 및 정보</h2> -->
         <div id="placeImage"></div>
     </div>
 
+    <div>
+    <div id="restaurantInfo" class="restaurant-info hidden"></div>
+    <div id="cafeInfo" class="cafe-info hidden"></div>
+    <div id="accommodationInfo" class="accommodation-info hidden"></div>
+    </div>
 
     <script>
         const museums = [
@@ -97,120 +212,253 @@
             name: "송악산 둘레길",
             address: "제주특별자치도 서귀포시 대정읍 송악관광로 421-1",
             hours: "연중무휴",
-            image: "../static/JEJU/제주시 둘레길/송악산 둘레길.jpg",
-            score: "4.6"
+            image: "../static/JEJU/image/송악산 둘레길.jpg",
+            score: "4.6",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
             
         },
         {
             name: "서우봉 둘레길",
             address: "제주특별자치도 제주시 조천읍 함덕리 199",
             hours: "금요일 오전 8:30~오후 7:30\n토요일 오전 8:30~오후 7:30\n일요일 오전 8:30~오후 7:30\n월요일 오전 8:30~오후 7:30\n화요일 오전 8:30~오후 7:30\n수요일 오전 8:30~오후 7:30\n목요일 오전 7:30~오후 7:30\n",
-            image: "../static/JEJU/제주시 둘레길/서우봉 둘레길.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/서우봉 둘레길.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 13코스] 용수-저지 올레",
             address: "제주특별자치도 제주시 한경면 용수리",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주시 둘레길/[제주올레 13코스] 용수-저지 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 13코스] 용수-저지 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 15A코스] 한림-고내 올레",
             address: "제주특별자치도 제주시 한림읍 한림해안로 196",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주시 둘레길/[제주올레 15A코스] 한림-고내 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 15A코스] 한림-고내 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "한라산둘레길 사려니숲길",
             address: "제주특별자치도 제주시 조천읍 교래리 산 137-1",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주시 둘레길/한라산둘레길 사려니숲길.jpg",
-            score: "4.7"
+            image: "../static/JEJU/image/한라산둘레길 사려니숲길.jpg",
+            score: "4.7",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "제주올레 18코스 공식안내소",
             address: "제주 제주시 산지로 7 김만덕기념관 1층",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주시 둘레길/[제주올레 18코스] 제주원도심-조천 올레.jpg",
+            image: "../static/JEJU/image/[제주올레 18코스] 제주원도심-조천 올레.jpg",
             score: "4.3",
             restaurants: [
-                    { name: "고집돌우럭 제주공항점점", address: "제주특별자치도 제주시 특별자치도, 임항로 30",  hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/서귀포시 맛집/고집돌우럭 중문점.jpg", score:"4.6", time:"7분", distance:"495m"},
-                    { name: "하루방보쌈", address: "제주특별자치도 제주시 특별자치도, 중앙로2길 9", score:"4.4", hours: "금요일 오전 11:30~오후 10:00 토요일 오전 11:30~오후 10:00 일요일 오전 11:30~오후 10:00 월요일 휴무일 화요일 오전 11:30~오후 10:00 수요일 오전 11:30~오후 10:00 목요일 오전 11:30~오후 10:00", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함.", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", time:"11분", distance:"746m" },
-                    { name: "슬기식당", address: "제주특별자치도 제주시 특별자치도 사라봉7길 364", score:"4.3", hours: "금요일 오전 10:00~오후 2:00 토요일 휴무일 일요일 휴무일 월요일 오전 10:00~오후 2:00 화요일 오전 10:00~오후 2:00 수요일 오전 10:00~오후 2:00 목요일 오전 10:00~오후 2:00", comment: "웨이팅 기본 20분, 비린맛없는 동태찌개 맛있어요.", image: "../static/JEJU/제주시 맛집/슬기식당.jpg", time:"16분", distance:"1.1km" },
-                    { name: "말고기연구소", address: "제주특별자치도 제주시 특별자치도, 북성로 43 1층", score:"4.7", hours: "10:00~22:00", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다.", image: "../static/JEJU/제주시 맛집/말고기연구소.jpg", time:"8분", distance:"525m" }
-            ]
+                    { name: "고집돌우럭 제주공항점점", address: "제주특별자치도 제주시 특별자치도, 임항로 30",  hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/image/고집돌우럭 중문점.jpg", score:"4.6", time:"7분", distance:"495m"},
+                    { name: "하루방보쌈", address: "제주특별자치도 제주시 특별자치도, 중앙로2길 9", score:"4.4", hours: "금요일 오전 11:30~오후 10:00 토요일 오전 11:30~오후 10:00 일요일 오전 11:30~오후 10:00 월요일 휴무일 화요일 오전 11:30~오후 10:00 수요일 오전 11:30~오후 10:00 목요일 오전 11:30~오후 10:00", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함.", image: "../static/JEJU/image/하루방보쌈.jpg", time:"11분", distance:"746m" },
+                    { name: "슬기식당", address: "제주특별자치도 제주시 특별자치도 사라봉7길 364", score:"4.3", hours: "금요일 오전 10:00~오후 2:00 토요일 휴무일 일요일 휴무일 월요일 오전 10:00~오후 2:00 화요일 오전 10:00~오후 2:00 수요일 오전 10:00~오후 2:00 목요일 오전 10:00~오후 2:00", comment: "웨이팅 기본 20분, 비린맛없는 동태찌개 맛있어요.", image: "../static/JEJU/image/슬기식당.jpg", time:"16분", distance:"1.1km" },
+                    { name: "말고기연구소", address: "제주특별자치도 제주시 특별자치도, 북성로 43 1층", score:"4.7", hours: "10:00~22:00", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다.", image: "../static/JEJU/image/말고기연구소.jpg", time:"8분", distance:"525m" }
+            ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "한라산둘레길 천아숲길",
             address: "제주특별자치도 서귀포시 특별자치도, 토평공단로 78-27",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주시 둘레길/한라산둘레길 천아숲길.jpg",
-            score: "4.4"
+            image: "../static/JEJU/image/한라산둘레길 천아숲길.jpg",
+            score: "4.4",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 19코스] 조천-김녕 올레",
             address: "제주특별자치도 제주시 조천읍 조천리",
             hours: "금요일 오전 8:00~오후 5:00\n토요일 오전 8:00~오후 5:00\n일요일 오전 8:00~오후 5:00\n월요일 오전 8:00~오후 5:00\n\화요일 오전 8:00~오후 5:00\n수요일 오전 8:00~오후 5:00\n목요일 오전 8:00~오후 5:00",
             summary: "",
-            image: "../static/JEJU/제주시 둘레길/[제주올레 19코스] 조천-김녕 올레.jpg",
+            image: "../static/JEJU/image/[제주올레 19코스] 조천-김녕 올레.jpg",
             score: "4.4",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 14-1코스] 저지-서광 올레",
             address: "제주특별자치도 제주시 한경면 저지리", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 14-1코스] 저지-서광 올레.jpg", 
-            score: "4.4"
+            image: "../static/JEJU/image/[제주올레 14-1코스] 저지-서광 올레.jpg", 
+            score: "4.4",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "한라산둘레길 숲길센터",
             address: "제주특별자치도 서귀포시 특별자치도, 가시리 산 158-4 KR 한라산둘레길 숲길센터", 
             hours: "금요일 오전 9:00~오후 6:00\n토요일 오전 9:00~오후 6:00\n일요일 오전 9:00~오후 6:00\n월요일 오전 9:00~오후 6:00\n화요일 오전 9:00~오후 6:00\n수요일 오전 9:00~오후 6:00\n목요일 오전 9:00~오후 6:00", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/한라산둘레길 숲길센터.jpg",
-            score: "4.4"
+            image: "../static/JEJU/image/한라산둘레길 숲길센터.jpg",
+            score: "4.4",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 20코스] 김녕-하도 올레",
             address: "제주특별자치도 제주시 구좌읍 김녕리", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 20코스] 김녕-하도 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 20코스] 김녕-하도 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "저지오름 둘레길",
             address: "제주특별자치도 제주시 한경면 저지리 1891", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/저지오름 둘레길.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/저지오름 둘레길.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 1-1코스] 우도 올레",
             address: "제주특별자치도 제주시 우도면 연평리", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 1-1코스] 우도 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 1-1코스] 우도 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "제주올레 21코스 공식안내소",
             address: "제주 제주시 구좌읍 해녀박물관길 11", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 21코스] 하도-종달 올레.jpg",
+            image: "../static/JEJU/image/[제주올레 21코스] 하도-종달 올레.jpg",
             score: "4.4",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
             cafes: [
-                    { name: "카페한라산", address: "제주시", hours: "09:30 ~ 21:00", comment: "", image: "../static/JEJU/제주도 카페/카페2.jpg", score: "4.3", time:"3분", distance:"213m" }
+                    { name: "카페한라산", address: "제주시", hours: "09:30 ~ 21:00", comment: "", image: "../static/JEJU/image/카페2.jpg", score: "4.3", time:"3분", distance:"213m" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
                 ]
 
         },
@@ -219,26 +467,53 @@
             address: "제주특별자치도 서귀포시 남원읍 하례리 산2-3", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/한라산둘레길(5구간) 수악길.jpg",
-            score: "4.3"
+            image: "../static/JEJU/image/한라산둘레길(5구간) 수악길.jpg",
+            score: "4.3",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "원당봉 둘레길",
             address: "제주특별자치도 제주시 삼양일동", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/원당봉 둘레길.jpg",
-            score: "4.4"
+            image: "../static/JEJU/image/원당봉 둘레길.jpg",
+            score: "4.4",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "둘레길",
             address: "제주특별자치도 서귀포시 중문동 2006-3", 
             hours: "금요일 오전 10:30~오후 9:00\n토요일 오전 10:30~오후 9:00\n일요일 오전 10:30~오후 9:00\n월요일 오전 10:30~오후 9:00\n화요일 휴무일\n수요일 오전 10:30~오후 9:00\n목요일 오전 10:30~오후 9:00", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/둘레길.jpg",
+            image: "../static/JEJU/image/둘레길.jpg",
             score: "4.4",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
             cafes: [
-                    { name: "블라썸꽃이피다 서귀포점", address: "제주특별자치도 서귀포시 특별자치도, 서홍동 남성로 136", hours: "08:00 ~ 20:00", comment: "", image: "../static/JEJU/제주도 카페/카페2.jpg", score: "4.5", time:"18분", distance:"1.1km" }
+                    { name: "블라썸꽃이피다 서귀포점", address: "제주특별자치도 서귀포시 특별자치도, 서홍동 남성로 136", hours: "08:00 ~ 20:00", comment: "", image: "../static/JEJU/image/블라썸.jpg", score: "4.5", time:"18분", distance:"1.1km" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
                 ]
         },
         {
@@ -246,41 +521,61 @@
             address: "제주특별자치도 제주시 애월읍 광령리 1270-2", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 17코스] 광령-제주원도심 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 17코스] 광령-제주원도심 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
         name: "한라산둘레길 돌오름길",
         address: "서귀포시 중문동 자연휴양림", 
         hours: "연중무휴", 
         summary: "", 
-        image: "../static/JEJU/제주시 둘레길/한라산둘레길 돌오름길.jpg",
-        score: "4.5"
+        image: "../static/JEJU/image/한라산둘레길 돌오름길.jpg",
+        score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
         name: "올레길",
         address: "서귀포시", 
         hours: "연중무휴", 
         summary: "", 
-        image: "../static/JEJU/제주시 둘레길/올레길.jpg",
+        image: "../static/JEJU/image/올레길.jpg",
         score: "4.5",
         restaurants: [
-            { name: "뽈살집", address: "제주특별자치도 서귀포시 특별자치도 중앙동 중정로91번길 41", hours: "15:00 ~ 24:00", comment: "맛은 있었지만 가격이 ㅎㄷㄷ 2인분에 갈치 5토막.", image: "../static/JEJU/서귀포시 맛집/뽈살집.jpg", score: "4.6", time:"12분", distance:"703m" },
-            { name: "천짓골식당", address: "제주특별자치도 서귀포시 특별자치도, 중앙로41번길 4", hours: "금요일 오후 5:10~9:30\\n토요일 오후 5:10~9:30\\n일요일 휴무일\\n월요일 오후 5:10~9:30\\n화요일 오후 5:10~9:30\\n수요일 오후 5:10~9:30\\n목요일 오후 5:10~9:30", comment: "식당도 깨끗하고 고기도 짱 맛있죠♡ 제주도 고기집 완추완추♡", image: "../static/JEJU/서귀포시 맛집/천짓골식당.jpg", score: "4.3", time:"11분", distance:"587m" },
-            { name: "매일올레돈", address: "제주특별자치도 서귀포시 특별자치도, 중앙로62번길 17", hours: "금요일 오전 11:00~오후 11:50\\n토요일 오전 11:00~오후 11:50\\n일요일 오전 11:00~오후 11:50\\n월요일 오전 11:00~오후 11:50\\n화요일 오전 11:00~오후 11:50\\n수요일 오전 11:00~오후 11:50\\n목요일 오전 11:00~오후 11:50", comment: "진짜맛집 3~4명이서먹어야할정도로 양많아요", image: "../static/JEJU/서귀포시 맛집/매일올레돈.jpg", score: "4.5", time:"12분", distance:"666m" },
-            { name: "올레삼다정", address: "제주특별자치도 서귀포시 특별자치도 중앙로54번길 18 2층", hours: "금요일 오전 11:00~오후 10:00\\n토요일 오전 11:00~오후 10:00\\n일요일 오전 11:00~오후 10:00\\n월요일 오전 11:00~오후 10:00\\n화요일 오전 11:00~오후 10:00\\n수요일 휴무일\\n목요일 오전 11:00~오후 10:00", comment: "4년만에 방문해도 변함없이 맛있었요.", image: "../static/JEJU/서귀포시 맛집/올레삼다정.jpg", score: "4.3", time:"11분", distance:"613m" },
-            { name: "남매네흑돼지 서귀포점", address: "제주특별자치도 서귀포시 특별자치도, 서귀동 중정로61번길 24-1", hours: "금요일 오전 11:00~오후 10:00\\n토요일 오전 11:00~오후 10:00\\n일요일 오전 11:00~오후 10:00\\n월요일 오전 11:00~오후 10:00\\n화요일 오전 11:00~오후 10:00\\n수요일 오전 11:00~오후 10:00\\n목요일 오전 11:00~오후 10:00", comment: "요리사가 1명이라 예약 필수인가봄", image: "../static/JEJU/서귀포시 맛집/남매네흑돼지 서귀포점.jpg", score: "4.5", time:"11분", distance:"638m" },
-            { name: "센트로", address: "제주특별자치도 서귀포시 특별자치도, 서귀동 태평로 449", hours: "금요일 오전 9:00~오후 8:00\\n토요일 오전 9:00~오후 8:00\\n일요일 오전 9:00~오후 3:00\\n월요일 휴무일\\n화요일 휴무일\\n수요일 오전 9:00~오후 8:00\\n목요일 오전 9:00~오후 8:00", comment: "", image: "../static/JEJU/서귀포시 맛집/센트로.jpg", score: "4.5", time:"6분", distance:"394m" }
+            { name: "뽈살집", address: "제주특별자치도 서귀포시 특별자치도 중앙동 중정로91번길 41", hours: "15:00 ~ 24:00", comment: "맛은 있었지만 가격이 ㅎㄷㄷ 2인분에 갈치 5토막.", image: "../static/JEJU/image/뽈살집.jpg", score: "4.6", time:"12분", distance:"703m" },
+            { name: "천짓골식당", address: "제주특별자치도 서귀포시 특별자치도, 중앙로41번길 4", hours: "금요일 오후 5:10~9:30\\n토요일 오후 5:10~9:30\\n일요일 휴무일\\n월요일 오후 5:10~9:30\\n화요일 오후 5:10~9:30\\n수요일 오후 5:10~9:30\\n목요일 오후 5:10~9:30", comment: "식당도 깨끗하고 고기도 짱 맛있죠♡ 제주도 고기집 완추완추♡", image: "../static/JEJU/image/천짓골식당.jpg", score: "4.3", time:"11분", distance:"587m" },
+            { name: "매일올레돈", address: "제주특별자치도 서귀포시 특별자치도, 중앙로62번길 17", hours: "금요일 오전 11:00~오후 11:50\\n토요일 오전 11:00~오후 11:50\\n일요일 오전 11:00~오후 11:50\\n월요일 오전 11:00~오후 11:50\\n화요일 오전 11:00~오후 11:50\\n수요일 오전 11:00~오후 11:50\\n목요일 오전 11:00~오후 11:50", comment: "진짜맛집 3~4명이서먹어야할정도로 양많아요", image: "../static/JEJU/image/매일올레돈.jpg", score: "4.5", time:"12분", distance:"666m" },
+            { name: "올레삼다정", address: "제주특별자치도 서귀포시 특별자치도 중앙로54번길 18 2층", hours: "금요일 오전 11:00~오후 10:00\\n토요일 오전 11:00~오후 10:00\\n일요일 오전 11:00~오후 10:00\\n월요일 오전 11:00~오후 10:00\\n화요일 오전 11:00~오후 10:00\\n수요일 휴무일\\n목요일 오전 11:00~오후 10:00", comment: "4년만에 방문해도 변함없이 맛있었요.", image: "../static/JEJU/image/올레삼다정.jpg", score: "4.3", time:"11분", distance:"613m" },
+            { name: "남매네흑돼지 서귀포점", address: "제주특별자치도 서귀포시 특별자치도, 서귀동 중정로61번길 24-1", hours: "금요일 오전 11:00~오후 10:00\\n토요일 오전 11:00~오후 10:00\\n일요일 오전 11:00~오후 10:00\\n월요일 오전 11:00~오후 10:00\\n화요일 오전 11:00~오후 10:00\\n수요일 오전 11:00~오후 10:00\\n목요일 오전 11:00~오후 10:00", comment: "요리사가 1명이라 예약 필수인가봄", image: "../static/JEJU/image/남매네흑돼지 서귀포점.jpg", score: "4.5", time:"11분", distance:"638m" },
+            { name: "센트로", address: "제주특별자치도 서귀포시 특별자치도, 서귀동 태평로 449", hours: "금요일 오전 9:00~오후 8:00\\n토요일 오전 9:00~오후 8:00\\n일요일 오전 9:00~오후 3:00\\n월요일 휴무일\\n화요일 휴무일\\n수요일 오전 9:00~오후 8:00\\n목요일 오전 9:00~오후 8:00", comment: "점심 1인1메뉴를 주문하면 음료를 주신다고 했어요. 뇨끼,스테이크,파스타,리조또,샐러드를 주문하고. 식전빵이 먼저 나왔어요.", image: "../static/JEJU/image/센트로.jpg", score: "4.5", time:"6분", distance:"394m" }
         ],
         cafes: [
-            { name: "라바르", address: "제주특별자치도 서귀포시 특별자치도, 중앙로 13", hours: "금요일 오전 9:00~오후 11:00\\n토요일 오전 9:00~오후 11:00\\n일요일 오전 9:00~오후 11:00\\n월요일 오전 9:00~오후 11:00\\n화요일 오전 9:00~오후 11:00\\n수요일 오전 9:00~오후 11:00\\n목요일 오전 9:00~오후 11:00", comment: "", image: "../static/JEJU/서귀포시 카페/라바르.jpg", score: "4.9", time:"6분", distance:"325m" },
-            { name: "서홍정원(cafe seojeong)", address: "제주특별자치도 서귀포시 서홍동 솜반천로55번길 12-8", hours: "09:00 ~ 21:00", comment: "", image: "../static/JEJU/서귀포시 카페/서홍정원(cafe seojeong).jpg", score: "4.4", time:"14분", distance:"797m" }
+            { name: "라바르", address: "제주특별자치도 서귀포시 특별자치도, 중앙로 13", hours: "금요일 오전 9:00~오후 11:00\\n토요일 오전 9:00~오후 11:00\\n일요일 오전 9:00~오후 11:00\\n월요일 오전 9:00~오후 11:00\\n화요일 오전 9:00~오후 11:00\\n수요일 오전 9:00~오후 11:00\\n목요일 오전 9:00~오후 11:00", comment: "", image: "../static/JEJU/image/라바르.jpg", score: "4.9", time:"6분", distance:"325m" },
+            { name: "서홍정원(cafe seojeong)", address: "제주특별자치도 서귀포시 서홍동 솜반천로55번길 12-8", hours: "09:00 ~ 21:00", comment: "", image: "../static/JEJU/image/서홍정원(cafe seojeong).jpg", score: "4.4", time:"14분", distance:"797m" }
         ],
             accommodations: [
         
-            { name: "Mido Hostel", address: "제주특별자치도 서귀포시 서귀동 258-2", hours: "", comment: "", image: "../static/JEJU/서귀포시 숙소/Mido Hostel.jpg", score: "4.5", time:"13분", distance:"759m" },
-            { name: "백패커스홈", address: "제주특별자치도 서귀포시 서귀동 315-3", hours: "", comment: "", image: "../static/JEJU/서귀포시 숙소/백패커스홈.jpg", score: "4.4", time:"13분", distance:"747m" },
-            { name: "카사로마호텔", address: "제주특별자치도 서귀포시 특별자치도, 태평로 347", hours: "", comment: "", image: "../static/JEJU/서귀포시 숙소/카사로마호텔.jpg", score: "4.4", time:"13분", distance:"749m" }
+            { name: "Mido Hostel", address: "제주특별자치도 서귀포시 서귀동 258-2", hours: "", comment: "", image: "../static/JEJU/image/Mido Hostel.jpg", score: "4.5", time:"13분", distance:"759m" },
+            { name: "백패커스홈", address: "제주특별자치도 서귀포시 서귀동 315-3", hours: "", comment: "", image: "../static/JEJU/image/백패커스홈.jpg", score: "4.4", time:"13분", distance:"747m" },
+            { name: "카사로마호텔", address: "제주특별자치도 서귀포시 특별자치도, 태평로 347", hours: "", comment: "", image: "../static/JEJU/image/카사로마호텔.jpg", score: "4.4", time:"13분", distance:"749m" }
         ]
         },
         {
@@ -288,48 +583,108 @@
             address: "제주특별자치도 서귀포시 성산읍 시흥상동로 113", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 1코스] 시흥-광치기 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 1코스] 시흥-광치기 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 14코스] 저지-한림 올레",
             address: "제주특별자치도 제주시 한경면 저지리", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 14코스] 저지-한림 올레.jpg",
-            score: "4.6"
+            image: "../static/JEJU/image/[제주올레 14코스] 저지-한림 올레.jpg",
+            score: "4.6",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "서우봉 산책로",
             address: "제주특별자치도 제주시 조천읍 북촌리 2476 제주특별자치도", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/서우봉 산책로.jpg",
-            score: "4.6"
+            image: "../static/JEJU/image/서우봉 산책로.jpg",
+            score: "4.6",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
         name: "[제주올레 9코스] 대평-화순 올레",
         address: "제주특별자치도 서귀포시 안덕면 감산리", 
         hours: "연중무휴", 
         summary: "", 
-        image: "../static/JEJU/제주시 둘레길/[제주올레 9코스] 대평-화순 올레.jpg",
-        score: "4.5"
+        image: "../static/JEJU/image/[제주올레 9코스] 대평-화순 올레.jpg",
+        score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "오라 올레길",
             address: "제주특별자치도 제주시 오남로", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/오라 올레길.jpg",
-            score: "4.3"
+            image: "../static/JEJU/image/오라 올레길.jpg",
+            score: "4.3",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "함덕해수욕장 해안산책로",
             address: "제주특별자치도 제주시 조천읍 함덕리 107", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/함덕해수욕장 해안산책로.jpg",
-            score: "4.6"
+            image: "../static/JEJU/image/함덕해수욕장 해안산책로.jpg",
+            score: "4.6",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
 
         },
         {
@@ -337,64 +692,135 @@
             address: "제주특별자치도 제주시 한경면 저지리 산51 저지오름", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/분화구 둘레길.jpg",
-            score: "3.0"
+            image: "../static/JEJU/image/분화구 둘레길.jpg",
+            score: "3.0",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 7코스] 제주올레 여행자센터-월평 올레",
             address: "제주특별자치도 서귀포시 서홍동", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 7코스] 제주올레 여행자센터-월평 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 7코스] 제주올레 여행자센터-월평 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 12코스] 무릉-용수 올레",
             address: "제주특별자치도 서귀포시 대정읍 무릉리", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 12코스] 무릉-용수 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 12코스] 무릉-용수 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "[제주올레 5코스] 남원-쇠소깍 올레",
             address: "제주특별자치도 서귀포시 남원읍 남태해안로 137-1", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/[제주올레 5코스] 남원-쇠소깍 올레.jpg",
-            score: "4.5"
+            image: "../static/JEJU/image/[제주올레 5코스] 남원-쇠소깍 올레.jpg",
+            score: "4.5",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "올레길 7코스",
             address: "제주특별자치도 서귀포시 서홍동 795-4", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/올레길 7코스.jpg",
-            score: "4.7"
+            image: "../static/JEJU/image/올레길 7코스.jpg",
+            score: "4.7",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "사려니숲길",
             address: "제주특별자치도 제주시 조천읍 교래리 719-10", 
             hours: "연중무휴", 
             summary: "사려니숲길은 비자림로를 시작으로 물찻오름과 사려니오름을 거쳐가는 숲길로 삼나무숲이 우거진 지방도 제1112호선 초입에 위치하고 있다. 졸참나무, 서어나무, 때죽나무, 편백나무, 삼나무 등 다양한 수종이 서식하고 있으며 평균 고도는 550m이다. 위키백과", 
-            image: "../static/JEJU/제주시 둘레길/사려니숲길.jpg",
-            score: "4.2"
+            image: "../static/JEJU/image/사려니숲길.jpg",
+            score: "4.2",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "(사)한라산둘레길",
             address: "제주특별자치도 제주시 특별자치도, 일도이동 번지 상가 101호 47-1 KR", 
             hours: "연중무휴", 
             summary: "", 
-            image: "../static/JEJU/제주시 둘레길/(사)한라산둘레길.jpg",
-            score: ""
+            image: "../static/JEJU/image/(사)한라산둘레길.jpg",
+            score: "",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         }
         ];
+        
         const museumList = document.getElementById("museumList");
         const museumInfo = document.getElementById("museumInfo");
         const mountainImage = document.getElementById("mountainImage");
         const placeImage = document.getElementById("placeImage");
 
-        // 산 목록 생성
+        // 테마파크 목록 생성
         museums.forEach(museum => {
             const div = document.createElement("div");
             div.className = "museum-name";
@@ -403,12 +829,12 @@
             museumList.appendChild(div);
         });
 
-        // 현재 선택된 산 정보 저장
+        // 현재 선택된 테마파크 정보 저장
         let currentMuseum = null;
 
-        // 산 정보 표시 함수
+        // 테마파크 정보 표시 함수
         function displayMuseumInfo(museum) {
-            currentMuseum = museum; // 현재 선택된 산 정보 저장
+            currentMuseum = museum; // 현재 선택된 테마파크 정보 저장
             let summaryHTML = "";
             if (museum.summary) { // 개요 정보가 있는 경우에만 표시
                 summaryHTML = `<p><span style="color:blue;font-weight:bold" align="center">개요</br></span>${museum.summary}</p>`;
@@ -417,7 +843,6 @@
                 <h2>${museum.name}</h2>
                 <p><span style="color:blue;font-weight:bold" align="center">주소</br></span>${museum.address}</p>
                 <p><span style="color:blue;font-weight:bold" align="center">영업시간</br></span>${museum.hours.replace(/\n/g, "<br>")}</p>
-                <p><span style="color:blue;font-weight:bold" align="center">별점</br></span>${museum.score}</p>
                 ${summaryHTML}
                 <div class="category-tabs" id="categoryTabs">
                     <div class="category-tab" onclick="showCategory('restaurant')">식당</div>
@@ -425,9 +850,11 @@
                     <div class="category-tab" onclick="showCategory('accommodation')">숙소</div>
                 </div>
                 <div id="restaurantInfo" class="restaurant-info"></div>
+                <div id="cafeInfo" class="cafe-info"></div>
+                <div id="accommodationInfo" class="accommodation-info"></div>
             `;
             mountainImage.innerHTML = `<img src="${museum.image}" alt="${museum.name} 이미지">`;
-            placeImage.innerHTML = ""; // 산을 선택할 때 장소 이미지 및 정보 초기화
+            placeImage.innerHTML = ""; // 테마파크 선택할 때 장소 이미지 및 정보 초기화
 
             // 기본적으로 식당 탭 표시
             showCategory('restaurant');
@@ -435,67 +862,80 @@
 
         // 카테고리 탭 표시 함수
         function showCategory(category) {
-            if (!currentMuseum) return; // 현재 선택된 산이 없으면 종료
+            if (!currentMuseum) return;
 
             // 모든 탭 비활성화
             Array.from(document.querySelectorAll(".category-tab")).forEach(tab => tab.classList.remove("active"));
-            // 선택한 탭 활성화
             document.querySelector(`.category-tab[onclick*="${category}"]`).classList.add("active");
 
-            // 선택한 카테고리 정보 표시
             const restaurantInfo = document.getElementById("restaurantInfo");
-            const cafeInfo = document.getElementById("restaurantInfo");
-            const accommodationInfo = document.getElementById("restaurantInfo");
+            const cafeInfo = document.getElementById("cafeInfo");
+            const accommodationInfo = document.getElementById("accommodationInfo");
+
+            // 모두 숨김
+            restaurantInfo.classList.add("hidden");
+            cafeInfo.classList.add("hidden");
+            accommodationInfo.classList.add("hidden");
 
             if (category === 'restaurant') {
                 restaurantInfo.classList.remove("hidden");
-                cafeInfo.classList.add("hidden");
-                accommodationInfo.classList.add("hidden");
-                restaurantInfo.innerHTML = `
-                    <h3>주변 식당</h3>
-                    ${currentMuseum.restaurants.map(restaurant => `
-                        <div class="place-name" onclick="displayPlaceInfo('${restaurant.name}', '${restaurant.address}','${restaurant.score}', '${restaurant.hours}', '${restaurant.comment}', '${restaurant.image}','${restaurant.time}','${restaurant.distance}')">
-                            ${restaurant.name}
-                        </div>
-                    `).join("")}
-                `;
+                if (currentMuseum.restaurants.length === 0) {
+                    restaurantInfo.innerHTML = `<p>주변 식당 정보가 없습니다.</p>`;
+                } else {
+                    restaurantInfo.innerHTML = `
+                        <h3>주변 식당</h3>
+                        ${currentMuseum.restaurants.map(restaurant => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                               '${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.score}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
+                                ${restaurant.name || '식당 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
             } else if (category === 'cafe') {
                 cafeInfo.classList.remove("hidden");
-                restaurantInfo.classList.add("hidden");
-                accommodationInfo.classList.add("hidden");
-                cafeInfo.innerHTML = `
-                    <h3>주변 카페</h3>
-                    ${currentMuseum.cafes.map(cafe => `
-                        <div class="place-name" onclick="displayPlaceInfo('${cafe.name}', '${cafe.address}','${cafe.score}', '${cafe.hours}', '${cafe.comment}', '${cafe.image}', '${cafe.time}', '${cafe.distance}')">
-                            ${cafe.name}
-                        </div>
-                    `).join("")}
-                `;
+                if (currentMuseum.cafes.length === 0) {
+                    cafeInfo.innerHTML = `<p>주변 카페 정보가 없습니다.</p>`;
+                } else {
+                    cafeInfo.innerHTML = `
+                        <h3>주변 카페</h3>
+                        ${currentMuseum.cafes.map(cafe => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                                '${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.score}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
+                                ${cafe.name || '카페 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
             } else if (category === 'accommodation') {
                 accommodationInfo.classList.remove("hidden");
-                restaurantInfo.classList.add("hidden");
-                cafeInfo.classList.add("hidden");
-                accommodationInfo.innerHTML = `
-                    <h3>주변 숙소</h3>
-                    ${currentMuseum.accommodations.map(accommodation => `
-                        <div class="place-name" onclick="displayPlaceInfo('${accommodation.name}', '${accommodation.address}', '${accommodation.score}', '${accommodation.hours}', '${accommodation.comment}', '${accommodation.image}', '${accommodation.time}', '${accommodation.distance}')">
-                            ${accommodation.name}
-                        </div>
-                    `).join("")}
-                `;
-            }   
+                if (currentMuseum.accommodations.length === 0) {
+                    accommodationInfo.innerHTML = `<p>주변 숙소 정보가 없습니다.</p>`;
+                } else {
+                    accommodationInfo.innerHTML = `
+                        <h3>주변 숙소</h3>
+                        ${currentMuseum.accommodations.map(accommodation => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                               '${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.score}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
+                                ${accommodation.name || '숙소 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
+            }
         }
 
+
         // 장소 정보 표시 함수
-        function displayPlaceInfo(name, address, score, hours, comment, image, time, distance) {
+        function displayPlaceInfo(name, address, hours, score, comment, time, distance, image) {
             placeImage.innerHTML = `
                 <div class="place-details">
                     <img src="${image}" alt="장소 이미지">
                     <h3>${name}</h3>
                     <p><span style="color:blue;font-weight:bold">주소</span>: ${address}</p>
-                    <p><span style="color:blue;font-weight:bold">별점</span>: ${score}</p>
                     <p><span style="color:blue;font-weight:bold">영업시간</span>: ${hours}</p>
-                    <p><span style="color:blue;font-weight:bold">설명</span>: ${comment}</p>
+                    <p><span style="color:blue;font-weight:bold">별점</span>: ${score}</p>
+                    <p><span style="color:blue;font-weight:bold">리뷰</span>: ${comment}</p>
                     <p><span style="color:blue;font-weight:bold">소요시간</span>: ${time}</p>
                     <p><span style="color:blue;font-weight:bold">거리</span>: ${distance}</p>
                 </div>
