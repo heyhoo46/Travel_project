@@ -155,38 +155,39 @@
     </style>
 </head>
 <body>
+    <div class="weather-box">
+        <h1>제주시 현재 날씨</h1>
+        <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
+        <p>현재 기온: {{ today_temp }}</p>
+        <p>날씨 상태: {{ today_weather }}</p>
+        <p>상세 기온: {{ today_temp_detail }}</p>
+        
+        <!-- 10일간의 날씨 예보 -->
+        <h2>10일간의 날씨 예보</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>날짜</th>
+                    <th>날씨</th>
+                    <th>최고 기온</th>
+                    <th>최저 기온</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in weather_data %}
+                <tr>
+                    <td>{{ data.date }}</td>
+                    <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
+                    <td>{{ data.max_temp }}C</td>
+                    <td>{{ data.min_temp }}C</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
     <div class="sidebar" id="museumList">
-        <!-- 박물관 이름 목록 -->
-        <div class="weather-box">
-            <h1>제주시 현재 날씨</h1>
-            <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
-            <p>현재 기온: {{ today_temp }}</p>
-            <p>날씨 상태: {{ today_weather }}</p>
-            <p>상세 기온: {{ today_temp_detail }}</p>
-            
-            <!-- 10일간의 날씨 예보 -->
-            <h2>10일간의 날씨 예보</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>날짜</th>
-                        <th>날씨</th>
-                        <th>최고 기온</th>
-                        <th>최저 기온</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for data in weather_data %}
-                    <tr>
-                        <td>{{ data.date }}</td>
-                        <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
-                        <td>{{ data.max_temp }}C</td>
-                        <td>{{ data.min_temp }}C</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        <!-- 박물관 이름 목록 -->     
     </div>
 
     <div class="content" id="museumInfo">
@@ -201,9 +202,9 @@
     </div>
 
     <div>
-    <div id="restaurantInfo" class="restaurant-info hidden"></div>
-    <div id="cafeInfo" class="cafe-info hidden"></div>
-    <div id="accommodationInfo" class="accommodation-info hidden"></div>
+        <div id="restaurantInfo" class="restaurant-info hidden"></div>
+        <div id="cafeInfo" class="cafe-info hidden"></div>
+        <div id="accommodationInfo" class="accommodation-info hidden"></div>
     </div>
 
 
@@ -254,8 +255,7 @@
                 summary: "해녀박물관은 제주특별자치도의 해녀 문화를 전승·보존하기 위해 제주특별자치도청 해양수산국 해양산업과에서 관리하는 박물관이다.",
                 image: "../static/JEJU/image/제주해녀박물관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                 { name: "카페한라산", address: "제주특별자치도 제주시 특별자치도, 구좌읍 면수1길 48", hours: "월요일 오전 9:30~오후 9:00 화요일 오전 9:30~오후 9:00 수요일 오전 9:30~오후 9:00 목요일 오전 9:30~오후 9:00 금요일 오전 9:30~오후 9:00 토요일 오전 9:30~오후 9:00 일요일 오전 9:30~오후 9:00", comment: "", star: "4.3", time: "도보 3분", distance: "213m", image: "../static/JEJU/image/카페한라산.jpg" }
@@ -272,8 +272,7 @@
                 summary: "",
                 image: "../static/JEJU/image/제주현대미술관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -290,8 +289,7 @@
                 summary: "제주특별자치도립미술관은 제주특별자치도민의 미술문화의식 향상과 지역 미술문화 발전을 위하여 제주특별자치도청 산하에 설치된 사업소이다. 또한 제주특별자치도립미술관의 미술관장은 지방서기관 또는 지방임기제공무원으로 보한다.",
                 image: "../static/JEJU/image/제주현대미술관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -343,8 +341,7 @@
                 summary: "",
                 image: "../static/JEJU/image/그리스신화박물관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -361,7 +358,6 @@
                 image: "../static/JEJU/image/넥슨컴퓨터박물관.jpg",
                 restaurants: [
                     { name: "도갈비", address: "제주특별자치도 제주시 특별자치도, 노형동 759-7", hours: "월요일 오후 12:00~11:00 화요일 오후 12:00~11:00 수요일 오후 12:00~11:00 목요일 오후 12:00~11:00 금요일 오후 12:00~11:00 토요일 오후 12:00~11:00 일요일 오후 12:00~11:00", comment: "목살이 오겹보다 훠어얼씬 맛있어서 담에 간다면 목살 먹을거에요.", star: "4.7", time: "도보 12분", distance: "856m", image: "../static/JEJU/image/도갈비.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
                 ],
                 cafes: [
                     { name: "그러므로 part2", address: "제주특별자치도 제주시 특별자치도 수목원길 16-14", hours: "월요일 휴무일 화요일 오전 10:00~오후 9:00 수요일 오전 10:00~오후 9:00 목요일 오전 10:00~오후 9:00 금요일 오전 10:00~오후 9:00 토요일 오전 10:00~오후 9:00 일요일 오전 10:00~오후 9:00", comment: "", star: "4.3", time: "도보 5분", distance: "287m", image: "../static/JEJU/image/그러므로 part2.jpg" }
@@ -378,7 +374,6 @@
                 image: "../static/JEJU/image/감귤박물관.jpg",
                 restaurants: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -394,8 +389,7 @@
                 summary: "",
                 image: "../static/JEJU/image/건강과성박물관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -411,8 +405,7 @@
                 summary: "",
                 image: "../static/JEJU/image/제주유리박물관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -428,8 +421,7 @@
                 summary: "",
                 image: "../static/JEJU/image/아르떼뮤지엄 제주.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -445,8 +437,7 @@
                 summary: "",
                 image: "../static/JEJU/image/빛의 벙커.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -488,8 +479,7 @@
                 summary: "본태는 ‘본래의 형태’라는 뜻으로 인류 본연의 아름다움을 탐구하기 위해 2012년 수려한 자연경관이 함께하는 제주도에 설립되었다.",
                 image: "../static/JEJU/image/본태박물관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -505,8 +495,7 @@
                 summary: "",
                 image: "../static/JEJU/image/아프리카박물관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -539,8 +528,7 @@
                 summary: "",
                 image: "../static/JEJU/image/제주도립 김창열미술관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -556,8 +544,7 @@
                 summary: "제주항공우주박물관은 미래 첨단산업인 우주와 항공을 테마로 교육과 엔터테인먼트를 접목한 체험형 공간과 전시프로그램, 천문대와 전망대 등을 조성하여 방문객들에게 꿈과 비전을 제시한다.",
                 image: "../static/JEJU/image/제주항공우주박물관.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -614,8 +601,7 @@
                 summary: "",
                 image: "../static/JEJU/image/오설록 티 뮤지엄.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
@@ -671,8 +657,7 @@
                 summary: "",
                 image: "../static/JEJU/image/Trickeye Museum.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", star: "", time: "", distance: "", image: "../static/JEJU/image/카페1.jpg" }
