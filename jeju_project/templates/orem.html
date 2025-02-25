@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오름 목록</title>
+    <title>오름 정보</title>
 
     <style>
         /* 간단한 레이아웃을 위한 스타일 */
@@ -32,11 +32,21 @@
             background-color: #ddd;
         }
 
-        /* rightside 스타일 */
-        #rightside {
+        /* rightbar 스타일 */
+        #rightbar {
             flex-grow: 1;
             padding: 20px;
             border: 2px solid #ccc;
+        }
+
+        /* 이미지 스타일 */
+        #region-image {
+            margin-top: 20px;
+        }
+
+        #region-img {
+            width: 100%;
+            max-width: 300px;
         }
     </style>
 
@@ -51,19 +61,20 @@
         <!-- 지역 항목들이 동적으로 추가될 곳 -->
     </div>
 
-    <!-- 날짜 선택 및 오른쪽에 표시할 내용 -->
-    <div id="rightside">
-        <h2>선택된 오름에 대한 정보가 여기에 표시됩니다.</h2>
-        <label for="date-picker">날짜를 선택하세요:</label>
-        <input type="date" id="date-picker">
-
-        <br><br>
-
-        <!-- 선택된 지역 및 날씨 정보가 표시될 부분 -->
-        <div id="weather-info">
-            <h3>날씨 정보와 이미지가 여기에 표시됩니다.</h3>
-        </div>
+    
+    <!-- 선택된 지역의 정보가 표시될 부분 -->
+    <div id="region-info">
+        <h3>오름 정보가 여기에 표시됩니다.</h3>
+        <p><strong>주소:</strong> <span id="region-address"></span></p>
+        <p><strong>영업시간:</strong> <span id="region-hours"></span></p>
+        <p><strong>개요:</strong> <span id="region-description"></span></p>
     </div>
+
+    <!-- 이미지를 표시할 부분 -->
+    <div class="rightbar" id="region-image">
+        <img id="region-img" src="" alt="지역 이미지">
+    </div>
+    
 
     <script>
         // CSV 파일을 불러오고 지역명을 추출하여 sidebar에 추가하는 함수
@@ -104,28 +115,62 @@
 
         // 지역이 선택되었을 때 처리하는 함수
         function handleRegionSelection(regionName, regionData) {
-            // 선택된 지역에 대한 날씨 정보를 표시할 부분
-            var rightside = document.getElementById('rightside');
-            var weatherInfo = document.getElementById('weather-info');
+            // 지역명에 해당하는 제목을 동적으로 업데이트
+            document.querySelector('#region-info h3').textContent = `${regionName}의 정보`;
 
-            // 날짜를 선택했을 때 처리할 준비
-            var datePicker = document.getElementById('date-picker');
+            // 주소가 있는 경우에만 표시하거나, 지역명이 주소와 같으면 "주소 데이터가 없습니다." 표시
+            if (regionData.address && regionData.address !== regionName) {
+                document.getElementById('region-address').textContent = regionData.address;
+                document.getElementById('region-address').parentElement.style.display = 'block';  // 주소 항목 표시
+            } else {
+                document.getElementById('region-address').textContent = "주소 데이터가 없습니다.";  // 주소 데이터가 없거나 지역명과 같으면 표시
+                document.getElementById('region-address').parentElement.style.display = 'block';  // 주소 항목 표시
+            }
 
-            // 지역에 해당하는 날씨 정보와 이미지를 업데이트
-            weatherInfo.innerHTML = `<h3>${regionName}의 날씨 정보</h3>
-                                     <p>오름 이름: ${regionData.place}</p>
-                                     <p>날씨: ${regionData.score} (기타 정보)</p> 
-                                     <img src="https://via.placeholder.com/300?text=${regionName}" alt="지역 이미지">`;
+            // 만약 주소가 없고 '주소 데이터가 없습니다.'로 표시된다면 숨기기
+            if (!regionData.address || regionData.address === regionName) {
+                document.getElementById('region-address').parentElement.style.display = 'none';  // 주소 항목 숨기기
+            }
 
-            // 날짜 선택에 따른 날씨 정보 갱신 처리
-            datePicker.addEventListener('change', function() {
-                var selectedDate = datePicker.value;
+            // 영업시간(bushour)이 있는 경우에만 표시
+            if (regionData.bushour) {
+                document.getElementById('region-hours').innerHTML = regionData.bushour.replace(/\n/g, "<br>");
+            } else {
+                document.getElementById('region-hours').parentElement.style.display = 'none';  // 영업시간 항목 숨기기
+            }
 
-                if (selectedDate) {
-                    weatherInfo.innerHTML += `<p>선택된 날짜: ${selectedDate}</p>
-                                              <p>날짜에 맞는 날씨 정보와 이미지가 여기에 표시됩니다.</p>`;
+            // 개요(summary)가 있는 경우에만 표시
+            if (regionData.summary) {
+            // 마침표를 기준으로 문장을 나누고, 각 문장의 앞뒤 공백을 제거한 후 <p> 태그로 감쌈
+            var formattedSummary = regionData.summary.split('.').map(function(sentence) {
+                var trimmedSentence = sentence.trim();  // 문장의 앞뒤 공백을 제거
+                if (trimmedSentence.length > 0) {
+                    return `<p>${trimmedSentence}</p>`;  // 공백이 없으면 <p> 태그로 감싸서 반환
                 }
-            });
+                return '';  // 빈 문장은 제외
+            }).join('');  // <p> 태그로 감싸진 문장을 합침
+
+                document.getElementById('region-description').innerHTML = regionData.summary.replace(/\n/g, "<br>");  // 줄 바꿈 처리
+            } else {
+                document.getElementById('region-description').parentElement.style.display = 'none';  // 개요 항목 숨기기
+            }
+
+            // 이미지 경로 설정 (CSV 파일에서 경로 가져오기)
+            var imagePath = 'file:///C:/Users/kccistc/Desktop/workspace/jeju_project/오름/${regionName}.png';  // 이미지 경로
+
+            // 이미지를 오른쪽 바에 표시
+            var regionImg = document.getElementById('region-img');
+
+            // 이미지가 존재하지 않는 경우에 대한 대체 처리
+            var img = new Image();
+            img.onload = function() {
+                regionImg.src = imagePath;  // 이미지가 있으면 src를 설정
+            };
+            img.onerror = function() {
+                regionImg.src = 'https://via.placeholder.com/300?text=Image+Not+Found';  // 이미지가 없으면 기본 대체 이미지 표시
+            };
+
+            img.src = imagePath;  // 이미지를 로드
         }
     </script>
 
