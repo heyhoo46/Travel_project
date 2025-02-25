@@ -155,38 +155,39 @@
     </style>
 </head>
 <body>
+    <div class="weather-box">
+        <h1>제주시 현재 날씨</h1>
+        <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
+        <p>현재 기온: {{ today_temp }}</p>
+        <p>날씨 상태: {{ today_weather }}</p>
+        <p>상세 기온: {{ today_temp_detail }}</p>
+        
+        <!-- 10일간의 날씨 예보 -->
+        <h2>10일간의 날씨 예보</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>날짜</th>
+                    <th>날씨</th>
+                    <th>최고 기온</th>
+                    <th>최저 기온</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in weather_data %}
+                <tr>
+                    <td>{{ data.date }}</td>
+                    <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
+                    <td>{{ data.max_temp }}C</td>
+                    <td>{{ data.min_temp }}C</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
     <div class="sidebar" id="museumList">
         <!-- 테마파크 이름 목록 -->
-        <div class="weather-box">
-            <h1>제주시 현재 날씨</h1>
-            <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
-            <p>현재 기온: {{ today_temp }}</p>
-            <p>날씨 상태: {{ today_weather }}</p>
-            <p>상세 기온: {{ today_temp_detail }}</p>
-            
-            <!-- 10일간의 날씨 예보 -->
-            <h2>10일간의 날씨 예보</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>날짜</th>
-                        <th>날씨</th>
-                        <th>최고 기온</th>
-                        <th>최저 기온</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for data in weather_data %}
-                    <tr>
-                        <td>{{ data.date }}</td>
-                        <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
-                        <td>{{ data.max_temp }}C</td>
-                        <td>{{ data.min_temp }}C</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
 
     <div class="content" id="museumInfo">
@@ -201,9 +202,9 @@
     </div>
 
     <div>
-    <div id="restaurantInfo" class="restaurant-info hidden"></div>
-    <div id="cafeInfo" class="cafe-info hidden"></div>
-    <div id="accommodationInfo" class="accommodation-info hidden"></div>
+        <div id="restaurantInfo" class="restaurant-info hidden"></div>
+        <div id="cafeInfo" class="cafe-info hidden"></div>
+        <div id="accommodationInfo" class="accommodation-info hidden"></div>
     </div>
 
     <script>
@@ -856,7 +857,7 @@
                         ${currentMuseum.restaurants.map(restaurant => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                '${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.score}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
-                                ${restaurant.name || '식당 이름 없음'}
+                                ${restaurant.name || '주변 식당 없음'}
                             </div>
                         `).join("")}
                     `;
@@ -871,7 +872,7 @@
                         ${currentMuseum.cafes.map(cafe => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                 '${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.score}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
-                                ${cafe.name || '카페 이름 없음'}
+                                ${cafe.name || '주변 카페 없음'}
                             </div>
                         `).join("")}
                     `;
@@ -886,7 +887,7 @@
                         ${currentMuseum.accommodations.map(accommodation => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                '${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.score}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
-                                ${accommodation.name || '숙소 이름 없음'}
+                                ${accommodation.name || '주변 숙소 없음'}
                             </div>
                         `).join("")}
                     `;
