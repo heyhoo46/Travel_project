@@ -3,93 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>둘레길 정보</title>
+    <title>해변 정보</title>
     <style>
-        body {
+         body {
             display: flex;
             height: 100vh;
             margin: 0;
+            font-family: "Noto Sans KR", sans-serif; /* 폰트 변경 */
+            color: #333; /* 글자색 변경 */
         }
+
         .sidebar {
             width: 20%;
-            background-color: #f4f4f4;
-            padding: 10px;
+            background-color: #f8f8f8; /* 배경색 변경 */
+            padding: 20px;
             overflow-y: auto;
+            border-right: 1px solid #ddd; /* 테두리 추가 */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
         }
+
         .content {
             width: 50%;
-            padding: 20px;
-            text-align: center;
+            padding: 30px; /* padding 증가 */
+            text-align: left; /* 텍스트 정렬 변경 */
+            background-color: #fff; /* 배경색 변경 */
         }
+
         .image-section {
             width: 30%;
             padding: 20px;
             text-align: center;
+            border-left: 1px solid #ddd; /* 테두리 추가 */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            background-color: #f8f8f8; /* 배경색 변경 */
         }
-        .museum-name, .category-tab, .place-name {
+
+        .museum-name {
             cursor: pointer;
-            padding: 5px;
-            border-bottom: 1px solid #ccc;
+            padding: 10px; /* padding 증가 */
+            margin: 5px 0; /* margin 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #eee; /* 테두리 추가 */
+            transition: background-color 0.3s ease; /* 호버 효과를 부드럽게 */
         }
-        .museum-name:hover, .category-tab:hover, .place-name:hover {
+
+        .museum-name:hover {
+            background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+        }
+
+        .category-tab,
+        .place-name {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.3s ease; /* 호버 효과를 부드럽게 */
+        }
+
+        .category-tab:hover,
+        .place-name:hover {
             background-color: #ddd;
         }
+
         img {
             max-width: 100%;
             height: auto;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+            border-radius: 5px; /* 둥근 테두리 */
         }
-        .restaurant-info, .cafe-info, .accommodation-info {
+
+        .restaurant-info,
+        .cafe-info,
+        .accommodation-info {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 20px; /* padding 증가 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #ddd; /* 테두리 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
         }
+
         .place-details {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 20px; /* padding 증가 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #ddd; /* 테두리 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
         }
+
         .image-section img {
-            margin-bottom: 20px; /* 이미지 간격 조정 */
+            margin-bottom: 20px;
         }
+
         .category-tabs {
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
         }
+
         .category-tab {
             flex: 1;
             text-align: center;
-            padding: 10px;
-            background-color: #f4f4f4;
+            padding: 15px; /* padding 증가 */
+            background-color: #eee; /* 배경색 변경 */
             border: 1px solid #ccc;
             border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease; /* transition 추가 */
         }
+
         .category-tab.active {
             background-color: #4CAF50;
             color: white;
+            border: none; /* active 탭 테두리 제거 */
+        }
+
+        h2 {
+            color: #333; /* 글자색 변경 */
+            font-size: 1.8em; /* 글자 크기 변경 */
+            margin-bottom: 10px; /* margin 조정 */
+        }
+
+        p {
+            margin-bottom: 15px; /* margin 조정 */
+            line-height: 1.6; /* 줄 간격 조정 */
+        }
+        .weather-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            display: block;
+        }
+        .hidden {
+            display: none;
         }
     </style>
-
 </head>
 <body>
     <div class="sidebar" id="museumList">
-        <!-- 산 이름 목록 -->
+        <!-- 테마파크 이름 목록 -->
+        <div class="weather-box">
+            <h1>제주시 현재 날씨</h1>
+            <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
+            <p>현재 기온: {{ today_temp }}</p>
+            <p>날씨 상태: {{ today_weather }}</p>
+            <p>상세 기온: {{ today_temp_detail }}</p>
+            
+            <!-- 10일간의 날씨 예보 -->
+            <h2>10일간의 날씨 예보</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>날씨</th>
+                        <th>최고 기온</th>
+                        <th>최저 기온</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in weather_data %}
+                    <tr>
+                        <td>{{ data.date }}</td>
+                        <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
+                        <td>{{ data.max_temp }}C</td>
+                        <td>{{ data.min_temp }}C</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
+
     <div class="content" id="museumInfo">
-        <h2>산 정보</h2>
-        <p>산을 선택하세요.</p>
+        <h2>해변 정보</h2>
+        <p>해변을 선택하세요.</p>
     </div>
     <div class="image-section" id="museumImage">
-        <h2>산 사진</h2>
+        <h2>해변 사진</h2>
         <div id="mountainImage"></div>
         <!-- <h2>장소 사진 및 정보</h2> -->
         <div id="placeImage"></div>
     </div>
 
+    <div>
+    <div id="restaurantInfo" class="restaurant-info hidden"></div>
+    <div id="cafeInfo" class="cafe-info hidden"></div>
+    <div id="accommodationInfo" class="accommodation-info hidden"></div>
+    </div>
 
     <script>
         const museums = [
@@ -98,11 +213,19 @@
             address: "함덕해수욕장",
             hours: "연중무휴",
             summary: "함덕해수욕장은 제주특별자치도 제주시 조천읍 함덕리에 있는 해변이다. 바로 옆에 위치한 서우봉 때문에 함덕서우봉해변이라고도 불린다. 위키백과",
-            image: "../static/JEJU/제주도 해변/함덕해수욕장.jpg",
+            image: "../static/JEJU/image/함덕해수욕장.jpg",
             score: "4.5",
             restaurants: [
-                {name:"고집돌우럭 함덕점", address: "제주특별자치도 제주시 특별자치도, 조천읍 신북로 491-9 2 층", hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "정성 가득 감찰 맛나는 음식 너무 맛있게 먹었습니다!", image: "../static/JEJU/제주시 맛집/고집돌우럭 함덕점.jpg", score: "4.6", time:"7분", distance:"524m"}
-            ]
+                {name:"고집돌우럭 함덕점", address: "제주특별자치도 제주시 특별자치도, 조천읍 신북로 491-9 2 층", hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "정성 가득 감찰 맛나는 음식 너무 맛있게 먹었습니다!", image: "../static/JEJU/image/고집돌우럭 함덕점.jpg", score: "4.6", time:"7분", distance:"524m"}
+            ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/image/숙소1.jpg" }
+                ]
+        
+            
         },
         
         {
@@ -110,8 +233,19 @@
             address: "금능해수욕장",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/금능해수욕장.jpg",
+            image: "../static/JEJU/image/금능해수욕장.jpg",
             score: "4.6",
+            restaurants: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
+            
 
         },
         {
@@ -119,8 +253,18 @@
             address: "제주특별자치도 제주시 한림읍 한림로 329-10",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/협재해변.jpg",
+            image: "../static/JEJU/image/협재해변.jpg",
             score: "4.6",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
 
         },
         {
@@ -128,144 +272,266 @@
             address: "중문 색달해수욕장",
             hours: "연중무휴",
             summary: "영어에서 번역됨-중문색달해변은 제주특별자치도 서귀포시 색달동에 있는 해변이다. 해변의 길이는 560m, 폭은 50m이며, 모래는 검은색, 흰색, 빨간색, 회색 등 다양한 색상을 띠고 있습니다. 위키백과(영어)",
-            image: "../static/JEJU/제주도 해변/중문 색달해수욕장.jpg",
+            image: "../static/JEJU/image/중문 색달해수욕장.jpg",
             score: "4.3",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "월정리 해수욕장",
             address: "월정리 해수욕장",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/월정리 해수욕장.jpg",
+            image: "../static/JEJU/image/월정리 해수욕장.jpg",
             score: "4.4",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "하고수동 해변",
             address: "하고수동 해변",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/하고수동 해변.jpg",
+            image: "../static/JEJU/image/하고수동 해변.jpg",
             score: "4.4",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "곽지해수욕장",
             address: "곽지해수욕장",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/곽지해수욕장.jpg",
+            image: "../static/JEJU/image/곽지해수욕장.jpg",
             score: "4.4",
             restaurants: [
-                {name: "임순이네밥집", address: "제주특별자치도 제주시 특별자치도, 애월읍 곽지9길 8-1", hours: "금요일 오전 11:00~오후 6:00 토요일 오전 11:00~오후 6:00 일요일 오전 11:00~오후 6:00 월요일 오전 11:00~오후 6:00 화요일 오전 11:00~오후 6:00 수요일 휴무일 목요일 오전 11:00~오후 6:00", comment: "제주살이 32년째 되고 보니 이젠 제주 음식이 입에 더 맛나네요.", image: "../static/JEJU/제주시 맛집/임순이네밥집.jpg", score: "[4.5]", time:"6분", distance:"388m"}
-            ]
+                {name: "임순이네밥집", address: "제주특별자치도 제주시 특별자치도, 애월읍 곽지9길 8-1", hours: "금요일 오전 11:00~오후 6:00 토요일 오전 11:00~오후 6:00 일요일 오전 11:00~오후 6:00 월요일 오전 11:00~오후 6:00 화요일 오전 11:00~오후 6:00 수요일 휴무일 목요일 오전 11:00~오후 6:00", comment: "제주살이 32년째 되고 보니 이젠 제주 음식이 입에 더 맛나네요.", image: "../static/JEJU/image/임순이네밥집.jpg", score: "[4.5]", time:"6분", distance:"388m"}
+            ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "한담해변",
             address: "한담해변",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/한담해변.jpg",
+            image: "../static/JEJU/image/한담해변.jpg",
             score: "4.4",
             restaurants: [
-                {name: "제레미", address: "제주특별자치도 제주시 애월읍 애월로 106-1", hours: "금요일 오전 9:00~오후 5:30 토요일 오전 9:00~오후 5:30 일요일 휴무일 월요일 휴무일 화요일 오전 9:00~오후 5:30 수요일 오전 9:00~오후 5:30 목요일 오전 9:00~오후 5:30", comment: "[nan]", image: "../static/JEJU/제주시 카페/제레미.jpg", score: "[4.6]", time:"14분", distance:"920m"}
-            ]
+                {name: "제레미", address: "제주특별자치도 제주시 애월읍 애월로 106-1", hours: "금요일 오전 9:00~오후 5:30 토요일 오전 9:00~오후 5:30 일요일 휴무일 월요일 휴무일 화요일 오전 9:00~오후 5:30 수요일 오전 9:00~오후 5:30 목요일 오전 9:00~오후 5:30", comment: "[nan]", image: "../static/JEJU/image/제레미.jpg", score: "[4.6]", time:"14분", distance:"920m"}
+            ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "검멀레 해변",
             address: "검멀레 해변",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/검멀레 해변.jpg",
+            image: "../static/JEJU/image/검멀레 해변.jpg",
             score: "4.3",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "서빈백사해변(홍조단괴 산호해변)",
             address: "서빈백사해변(홍조단괴 산호해변)",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/서빈백사해변(홍조단괴 산호해변).jpg",
+            image: "../static/JEJU/image/서빈백사해변(홍조단괴 산호해변).jpg",
             score: "4.5",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "김녕해수욕장",
             address: "김녕해수욕장",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/김녕해수욕장.jpg",
+            image: "../static/JEJU/image/김녕해수욕장.jpg",
             score: "4.6",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "함덕서우봉해변",
             address: "함덕서우봉해변",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/함덕서우봉해변.jpg",
+            image: "../static/JEJU/image/함덕서우봉해변.jpg",
             score: "4.6",
             restaurants: [
-            {name: "고집돌우럭 함덕점", address: "제주특별자치도 제주시 특별자치도, 조천읍 신북로 491-9 2 층", hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "정성 가득 감찰 맛나는 음식 너무 맛있게 먹었습니다!", image: "../static/JEJU/제주시 맛집/고집돌우럭 함덕점.jpg", score: "[4.6]", time:"7분", distance:"524m"}
-        ]
+                    {name: "고집돌우럭 함덕점", address: "제주특별자치도 제주시 특별자치도, 조천읍 신북로 491-9 2 층", hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "정성 가득 감찰 맛나는 음식 너무 맛있게 먹었습니다!", image: "../static/JEJU/image/고집돌우럭 함덕점.jpg", score: "[4.6]", time:"7분", distance:"524m"}
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
+                
         },
         {
             name: "함덕해변",
             address: "제주특별자치도 제주시 조천읍 조함해안로 525",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/함덕해변.jpg",
+            image: "../static/JEJU/image/함덕해변.jpg",
             score: "4.6",
             restaurants: [
-            {name: "고집돌우럭 함덕점", address: "제주특별자치도 제주시 특별자치도, 조천읍 신북로 491-9 2 층", hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "정성 가득 감찰 맛나는 음식 너무 맛있게 먹었습니다!", image: "../static/JEJU/제주시 맛집/고집돌우럭 함덕점.jpg", score: "[4.6]", time:"7분", distance:"524m"}
-        ]
+                    {name: "고집돌우럭 함덕점", address: "제주특별자치도 제주시 특별자치도, 조천읍 신북로 491-9 2 층", hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "정성 가득 감찰 맛나는 음식 너무 맛있게 먹었습니다!", image: "../static/JEJU/image/고집돌우럭 함덕점.jpg", score: "[4.6]", time:"7분", distance:"524m"}
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "곽지해수욕장",
             address: "제주특별자치도 제주시 애월읍 곽지리 1566",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/곽지해수욕장.jpg",
+            image: "../static/JEJU/image/곽지해수욕장.jpg",
             score: "4.4",
             restaurants: [
-            {name: "임순이네밥집", address: "제주특별자치도 제주시 특별자치도, 애월읍 곽지9길 8-1", hours: "금요일 오전 11:00~오후 6:00 토요일 오전 11:00~오후 6:00 일요일 오전 11:00~오후 6:00 월요일 오전 11:00~오후 6:00 화요일 오전 11:00~오후 6:00 수요일 휴무일 목요일 오전 11:00~오후 6:00", comment: "제주살이 32년째 되고 보니 이젠 제주 음식이 입에 더 맛나네요.", image: "../static/JEJU/제주시 맛집/임순이네밥집.jpg", score: "[4.5]", time:"6분", distance:"388m"}
-        ]
+                    {name: "임순이네밥집", address: "제주특별자치도 제주시 특별자치도, 애월읍 곽지9길 8-1", hours: "금요일 오전 11:00~오후 6:00 토요일 오전 11:00~오후 6:00 일요일 오전 11:00~오후 6:00 월요일 오전 11:00~오후 6:00 화요일 오전 11:00~오후 6:00 수요일 휴무일 목요일 오전 11:00~오후 6:00", comment: "제주살이 32년째 되고 보니 이젠 제주 음식이 입에 더 맛나네요.", image: "../static/JEJU/image/임순이네밥집.jpg", score: "[4.5]", time:"6분", distance:"388m"}
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "용머리해안",
             address: "제주특별자치도 서귀포시 안덕면 사계리 112-3",
             hours: "월요일 오전 9:00~오후 5:00 화요일 오전 9:00~오후 5:00 수요일 오전 9:00~오후 5:00 목요일 오전 9:00~오후 5:00 금요일 오전 9:00~오후 5:00 토요일 오전 9:00~오후 5:00 일요일 오전 9:00~오후 5:00 ",
             summary: "",
-            image: "../static/JEJU/제주도 해변/용머리해안.jpg",
+            image: "../static/JEJU/image/용머리해안.jpg",
             score: "4.8",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
             cafes: [
-            {name: "Coffee Sketch", address: "제주특별자치도 서귀포시 특별자치도, 안덕면 사계리 116-6 KR", hours: "금요일 오전 10:00~오후 5:30 토요일 오전 10:00~오후 5:30 일요일 오전 10:00~오후 5:30 월요일 오전 10:00~오후 5:30 화요일 오전 10:00~오후 5:30 수요일 오전 10:00~오후 5:30 목요일 오전 10:00~오전 5:30", comment: "", image: "../static/JEJU/서귀포시 카페/Coffee Sketch.jpg", score: "[4.6]", time:"4분", distance:"286m"}
-        ]
+            {name: "Coffee Sketch", address: "제주특별자치도 서귀포시 특별자치도, 안덕면 사계리 116-6 KR", hours: "금요일 오전 10:00~오후 5:30 토요일 오전 10:00~오후 5:30 일요일 오전 10:00~오후 5:30 월요일 오전 10:00~오후 5:30 화요일 오전 10:00~오후 5:30 수요일 오전 10:00~오후 5:30 목요일 오전 10:00~오전 5:30", comment: "", image: "../static/JEJU/image/Coffee Sketch.jpg", score: "[4.6]", time:"4분", distance:"286m"}
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "함덕 해수욕장",
             address: "제주특별자치도 제주시 조천읍 조함해안로 525",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/함덕 해수욕장.jpg",
+            image: "../static/JEJU/image/함덕 해수욕장.jpg",
             score: "4.4",
             restaurants: [
-            {name: "고집돌우럭 함덕점", address: "제주특별자치도 제주시 특별자치도, 조천읍 신북로 491-9 2 층", hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "정성 가득 감찰 맛나는 음식 너무 맛있게 먹었습니다!", image: "../static/JEJU/제주시 맛집/고집돌우럭 함덕점.jpg", score: "[4.6]", time:"7분", distance:"524m"}
-        ]
+                    {name: "고집돌우럭 함덕점", address: "제주특별자치도 제주시 특별자치도, 조천읍 신북로 491-9 2 층", hours: "금요일 오전 10:00~오후 2:50, 오후 5:00~9:30 토요일 오전 10:00~오후 2:50, 오후 5:00~9:30 일요일 오전 10:00~오후 2:50, 오후 5:00~9:30 월요일 오전 10:00~오후 2:50, 오후 5:00~9:30 화요일 오전 10:00~오후 2:50, 오후 5:00~9:30 수요일 오전 10:00~오후 2:50, 오후 5:00~9:30 목요일 오전 10:00~오후 2:50, 오후 5:00~9:30", comment: "정성 가득 감찰 맛나는 음식 너무 맛있게 먹었습니다!", image: "../static/JEJU/image/고집돌우럭 함덕점.jpg", score: "[4.6]", time:"7분", distance:"524m"}
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
+                
         },
         {
             name: "평대리해변",
             address: "제주특별자치도 제주시 구좌읍 평대리 1994-20",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/평대리해변.jpg",
+            image: "../static/JEJU/image/평대리해변.jpg",
             score: "4.2",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
             cafes: [
-            {name: "인카페 온 더 비치", address: "제주특별자치도 제주시 특별자치도, 구좌읍 해맞이해안로 943 KR", hours: "금요일 오전 11:00~오후 7:00 토요일 오전 11:00~오후 7:00 일요일 오전 11:00~오후 7:00 월요일 오전 11:00~오후 7:00 화요일 오전 11:00~오후 7:00 수요일 오전 11:00~오후 7:00 목요일 오전 11:00~오후 7:00", comment: "", image: "../static/JEJU/제주시 카페/인카페 온 더 비치.jpg", score: "[4.5]", time:"32분", distance:"2.1km"}
-        ]
+                    {name: "인카페 온 더 비치", address: "제주특별자치도 제주시 특별자치도, 구좌읍 해맞이해안로 943 KR", hours: "금요일 오전 11:00~오후 7:00 토요일 오전 11:00~오후 7:00 일요일 오전 11:00~오후 7:00 월요일 오전 11:00~오후 7:00 화요일 오전 11:00~오후 7:00 수요일 오전 11:00~오후 7:00 목요일 오전 11:00~오후 7:00", comment: "", image: "../static/JEJU/image/인카페 온 더 비치.jpg", score: "[4.5]", time:"32분", distance:"2.1km"}
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         },
         {
             name: "삼양해수욕장",
             address: "삼양해수욕장",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/삼양해수욕장.jpg",
+            image: "../static/JEJU/image/삼양해수욕장.jpg",
             score: "4.7",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
 
         },
         {
@@ -273,8 +539,18 @@
             address: "협재해변",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/협재해변.jpg",
+            image: "../static/JEJU/image/협재해변.jpg",
             score: "4.7",
+            restaurants: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
             
         },
         {
@@ -282,11 +558,17 @@
             address: "이호테우해변",
             hours: "연중무휴",
             summary: "",
-            image: "../static/JEJU/제주도 해변/이호테우해변.jpg",
+            image: "../static/JEJU/image/이호테우해변.jpg",
             score: "4.1",
             restaurants: [
-            {name: "웅스키친", address: "제주특별자치도 제주시 대동길 대한민국 제주특별자치도 제주시 대동길 17-1 대일아파트 1층 17-1", hours: "금요일 오전 11:30~오후 8:30 토요일 오전 11:30~오후 8:30 일요일 오전 11:30~오후 8:30 월요일 오전 11:30~오후 8:30 화요일 휴무일 수요일 오전 11:30~오후 8:30 목요일 오전 11:30~오후 8:30 6주 전에 이 비즈니스에서 업데이트함", comment: "함박스테이크 잘 안먹는데 여기껀 너무잘먹는 1인", image: "../static/JEJU/제주시 맛집/웅스키친.jpg", score: "[4.3]", time:"19분", distance:"1.2km"}
-        ]
+                    {name: "웅스키친", address: "제주특별자치도 제주시 대동길 대한민국 제주특별자치도 제주시 대동길 17-1 대일아파트 1층 17-1", hours: "금요일 오전 11:30~오후 8:30 토요일 오전 11:30~오후 8:30 일요일 오전 11:30~오후 8:30 월요일 오전 11:30~오후 8:30 화요일 휴무일 수요일 오전 11:30~오후 8:30 목요일 오전 11:30~오후 8:30 6주 전에 이 비즈니스에서 업데이트함", comment: "함박스테이크 잘 안먹는데 여기껀 너무잘먹는 1인", image: "../static/JEJU/image/웅스키친.jpg", score: "[4.3]", time:"19분", distance:"1.2km"}
+                ],
+            cafes: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                ],
+            accommodations: [
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                ]
         }
         ];
 
@@ -295,7 +577,7 @@
         const mountainImage = document.getElementById("mountainImage");
         const placeImage = document.getElementById("placeImage");
 
-        // 산 목록 생성
+        // 테마파크 목록 생성
         museums.forEach(museum => {
             const div = document.createElement("div");
             div.className = "museum-name";
@@ -304,12 +586,12 @@
             museumList.appendChild(div);
         });
 
-        // 현재 선택된 산 정보 저장
+        // 현재 선택된 테마파크 정보 저장
         let currentMuseum = null;
 
-        // 산 정보 표시 함수
+        // 테마파크 정보 표시 함수
         function displayMuseumInfo(museum) {
-            currentMuseum = museum; // 현재 선택된 산 정보 저장
+            currentMuseum = museum; // 현재 선택된 테마파크 정보 저장
             let summaryHTML = "";
             if (museum.summary) { // 개요 정보가 있는 경우에만 표시
                 summaryHTML = `<p><span style="color:blue;font-weight:bold" align="center">개요</br></span>${museum.summary}</p>`;
@@ -318,7 +600,6 @@
                 <h2>${museum.name}</h2>
                 <p><span style="color:blue;font-weight:bold" align="center">주소</br></span>${museum.address}</p>
                 <p><span style="color:blue;font-weight:bold" align="center">영업시간</br></span>${museum.hours.replace(/\n/g, "<br>")}</p>
-                <p><span style="color:blue;font-weight:bold" align="center">별점</br></span>${museum.score}</p>
                 ${summaryHTML}
                 <div class="category-tabs" id="categoryTabs">
                     <div class="category-tab" onclick="showCategory('restaurant')">식당</div>
@@ -328,7 +609,7 @@
                 <div id="restaurantInfo" class="restaurant-info"></div>
             `;
             mountainImage.innerHTML = `<img src="${museum.image}" alt="${museum.name} 이미지">`;
-            placeImage.innerHTML = ""; // 산을 선택할 때 장소 이미지 및 정보 초기화
+            placeImage.innerHTML = ""; // 테마파크 선택할 때 장소 이미지 및 정보 초기화
 
             // 기본적으로 식당 탭 표시
             showCategory('restaurant');
@@ -336,67 +617,80 @@
 
         // 카테고리 탭 표시 함수
         function showCategory(category) {
-            if (!currentMuseum) return; // 현재 선택된 산이 없으면 종료
+            if (!currentMuseum) return;
 
             // 모든 탭 비활성화
             Array.from(document.querySelectorAll(".category-tab")).forEach(tab => tab.classList.remove("active"));
-            // 선택한 탭 활성화
             document.querySelector(`.category-tab[onclick*="${category}"]`).classList.add("active");
 
-            // 선택한 카테고리 정보 표시
             const restaurantInfo = document.getElementById("restaurantInfo");
-            const cafeInfo = document.getElementById("restaurantInfo");
-            const accommodationInfo = document.getElementById("restaurantInfo");
+            const cafeInfo = document.getElementById("cafeInfo");
+            const accommodationInfo = document.getElementById("accommodationInfo");
+
+            // 모두 숨김
+            restaurantInfo.classList.add("hidden");
+            cafeInfo.classList.add("hidden");
+            accommodationInfo.classList.add("hidden");
 
             if (category === 'restaurant') {
                 restaurantInfo.classList.remove("hidden");
-                cafeInfo.classList.add("hidden");
-                accommodationInfo.classList.add("hidden");
-                restaurantInfo.innerHTML = `
-                    <h3>주변 식당</h3>
-                    ${currentMuseum.restaurants.map(restaurant => `
-                        <div class="place-name" onclick="displayPlaceInfo('${restaurant.name}', '${restaurant.address}','${restaurant.score}', '${restaurant.hours}', '${restaurant.comment}', '${restaurant.image}','${restaurant.time}','${restaurant.distance}')">
-                            ${restaurant.name}
-                        </div>
-                    `).join("")}
-                `;
+                if (currentMuseum.restaurants.length === 0) {
+                    restaurantInfo.innerHTML = `<p>주변 식당 정보가 없습니다.</p>`;
+                } else {
+                    restaurantInfo.innerHTML = `
+                        <h3>주변 식당</h3>
+                        ${currentMuseum.restaurants.map(restaurant => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                               '${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.score}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
+                                ${restaurant.name || '식당 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
             } else if (category === 'cafe') {
                 cafeInfo.classList.remove("hidden");
-                restaurantInfo.classList.add("hidden");
-                accommodationInfo.classList.add("hidden");
-                cafeInfo.innerHTML = `
-                    <h3>주변 카페</h3>
-                    ${currentMuseum.cafes.map(cafe => `
-                        <div class="place-name" onclick="displayPlaceInfo('${cafe.name}', '${cafe.address}','${cafe.score}', '${cafe.hours}', '${cafe.comment}', '${cafe.image}', '${cafe.time}', '${cafe.distance}')">
-                            ${cafe.name}
-                        </div>
-                    `).join("")}
-                `;
+                if (currentMuseum.cafes.length === 0) {
+                    cafeInfo.innerHTML = `<p>주변 카페 정보가 없습니다.</p>`;
+                } else {
+                    cafeInfo.innerHTML = `
+                        <h3>주변 카페</h3>
+                        ${currentMuseum.cafes.map(cafe => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                                '${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.score}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
+                                ${cafe.name || '카페 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
             } else if (category === 'accommodation') {
                 accommodationInfo.classList.remove("hidden");
-                restaurantInfo.classList.add("hidden");
-                cafeInfo.classList.add("hidden");
-                accommodationInfo.innerHTML = `
-                    <h3>주변 숙소</h3>
-                    ${currentMuseum.accommodations.map(accommodation => `
-                        <div class="place-name" onclick="displayPlaceInfo('${accommodation.name}', '${accommodation.address}', '${accommodation.score}', '${accommodation.hours}', '${accommodation.comment}', '${accommodation.image}', '${accommodation.time}', '${accommodation.distance}')">
-                            ${accommodation.name}
-                        </div>
-                    `).join("")}
-                `;
-            }   
+                if (currentMuseum.accommodations.length === 0) {
+                    accommodationInfo.innerHTML = `<p>주변 숙소 정보가 없습니다.</p>`;
+                } else {
+                    accommodationInfo.innerHTML = `
+                        <h3>주변 숙소</h3>
+                        ${currentMuseum.accommodations.map(accommodation => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                               '${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.score}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
+                                ${accommodation.name || '숙소 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
+            }
         }
 
+
         // 장소 정보 표시 함수
-        function displayPlaceInfo(name, address, score, hours, comment, image, time, distance) {
+        function displayPlaceInfo(name, address, hours, score, comment, time, distance, image) {
             placeImage.innerHTML = `
                 <div class="place-details">
                     <img src="${image}" alt="장소 이미지">
                     <h3>${name}</h3>
                     <p><span style="color:blue;font-weight:bold">주소</span>: ${address}</p>
-                    <p><span style="color:blue;font-weight:bold">별점</span>: ${score}</p>
                     <p><span style="color:blue;font-weight:bold">영업시간</span>: ${hours}</p>
-                    <p><span style="color:blue;font-weight:bold">설명</span>: ${comment}</p>
+                    <p><span style="color:blue;font-weight:bold">별점</span>: ${score}</p>
+                    <p><span style="color:blue;font-weight:bold">리뷰</span>: ${comment}</p>
                     <p><span style="color:blue;font-weight:bold">소요시간</span>: ${time}</p>
                     <p><span style="color:blue;font-weight:bold">거리</span>: ${distance}</p>
                 </div>
