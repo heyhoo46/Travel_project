@@ -428,7 +428,7 @@
                         ${currentMuseum.restaurants.map(restaurant => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                '${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.star}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
-                                ${restaurant.name || '식당 이름 없음'}
+                                ${restaurant.name || '주변 식당 없음'}
                             </div>
                         `).join("")}
                     `;
@@ -443,7 +443,7 @@
                         ${currentMuseum.cafes.map(cafe => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                 '${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.star}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
-                                ${cafe.name || '카페 이름 없음'}
+                                ${cafe.name || '주변 카페 없음'}
                             </div>
                         `).join("")}
                     `;
@@ -458,7 +458,7 @@
                         ${currentMuseum.accommodations.map(accommodation => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                '${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.star}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
-                                ${accommodation.name || '숙소 이름 없음'}
+                                ${accommodation.name || '주변 숙소 없음'}
                             </div>
                         `).join("")}
                     `;
