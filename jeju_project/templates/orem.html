@@ -155,38 +155,39 @@
     </style>
 </head>
 <body>
+    <div class="weather-box">
+        <h1>제주시 현재 날씨</h1>
+        <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
+        <p>현재 기온: {{ today_temp }}</p>
+        <p>날씨 상태: {{ today_weather }}</p>
+        <p>상세 기온: {{ today_temp_detail }}</p>
+        
+        <!-- 10일간의 날씨 예보 -->
+        <h2>10일간의 날씨 예보</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>날짜</th>
+                    <th>날씨</th>
+                    <th>최고 기온</th>
+                    <th>최저 기온</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in weather_data %}
+                <tr>
+                    <td>{{ data.date }}</td>
+                    <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
+                    <td>{{ data.max_temp }}C</td>
+                    <td>{{ data.min_temp }}C</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
     <div class="sidebar" id="museumList">
         <!-- 테마파크 이름 목록 -->
-        <div class="weather-box">
-            <h1>제주시 현재 날씨</h1>
-            <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
-            <p>현재 기온: {{ today_temp }}</p>
-            <p>날씨 상태: {{ today_weather }}</p>
-            <p>상세 기온: {{ today_temp_detail }}</p>
-            
-            <!-- 10일간의 날씨 예보 -->
-            <h2>10일간의 날씨 예보</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>날짜</th>
-                        <th>날씨</th>
-                        <th>최고 기온</th>
-                        <th>최저 기온</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for data in weather_data %}
-                    <tr>
-                        <td>{{ data.date }}</td>
-                        <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
-                        <td>{{ data.max_temp }}C</td>
-                        <td>{{ data.min_temp }}C</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
 
     <div class="content" id="museumInfo">
@@ -216,8 +217,7 @@
             summary: "nan",
             image: "../static/JEJU/image/궷물오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -234,8 +234,7 @@
             summary: "nan",
             image: "../static/JEJU/image/군산오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -252,8 +251,7 @@
             summary: "거문오름은 대한민국 제주특별자치도의 제주시 조천읍과 서귀포시 남원읍, 서귀포시 표선면의 경계를 이루고 있는 오름이다. 정상의 분화구의 형태는 등성이를 기준으로 동, 서로 나뉘어 있는 복합형식으로 되어 있다. 위키백과",
             image: "../static/JEJU/image/거문오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 {name: "카페 선흘", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:00~오후 8:00 토요일 오전 10:00~오후 8:00 일요일 오전 10:00~오후 8:00 월요일 오전 10:00~오후 8:00 화요일 오전 10:00~오후 8:00 수요일 휴무일 목요일 오전 10:00~오후 8:00", comment: "", image: "../static/JEJU/image/카페 선흘.jpg", score: "4.5", time:"14분", distance:"989m"},
@@ -270,8 +268,7 @@
             summary: "금오름은 대한민국 제주특별자치도 제주시 한림읍에 있는 기생 화산으로 제주특별자치도 제주시 한림읍 금악리에 있는 해발 427.5m의 오름이다. 검은오름으로 알려져 있어 한자 표기로 흑악으로 표기하기도 한다. 이러는 이유는 오름의 흙이 유난히 검기 때문이다. 위키백과",
             image: "../static/JEJU/image/금오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -288,8 +285,7 @@
             summary: "따라비오름은 제주특별자치도의 기생화산으로, 해발 342m, 높이 107m다. 위치는 제주특별자치도 서귀포시 표선면 가시리 산62번지 일대이다. 위키백과",
             image: "../static/JEJU/image/따라비오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -306,8 +302,7 @@
             summary: "nan",
             image: "../static/JEJU/image/왕이메오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -324,8 +319,7 @@
             summary: "nan",
             image: "../static/JEJU/image/검은오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -342,8 +336,7 @@
             summary: "물영아리오름은 제주특별자치도 서귀포시 남원읍 수망리 산189번지에 위치하여 수령산으로 알려져 있으며 산정에 화구호를 가진 오름으로, 총면적은 717,013m²이며, 둘레 4,339m, 해발 508m, 비고 128m이다. 위키백과",
             image: "../static/JEJU/image/물영아리오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -360,8 +353,7 @@
             summary: "nan",
             image: "../static/JEJU/image/느지리오름(망오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -378,8 +370,7 @@
             summary: "nan",
             image: "../static/JEJU/image/안돌오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -396,8 +387,7 @@
             summary: "nan",
             image: "../static/JEJU/image/바농오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -414,8 +404,7 @@
             summary: "nan",
             image: "../static/JEJU/image/제지기오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 {name: "게우지코지 카페", address: "제주특별자치도 서귀포시 하효동 1371", hours: "금요일 오전 9:00~오후 7:30 토요일 오전 9:00~오후 7:30 일요일 오전 9:00~오후 7:30 월요일 오전 9:00~오후 7:30 화요일 오전 9:00~오후 7:30 수요일 오전 9:00~오후 7:30 목요일 오전 9:00~오후 7:30", comment: "", image: "../static/JEJU/image/카페.jpg", score: "4.5", time:"28분", distance:"1.4km"},
@@ -432,8 +421,7 @@
             summary: "다랑쉬오름은 제주특별자치도의 제주시에 있는 측화산이다. 구좌읍 송당리와 세화리에 걸쳐 있는 분화구는 원뿔 모양의 원형으로, 한라산 동부에 있는 측화산들을 대표하는 오름이다. 높이가 382.4m로 산세가 가지런하고 균형이 잡혀 있어 ‘오름의 여왕’이라 할 만큼 우아하다는 평가를 받는다. 위키백과",
             image: "../static/JEJU/image/다랑쉬오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -450,8 +438,7 @@
             summary: "사라오름은 대한민국 제주특별자치도 서귀포시 남원읍 신례리에 있는 오름이다. 2011년 10월 13일 대한민국의 명승 제83호로 지정되었다. 위키백과",
             image: "../static/JEJU/image/사라오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -468,8 +455,7 @@
             summary: "nan",
             image: "../static/JEJU/image/지미오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -486,8 +472,7 @@
             summary: "nan",
             image: "../static/JEJU/image/말찻오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -504,8 +489,7 @@
             summary: "nan",
             image: "../static/JEJU/image/어도오름(도노미오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -522,8 +506,7 @@
             summary: "nan",
             image: "../static/JEJU/image/아끈다랑쉬오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -540,8 +523,7 @@
             summary: "nan",
             image: "../static/JEJU/image/다랑쉬오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -558,8 +540,7 @@
             summary: "아부오름은 제주특별자치도 제주시 구좌읍 송당리에 있는 오름으로, 제주도에서 화구가 매우 큰 오름에 속한다. 높이가 301m로 화구 안에는 나무가 자라고 있다. 위키백과",
             image: "../static/JEJU/image/아부오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -576,8 +557,7 @@
             summary: "nan",
             image: "../static/JEJU/image/애월 오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -594,8 +574,7 @@
             summary: "nan",
             image: "../static/JEJU/image/물오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -612,8 +591,7 @@
             summary: "nan",
             image: "../static/JEJU/image/과오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -630,8 +608,7 @@
             summary: "정물오름은 대한민국 제주특별자치도 제주시 한림읍에 있는 기생 화산으로 제주특별자치도 제주시 한림읍 금악리에 있는 해발 466m.1의 오름이다. 위키백과",
             image: "../static/JEJU/image/정물오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -648,8 +625,7 @@
             summary: "용눈이오름은 제주특별자치도의 제주시 구좌읍 종달리에 있는 오름이다. 표고 247.8m, 비고 88m, 둘레 2,685m, 면적 404,264m², 저경 773m로 이루어져 있다. 위키백과",
             image: "../static/JEJU/image/용눈이오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -666,8 +642,7 @@
             summary: "nan",
             image: "../static/JEJU/image/백약이오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -684,8 +659,7 @@
             summary: "nan",
             image: "../static/JEJU/image/마보기오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -702,8 +676,7 @@
             summary: "nan",
             image: "../static/JEJU/image/절물오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -720,8 +693,7 @@
             summary: "nan",
             image: "../static/JEJU/image/저지오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -738,8 +710,7 @@
             summary: "nan",
             image: "../static/JEJU/image/거친오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -756,8 +727,7 @@
             summary: "nan",
             image: "../static/JEJU/image/당산봉 (당오름, 차귀오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -774,8 +744,7 @@
             summary: "새별오름은 제주특별자치도 제주시 애월읍 봉성리에 위치한 오름이다. 새별오름의 면적은 522,216m², 둘레는 2,713m, 높이는 519.3m이다. 위키백과",
             image: "../static/JEJU/image/새별오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -792,8 +761,7 @@
             summary: "nan",
             image: "../static/JEJU/image/개오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -810,8 +778,7 @@
             summary: "nan",
             image: "../static/JEJU/image/쇠머리오름 (우도봉).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -828,8 +795,7 @@
             summary: "nan",
             image: "../static/JEJU/image/소산오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -846,8 +812,7 @@
             summary: "nan",
             image: "../static/JEJU/image/광이오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
                 cafes: [
                 {name: "그러므로 part2", address: "제주특별자치도 제주시 특별자치도 수목원길 16-14", hours: "금요일 오전 10:00~오후 9:00 토요일 오전 10:00~오후 9:00 일요일 오전 10:00~오후 9:00 월요일 휴무일 화요일 오전 10:00~오후 9:00 수요일 오전 10:00~오후 9:00 목요일 오전 10:00~오후 9:00", comment: "", image: "../static/JEJU/image/그러므로 part2.jpg", score: "4.3", time:"5분", distance:"287m"},
@@ -864,8 +829,7 @@
             summary: "nan",
             image: "../static/JEJU/image/수산봉(물메오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -882,8 +846,7 @@
             summary: "nan",
             image: "../static/JEJU/image/다랑쉬오름 갯무꽃밭.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -900,8 +863,7 @@
             summary: "nan",
             image: "../static/JEJU/image/손지오름(손자봉).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -918,8 +880,7 @@
             summary: "nan",
             image: "../static/JEJU/image/단산(바굼지오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -936,8 +897,7 @@
             summary: "nan",
             image: "../static/JEJU/image/노로오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -954,8 +914,7 @@
             summary: "nan",
             image: "../static/JEJU/image/서영아리오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -972,8 +931,7 @@
             summary: "nan",
             image: "../static/JEJU/image/모지오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -990,8 +948,7 @@
             summary: "nan",
             image: "../static/JEJU/image/동검은이오름 (거미오름, 동거문오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1008,8 +965,7 @@
             summary: "nan",
             image: "../static/JEJU/image/새별오름 나홀로나무.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1026,8 +982,7 @@
             summary: "nan",
             image: "../static/JEJU/image/용눈이오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1044,8 +999,7 @@
             summary: "nan",
             image: "../static/JEJU/image/궁대오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1062,8 +1016,7 @@
             summary: "nan",
             image: "../static/JEJU/image/큰노꼬메오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1080,8 +1033,7 @@
             summary: "nan",
             image: "../static/JEJU/image/알오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1098,8 +1050,7 @@
             summary: "nan",
             image: "../static/JEJU/image/바굼지오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1116,8 +1067,7 @@
             summary: "nan",
             image: "../static/JEJU/image/저지오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1134,8 +1084,7 @@
             summary: "nan",
             image: "../static/JEJU/image/높은오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1170,8 +1119,7 @@
             summary: "nan",
             image: "../static/JEJU/image/번널오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1188,8 +1136,7 @@
             summary: "nan",
             image: "../static/JEJU/image/봉아오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1206,8 +1153,7 @@
             summary: "nan",
             image: "../static/JEJU/image/매오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1224,8 +1170,7 @@
             summary: "nan",
             image: "../static/JEJU/image/돛오름(돝오름,돗오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1242,8 +1187,7 @@
             summary: "nan",
             image: "../static/JEJU/image/안세미오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1260,8 +1204,7 @@
             summary: "nan",
             image: "../static/JEJU/image/세미오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1278,8 +1221,7 @@
             summary: "nan",
             image: "../static/JEJU/image/군산오름 정상.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1296,8 +1238,7 @@
             summary: "nan",
             image: "../static/JEJU/image/권제오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1314,8 +1255,7 @@
             summary: "nan",
             image: "../static/JEJU/image/안친오름(알진오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1332,8 +1272,7 @@
             summary: "nan",
             image: "../static/JEJU/image/물찻오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1350,8 +1289,7 @@
             summary: "nan",
             image: "../static/JEJU/image/용눈이오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1368,8 +1306,7 @@
             summary: "nan",
             image: "../static/JEJU/image/붉은오름 자연휴양림.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1386,8 +1323,7 @@
             summary: "nan",
             image: "../static/JEJU/image/주체오름(흙붉은오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1404,8 +1340,7 @@
             summary: "nan",
             image: "../static/JEJU/image/알밤오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1422,8 +1357,7 @@
             summary: "nan",
             image: "../static/JEJU/image/금오름 정상.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1440,8 +1374,7 @@
             summary: "nan",
             image: "../static/JEJU/image/큰노꼬메오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1458,8 +1391,7 @@
             summary: "nan",
             image: "../static/JEJU/image/방애오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1476,8 +1408,7 @@
             summary: "nan",
             image: "../static/JEJU/image/부소오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1494,8 +1425,7 @@
             summary: "nan",
             image: "../static/JEJU/image/남송이오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1512,8 +1442,7 @@
             summary: "nan",
             image: "../static/JEJU/image/굽은오름(구분오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1530,8 +1459,7 @@
             summary: "nan",
             image: "../static/JEJU/image/노루손이 오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1548,8 +1476,7 @@
             summary: "nan",
             image: "../static/JEJU/image/이승악(이승이오름).jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1566,8 +1493,7 @@
             summary: "nan",
             image: "../static/JEJU/image/큰사슴이오름.jpg",
             restaurants: [
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
-                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" },
+                { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당.jpg" }
                 ],
             cafes: [
                 { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페.jpg" },
@@ -1650,7 +1576,7 @@
                         ${currentMuseum.restaurants.map(restaurant => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                '${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.score}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
-                                ${restaurant.name || '식당 이름 없음'}
+                                ${restaurant.name || '주변 식당 없음'}
                             </div>
                         `).join("")}
                     `;
@@ -1665,7 +1591,7 @@
                         ${currentMuseum.cafes.map(cafe => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                 '${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.score}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
-                                ${cafe.name || '카페 이름 없음'}
+                                ${cafe.name || '주변 카페 없음'}
                             </div>
                         `).join("")}
                     `;
@@ -1680,7 +1606,7 @@
                         ${currentMuseum.accommodations.map(accommodation => `
                             <div class="place-name" onclick="displayPlaceInfo(
                                '${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.score}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
-                                ${accommodation.name || '숙소 이름 없음'}
+                                ${accommodation.name || '주변 숙소 없음'}
                             </div>
                         `).join("")}
                     `;
