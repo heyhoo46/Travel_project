@@ -225,7 +225,7 @@
                 restaurantInfo.innerHTML = `
                     <h3>주변 식당</h3>
                     ${currentMuseum.restaurants.map(restaurant => `
-                        <div class="place-name" onclick="displayPlaceInfo('${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.comment}', '${restaurant.image}')">
+                        <div class="place-name" onclick="displayPlaceInfo('${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.star}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
                             ${restaurant.name}
                         </div>
                     `).join("")}
@@ -237,7 +237,7 @@
                 cafeInfo.innerHTML = `
                     <h3>주변 카페</h3>
                     ${currentMuseum.cafes.map(cafe => `
-                        <div class="place-name" onclick="displayPlaceInfo('${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.comment}', '${cafe.image}')">
+                        <div class="place-name" onclick="displayPlaceInfo('${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.star}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
                             ${cafe.name}
                         </div>
                     `).join("")}
@@ -249,7 +249,7 @@
                 accommodationInfo.innerHTML = `
                     <h3>주변 숙소</h3>
                     ${currentMuseum.accommodations.map(accommodation => `
-                        <div class="place-name" onclick="displayPlaceInfo('${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.comment}', '${accommodation.image}')">
+                        <div class="place-name" onclick="displayPlaceInfo('${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.star}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
                             ${accommodation.name}
                         </div>
                     `).join("")}
