@@ -3,388 +3,745 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>시장 정보</title>
+    <title>산 정보</title>
     <style>
-        body {
+         body {
             display: flex;
             height: 100vh;
             margin: 0;
+            font-family: "Noto Sans KR", sans-serif; /* 폰트 변경 */
+            color: #333; /* 글자색 변경 */
         }
+
         .sidebar {
             width: 20%;
-            background-color: #f4f4f4;
-            padding: 10px;
+            background-color: #f8f8f8; /* 배경색 변경 */
+            padding: 20px;
             overflow-y: auto;
+            border-right: 1px solid #ddd; /* 테두리 추가 */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
         }
+
         .content {
             width: 50%;
-            padding: 20px;
-            text-align: center;
+            padding: 30px; /* padding 증가 */
+            text-align: left; /* 텍스트 정렬 변경 */
+            background-color: #fff; /* 배경색 변경 */
         }
+
         .image-section {
             width: 30%;
             padding: 20px;
             text-align: center;
+            border-left: 1px solid #ddd; /* 테두리 추가 */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            background-color: #f8f8f8; /* 배경색 변경 */
         }
-        .museum-name, .restaurant-name {
+
+        .museum-name {
             cursor: pointer;
-            padding: 5px;
-            border-bottom: 1px solid #ccc;
+            padding: 10px; /* padding 증가 */
+            margin: 5px 0; /* margin 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #eee; /* 테두리 추가 */
+            transition: background-color 0.3s ease; /* 호버 효과를 부드럽게 */
         }
-        .museum-name:hover, .restaurant-name:hover {
+
+        .museum-name:hover {
+            background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+        }
+
+        .category-tab,
+        .place-name {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.3s ease; /* 호버 효과를 부드럽게 */
+        }
+
+        .category-tab:hover,
+        .place-name:hover {
             background-color: #ddd;
         }
+
         img {
             max-width: 100%;
             height: auto;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+            border-radius: 5px; /* 둥근 테두리 */
         }
-        .restaurant-info {
+
+        .restaurant-info,
+        .cafe-info,
+        .accommodation-info {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 20px; /* padding 증가 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #ddd; /* 테두리 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
         }
-        .restaurant-details {
+
+        .place-details {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f1f1f1;
+            padding: 20px; /* padding 증가 */
+            background-color: #fff; /* 배경색 변경 */
+            border: 1px solid #ddd; /* 테두리 추가 */
+            border-radius: 5px; /* 둥근 테두리 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        }
+
+        .image-section img {
+            margin-bottom: 20px;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .category-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px; /* padding 증가 */
+            background-color: #eee; /* 배경색 변경 */
             border: 1px solid #ccc;
             border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease; /* transition 추가 */
         }
-        .image-section img {
-            margin-bottom: 20px; /* 이미지 간격 조정 */
+
+        .category-tab.active {
+            background-color: #4CAF50;
+            color: white;
+            border: none; /* active 탭 테두리 제거 */
+        }
+
+        h2 {
+            color: #333; /* 글자색 변경 */
+            font-size: 1.8em; /* 글자 크기 변경 */
+            margin-bottom: 10px; /* margin 조정 */
+        }
+
+        p {
+            margin-bottom: 15px; /* margin 조정 */
+            line-height: 1.6; /* 줄 간격 조정 */
+        }
+        .weather-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            display: block;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="sidebar" id="museumList">
-        <!-- 시장장 이름 목록 -->
+        <!-- 테마파크 이름 목록 -->
+        <div class="weather-box">
+            <h1>제주시 현재 날씨</h1>
+            <img class="weather-icon" src="{{ weather_img }}" alt="날씨 아이콘">
+            <p>현재 기온: {{ today_temp }}</p>
+            <p>날씨 상태: {{ today_weather }}</p>
+            <p>상세 기온: {{ today_temp_detail }}</p>
+            
+            <!-- 10일간의 날씨 예보 -->
+            <h2>10일간의 날씨 예보</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>날씨</th>
+                        <th>최고 기온</th>
+                        <th>최저 기온</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in weather_data %}
+                    <tr>
+                        <td>{{ data.date }}</td>
+                        <td><img class="weather-icon" src="{{ data.weather_img }}" alt="날씨 아이콘"></td>
+                        <td>{{ data.max_temp }}C</td>
+                        <td>{{ data.min_temp }}C</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
+
     <div class="content" id="museumInfo">
         <h2>시장 정보</h2>
-        <p>시장을 선택하세요.</p>
+        <p>시장을을 선택하세요.</p>
     </div>
     <div class="image-section" id="museumImage">
         <h2>시장 사진</h2>
         <div id="mountainImage"></div>
-        <!-- <h2>시장 사진 및 정보</h2> -->
-        <div id="restaurantImage"></div>
+        <!-- <h2>장소 사진 및 정보</h2> -->
+        <div id="placeImage"></div>
+    </div>
+
+    <div>
+    <div id="restaurantInfo" class="restaurant-info hidden"></div>
+    <div id="cafeInfo" class="cafe-info hidden"></div>
+    <div id="accommodationInfo" class="accommodation-info hidden"></div>
     </div>
 
     <script>
         const museums = [
             {
-                category: "시장",
-                place: "제주동문시장",
+                
+                name: "제주동문시장",
                 score: "4.1",
                 address: "제주특별자치도 제주시 특별자치도 관덕로14길 20",
-                bushour: "금요일 오전 8:00~오후 9:00\n토요일 오전 8:00~오후 9:00\n일요일 오전 8:00~오후 9:00\n월요일 오전 8:00~오후 9:00\n화요일 오전 8:00~오후 9:00\n수요일 오전 8:00~오후 9:00\n목요일 오전 8:00~오후 9:00",
+                hours: "금요일 오전 8:00~오후 9:00\n토요일 오전 8:00~오후 9:00\n일요일 오전 8:00~오후 9:00\n월요일 오전 8:00~오후 9:00\n화요일 오전 8:00~오후 9:00\n수요일 오전 8:00~오후 9:00\n목요일 오전 8:00~오후 9:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/제주동문시장.jpg",
+                image: "../static/JEJU/제주도 시장/제주동문시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "고집돌우럭 제주공항점", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:00~오후 2:50", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/제주시 맛집/고집돌우럭 제주공항점.jpg", score: "4.6", time:"7분", distance:"495m"},
+                    {name: "도토리키친 본점", address: "임항로 30", hours: "오후 5:00~9:30 토요일 오전 10:00~오후 2:50", comment: "개인적인 입맛에는 안맞았지만 좋았습니다!!!", image: "../static/JEJU/제주시 맛집/도토리키친 본점.jpg", score: "4.3", time:"11분", distance:"679m"},
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 일요일 오전 10:00~오후 2:50", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time:"18분", distance:"1.1km"},
+                    {name: "하루방보쌈", address: "북성로 59", hours: "오후 5:00~9:30 월요일 오전 10:00~오후 2:50", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", score: "4.4", time:"11분", distance:"746m"},
+                    {name: "금복촌", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 화요일 오전 10:00~오후 2:50", comment: "서빙하시는 분의 친절에 맛이 1000배가 되는 곳입니다", image: "../static/JEJU/제주시 맛집/금복촌.jpg", score: "4.6", time:"34분", distance:"2.0km"},
+                    {name: "말고기연구소", address: "삼도2동 관덕로8길 40 KR", hours: "오후 5:00~9:30 수요일 오전 10:00~오후 2:50", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다 😊", image: "../static/JEJU/제주시 맛집/말고기연구소.jpg", score: "4.7", time:"8분", distance:"525m"}
+                ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "동문재래시장",
+                
+                name: "동문재래시장",
                 score: "4.1",
                 address: "제주특별자치도 제주시 동문로4길 9",
-                bushour: "금요일 오전 8:00~오후 9:00\n토요일 오전 8:00~오후 9:00\n일요일 오전 8:00~오후 9:00\n월요일 오전 8:00~오후 9:00\n화요일 오전 8:00~오후 9:00\n수요일 오전 8:00~오후 9:00\n목요일 오전 8:00~오후 9:00",
+                hours: "금요일 오전 8:00~오후 9:00\n토요일 오전 8:00~오후 9:00\n일요일 오전 8:00~오후 9:00\n월요일 오전 8:00~오후 9:00\n화요일 오전 8:00~오후 9:00\n수요일 오전 8:00~오후 9:00\n목요일 오전 8:00~오후 9:00",
                 summary: "제주 동문재래시장은 대한민국 제주특별자치도 제주시에 위치한 재래시장이다. 제주도에서 가장 오래된 상설 재래시장이다.",
-                image: "../static/JEJU/제주시 시장/동문재래시장.jpg",
+                image: "../static/JEJU/제주도 시장/동문재래시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "고집돌우럭 제주공항점", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:00~오후 2:50", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/제주시 맛집/고집돌우럭 제주공항점.jpg", score: "4.6", time:"7분", distance:"495m"},
+                    {name: "도토리키친 본점", address: "임항로 30", hours: "오후 5:00~9:30 토요일 오전 10:00~오후 2:50", comment: "개인적인 입맛에는 안맞았지만 좋았습니다!!!", image: "../static/JEJU/제주시 맛집/도토리키친 본점.jpg", score: "4.3", time:"11분", distance:"679m"},
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 일요일 오전 10:00~오후 2:50", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time:"18분", distance:"1.1km"},
+                    {name: "하루방보쌈", address: "북성로 59", hours: "오후 5:00~9:30 월요일 오전 10:00~오후 2:50", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", score: "4.4", time:"11분", distance:"746m"},
+                    {name: "말고기연구소", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 화요일 오전 10:00~오후 2:50", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다 😊", image: "../static/JEJU/제주시 맛집/말고기연구소.jpg", score: "4.7", time:"8분", distance:"525m"}
+                    ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "제주민속오일시장",
+                
+                name: "제주민속오일시장",
                 score: "4.2",
                 address: "제주특별자치도 제주시 오일장서길 26",
-                bushour: "금요일 오전 7:00~오후 6:00\n토요일 오전 7:00~오후 6:00\n일요일 휴무일\n월요일 오전 7:00~오후 6:00\n화요일 오전 7:00~오후 6:00\n수요일 오전 7:00~오후 6:00\n목요일 오전 7:00~오후 6:00",
+                hours: "금요일 오전 7:00~오후 6:00\n토요일 오전 7:00~오후 6:00\n일요일 휴무일\n월요일 오전 7:00~오후 6:00\n화요일 오전 7:00~오후 6:00\n수요일 오전 7:00~오후 6:00\n목요일 오전 7:00~오후 6:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/제주민속오일시장.jpg",
+                image: "../static/JEJU/제주도 시장/제주민속오일시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "동문수산시장",
+                
+                name: "동문수산시장",
                 score: "4.2",
                 address: "제주특별자치도 제주시 특별자치도, 관덕로 64-1",
-                bushour: "금요일 오전 9:00~오후 8:00\n토요일 오전 9:00~오후 8:00\n일요일 오전 9:00~오후 8:00\n월요일 오전 9:00~오후 8:00\n화요일 오전 9:00~오후 8:00\n수요일 오전 9:00~오후 8:00\n목요일 오전 9:00~오후 8:00",
+                hours: "금요일 오전 9:00~오후 8:00\n토요일 오전 9:00~오후 8:00\n일요일 오전 9:00~오후 8:00\n월요일 오전 9:00~오후 8:00\n화요일 오전 9:00~오후 8:00\n수요일 오전 9:00~오후 8:00\n목요일 오전 9:00~오후 8:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/동문수산시장.jpg",
+                image: "../static/JEJU/제주도 시장/동문수산시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "고집돌우럭 제주공항점", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:00~오후 2:50", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/제주시 맛집/고집돌우럭 제주공항점.jpg", score: "4.6", time:"7분", distance:"495m"},
+                    {name: "도토리키친 본점", address: "임항로 30", hours: "오후 5:00~9:30 토요일 오전 10:00~오후 2:50", comment: "개인적인 입맛에는 안맞았지만 좋았습니다!!!", image: "../static/JEJU/제주시 맛집/도토리키친 본점.jpg", score: "4.3", time:"11분", distance:"679m"},
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 일요일 오전 10:00~오후 2:50", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time:"18분", distance:"1.1km"},
+                    {name: "하루방보쌈", address: "북성로 59", hours: "오후 5:00~9:30 월요일 오전 10:00~오후 2:50", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", score: "4.4", time:"11분", distance:"746m"},
+                    {name: "말고기연구소", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 화요일 오전 10:00~오후 2:50", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다 😊", image: "../static/JEJU/제주시 맛집/말고기연구소.jpg", score: "4.7", time:"8분", distance:"525m"}
+                ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "Jeju Dongmun Market Food Street",
+                
+                name: "Jeju Dongmun Market Food Street",
                 score: "4.2",
                 address: "제주특별자치도 제주시 이도1동 관덕로14길 20",
-                bushour: "금요일 오전 8:00~오후 11:59\n토요일 오전 8:00~오후 11:59\n일요일 오전 8:00~오후 11:59\n월요일 오전 8:00~오후 11:59\n화요일 오전 8:00~오후 11:59\n수요일 오전 8:00~오후 11:59\n목요일 오전 8:00~오후 11:59",
+                hours: "금요일 오전 8:00~오후 11:59\n토요일 오전 8:00~오후 11:59\n일요일 오전 8:00~오후 11:59\n월요일 오전 8:00~오후 11:59\n화요일 오전 8:00~오후 11:59\n수요일 오전 8:00~오후 11:59\n목요일 오전 8:00~오후 11:59",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/Jeju Dongmun Market Food Street.jpg",
+                image: "../static/JEJU/제주도 시장/Jeju Dongmun Market Food Street.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "고집돌우럭 제주공항점", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:00~오후 2:50", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/제주시 맛집/고집돌우럭 제주공항점.jpg", score: "4.6", time:"7분", distance:"495m"},
+                    {name: "도토리키친 본점", address: "임항로 30", hours: "오후 5:00~9:30 토요일 오전 10:00~오후 2:50", comment: "개인적인 입맛에는 안맞았지만 좋았습니다!!!", image: "../static/JEJU/제주시 맛집/도토리키친 본점.jpg", score: "4.3", time:"11분", distance:"679m"},
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 일요일 오전 10:00~오후 2:50", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time:"18분", distance:"1.1km"},
+                    {name: "하루방보쌈", address: "북성로 59", hours: "오후 5:00~9:30 월요일 오전 10:00~오후 2:50", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", score: "4.4", time:"11분", distance:"746m"},
+                    {name: "금복촌", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 화요일 오전 10:00~오후 2:50", comment: "서빙하시는 분의 친절에 맛이 1000배가 되는 곳입니다", image: "../static/JEJU/제주시 맛집/금복촌.jpg", score: "4.6", time:"34분", distance:"2.0km"},
+                    {name: "말고기연구소", address: "삼도2동 관덕로8길 40 KR", hours: "오후 5:00~9:30 수요일 오전 10:00~오후 2:50", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다 😊", image: "../static/JEJU/제주시 맛집/말고기연구소.jpg", score: "4.7", time:"8분", distance:"525m"}
+                ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "제주종합어시장",
+                
+                name: "제주종합어시장",
                 score: "4.2",
                 address: "제주특별자치도 제주시 건입동 1448",
-                bushour: "금요일 오전 8:00~오후 8:30\n토요일 오전 8:00~오후 8:30\n일요일 오전 9:00~오후 9:00\n월요일 오전 8:00~오후 8:30\n화요일 오전 8:00~오후 8:30\n수요일 오전 8:00~오후 8:30\n목요일 오전 9:00~오후 9:00",
+                hours: "금요일 오전 8:00~오후 8:30\n토요일 오전 8:00~오후 8:30\n일요일 오전 9:00~오후 9:00\n월요일 오전 8:00~오후 8:30\n화요일 오전 8:00~오후 8:30\n수요일 오전 8:00~오후 8:30\n목요일 오전 9:00~오후 9:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/제주종합어시장.jpg",
+                image: "../static/JEJU/제주도 시장/제주종합어시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "고집돌우럭 제주공항점", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:00~오후 2:50", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/제주시 맛집/고집돌우럭 제주공항점.jpg", score: "4.6", time:"7분", distance:"495m"},
+                    {name: "도토리키친 본점", address: "임항로 30", hours: "오후 5:00~9:30 토요일 오전 10:00~오후 2:50", comment: "개인적인 입맛에는 안맞았지만 좋았습니다!!!", image: "../static/JEJU/제주시 맛집/도토리키친 본점.jpg", score: "4.3", time:"11분", distance:"679m"},
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 일요일 오전 10:00~오후 2:50", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time:"18분", distance:"1.1km"},
+                    {name: "하루방보쌈", address: "북성로 59", hours: "오후 5:00~9:30 월요일 오전 10:00~오후 2:50", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", score: "4.4", time:"11분", distance:"746m"},
+                    {name: "말고기연구소", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 화요일 오전 10:00~오후 2:50", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다 😊", image: "../static/JEJU/제주시 맛집/말고기연구소.jpg", score: "4.7", time:"8분", distance:"525m"}
+
+                ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "제주민속오일장입구",
+                
+                name: "제주민속오일장입구",
                 score: "4.1",
                 address: "제주특별자치도 제주시 노형동",
-                bushour: "금요일 오전 7:00~오후 6:00\n토요일 오전 7:00~오후 6:00\n일요일 오전 7:00~오후 6:00\n월요일 오전 7:00~오후 6:00\n화요일 오전 7:00~오후 6:00\n수요일 오전 7:00~오후 6:00\n목요일 오전 7:00~오후 6:00",
+                hours: "금요일 오전 7:00~오후 6:00\n토요일 오전 7:00~오후 6:00\n일요일 오전 7:00~오후 6:00\n월요일 오전 7:00~오후 6:00\n화요일 오전 7:00~오후 6:00\n수요일 오전 7:00~오후 6:00\n목요일 오전 7:00~오후 6:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/제주민속오일장입구.jpg",
+                image: "../static/JEJU/제주도 시장/제주민속오일장입구.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ],
+
             },
             {
-                category: "시장",
-                place: "제주서문공설시장",
+                
+                name: "제주서문공설시장",
                 score: "4.0",
                 address: "제주특별자치도 제주시 서문로4길 13-2",
-                bushour: "금요일 오전 9:00~오후 6:00\n토요일 오전 9:00~오후 6:00\n일요일 휴무일\n월요일 오전 9:00~오후 6:00\n화요일 오전 9:00~오후 6:00\n수요일 오전 9:00~오후 6:00\n목요일 오전 9:00~오후 6:00",
+                hours: "금요일 오전 9:00~오후 6:00\n토요일 오전 9:00~오후 6:00\n일요일 휴무일\n월요일 오전 9:00~오후 6:00\n화요일 오전 9:00~오후 6:00\n수요일 오전 9:00~오후 6:00\n목요일 오전 9:00~오후 6:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/제주서문공설시장.jpg",
+                image: "../static/JEJU/제주도 시장/제주서문공설시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "도토리키친 본점", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 11:00~오후 5:00 토요일 오전 11:00~오후 5:00 일요일 오전 11:00~오후 5:00 월요일 오전 11:00~오후 5:00 화요일 오전 11:00~오후 5:00 수요일 오전 11:00~오후 5:00 목요일 오전 11:00~오후 5:00", comment: "개인적인 입맛에는 안맞았지만 좋았습니다!!!", image: "../static/JEJU/제주시 맛집/도토리키친 본점.jpg", score: "4.3", time:"11분", distance:"679m"},
+                    {name: "제주보말칼국수", address: "북성로 59", hours: "금요일 오전 8:00~오후 3:30 토요일 오전 8:00~오후 3:30 일요일 오전 8:00~오후 3:30 월요일 오전 8:00~오후 3:30 화요일 오전 8:00~오후 3:30 수요일 오전 8:00~오후 3:30 목요일 오전 8:00~오후 3:30", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time:"18분", distance:"1.1km"},
+                    {name: "제주갈치 충민정", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:30~오후 8:00 토요일 오전 10:30~오후 8:00 일요일 오전 10:30~오후 8:00 월요일 오전 10:30~오후 8:00 화요일 휴무일 수요일 오전 10:30~오후 8:00 목요일 오전 10:30~오후 8:00 9주 전에 이 비즈니스에서 업데이트함", comment: "2인세트주문했어요~ 너무맛있게 먹고갑니다~", image: "../static/JEJU/제주시 맛집/제주갈치 충민정.jpg", score: "4.4", time:"20분", distance:"1.2km"},
+                    {name: "하루방보쌈", address: "삼도2동 관덕로8길 40 KR", hours: "금요일 오전 11:30~오후 10:00 토요일 오전 11:30~오후 10:00 일요일 오전 11:30~오후 10:00 월요일 휴무일 화요일 오전 11:30~오후 10:00 수요일 오전 11:30~오후 10:00 목요일 오전 11:30~오후 10:00 3주 전에 이 비즈니스에서 업데이트함", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", score: "4.4", time:"11분", distance:"746m"}
+                ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "보성시장",
+                
+                name: "보성시장",
                 score: "3.8",
                 address: "제주특별자치도 제주시 이도1동 동광로1길 32",
-                bushour: "금요일 오전 10:00~오후 9:00\n토요일 오전 10:00~오후 9:00\n일요일 오전 10:00~오후 9:00\n월요일 오전 10:00~오후 9:00\n화요일 오전 10:00~오후 9:00\n수요일 휴무일\n목요일 오전 10:00~오후 9:00",
+                hours: "금요일 오전 10:00~오후 9:00\n토요일 오전 10:00~오후 9:00\n일요일 오전 10:00~오후 9:00\n월요일 오전 10:00~오후 9:00\n화요일 오전 10:00~오후 9:00\n수요일 휴무일\n목요일 오전 10:00~오후 9:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/보성시장.jpg",
+                image: "../static/JEJU/제주도 시장/보성시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 8:00~오후 3:30 토요일 오전 8:00~오후 3:30 일요일 오전 8:00~오후 3:30 월요일 오전 8:00~오후 3:30 화요일 오전 8:00~오후 3:30 수요일 오전 8:00~오후 3:30 목요일 오전 8:00~오후 3:30", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time:"18분", distance:"1.1km"},
+                    {name: "제주미담", address: "삼도2동 관덕로8길 40 KR", hours: "금요일 오전 9:00~오후 4:30", comment: "고기국수도 양도 많고 고기도 푸짐하고 이 역시 좋았다.", image: "../static/JEJU/제주시 맛집/제주미담.jpg", score: "4.3", time:"19분", distance:"1.2km"},
+                    {name: "금복촌", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:30~9:30 토요일 오전 9:00~오후 4:30", comment: "서빙하시는 분의 친절에 맛이 1000배가 되는 곳입니다", image: "../static/JEJU/제주시 맛집/금복촌.jpg", score: "4.6", time:"34분", distance:"2.0km"},
+                    {name: "원담식당", address: "가령로 19 KR", hours: "오후 5:30~9:30 일요일 오전 9:00~오후 4:30", comment: "맛 : 5점 분위기 : 4점 너무 어수선하고 시끄러워요 서비스 ;", image: "../static/JEJU/제주시 맛집/원담식당.jpg", score: "4.4", time:"11분", distance:"699m"},
+                    {name: "코코분식", address: "제주시", hours: "오후 5:30~9:30 월요일 오전 9:00~오후 4:30", comment: "우진해장국보다 좀 더 후추후추한 고사리 해장국.", image: "../static/JEJU/제주시 맛집/코코분식.jpg", score: "4.4", time:"14분", distance:"841m"}
+                ],
+                cafes: [
+                    {name: "커피파인더", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:30~9:30 화요일 휴무일 수요일 오전 9:00~오후 4:30", comment: "nan", image: "../static/JEJU/제주시 카페/커피파인더.jpg", score: "4.7", time:"20분", distance:"1.2km"}
+                ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "서귀포 매일올레시장",
+                
+                name: "서귀포 매일올레시장",
                 score: "4.1",
                 address: "제주특별자치도 서귀포시 특별자치도 중앙로62번길 18",
-                bushour: "금요일 오전 7:00~오후 9:00\n토요일 오전 7:00~오후 9:00\n일요일 오전 7:00~오후 9:00\n월요일 오전 7:00~오후 9:00\n화요일 오전 7:00~오후 9:00\n수요일 오전 7:00~오후 9:00\n목요일 오전 7:00~오후 9:00",
+                hours: "금요일 오전 7:00~오후 9:00\n토요일 오전 7:00~오후 9:00\n일요일 오전 7:00~오후 9:00\n월요일 오전 7:00~오후 9:00\n화요일 오전 7:00~오후 9:00\n수요일 오전 7:00~오후 9:00\n목요일 오전 7:00~오후 9:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/서귀포 매일올레시장.jpg",
+                image: "../static/JEJU/제주도 시장/서귀포 매일올레시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
+                    {name: "뽈살집", address: "제주특별자치도 서귀포시 특별자치도 중앙동 중정로91번길 41", hours: "금요일 오후 3:00~오전 12:00 토요일 오후 3:00~오전 12:00 일요일 오후 3:00~오전 12:00 월요일 오후 3:00~오전 12:00 화요일 오후 3:00~오전 12:00 수요일 오후 3:00~오전 12:00 목요일 오후 3:00~오전 12:00", comment: "맛은 있었지만 가격이 ㅎㄷㄷ 2인분에 갈치 5토막.", image: "../static/JEJU/서귀포시 맛집/뽈살집.jpg", score: "4.6", time:"12분", distance:"703m"},
+                    {name: "천짓골식당", address: "제주특별자치도 서귀포시 특별자치도", hours: "금요일 오후 5:10~9:30 토요일 오후 5:10~9:30 일요일 휴무일 월요일 오후 5:10~9:30 화요일 오후 5:10~9:30 수요일 오후 5:10~9:30 목요일 오후 5:10~9:30", comment: "식당도 깨끗하고 고기도 짱 맛있죠♡ 제주도 고기집 완추완추♡", image: "../static/JEJU/서귀포시 맛집/천짓골식당.jpg", score: "4.3", time:"11분", distance:"587m"},
+                    {name: "매일올레돈", address: "중앙로41번길 4", hours: "금요일 오전 11:00~오후 11:50 토요일 오전 11:00~오후 11:50 일요일 오전 11:00~오후 11:50 월요일 오전 11:00~오후 11:50 화요일 오전 11:00~오후 11:50 수요일 오전 11:00~오후 11:50 목요일 오전 11:00~오후 11:50", comment: "진짜맛집 3~4명이서먹어야할정도로 양많아요", image: "../static/JEJU/서귀포시 맛집/매일올레돈.jpg", score: "4.5", time:"12분", distance:"666m"},
+                    {name: "올레삼다정", address: "제주특별자치도 서귀포시 특별자치도", hours: "금요일 오전 11:00~오후 10:00 토요일 오전 11:00~오후 10:00 일요일 오전 11:00~오후 10:00 월요일 오전 11:00~오후 10:00 화요일 오전 11:00~오후 10:00 수요일 휴무일 목요일 오전 11:00~오후 10:00", comment: "갈치구이 맛나요ㅎ 초밥 처럼 만들어 주셔서 감사합니다 ㅎ", image: "../static/JEJU/서귀포시 맛집/올레삼다정.jpg", score: "4.3", time:"11분", distance:"613m"},
+                    {name: "남매네흑돼지 서귀포점", address: "중앙로62번길 17 KR", hours: "금요일 오전 11:00~오후 10:00 토요일 오전 11:00~오후 10:00 일요일 오전 11:00~오후 10:00 월요일 오전 11:00~오후 10:00 화요일 오전 11:00~오후 10:00 수요일 오전 11:00~오후 10:00 목요일 오전 11:00~오후 10:00", comment: "4년만에 방문해도 변함없이 맛있었요.", image: "../static/JEJU/서귀포시 맛집/남매네흑돼지 서귀포점.jpg", score: "4.5", time:"11분", distance:"638m"},
+                    {name: "센트로", address: "제주특별자치도 서귀포시 특별자치도 중앙로54번길 18 2층", hours: "금요일 오전 9:00~오후 8:00 토요일 오전 9:00~오후 8:00 일요일 오전 9:00~오후 3:00 월요일 휴무일 화요일 휴무일 수요일 오전 9:00~오후 8:00 목요일 오전 9:00~오후 8:00", comment: "요리사가 1명이라 예약 필수인가봄.", image: "../static/JEJU/서귀포시 맛집/센트로.jpg", score: "4.5", time:"6분", distance:"394m"}
                 ],
+                cafes: [
+                    {name: "라바르", address: "제주특별자치도 서귀포시 특별자치도", hours: "금요일 오전 9:00~오후 11:00 토요일 오전 9:00~오후 11:00 일요일 오전 9:00~오후 11:00 월요일 오전 9:00~오후 11:00 화요일 오전 9:00~오후 11:00 수요일 오전 9:00~오후 11:00 목요일 오전 9:00~오후 11:00", comment: "", image: "../static/JEJU/서귀포시 카페/라바르.jpg", score: "4.9", time:"6분", distance:"325m"},
+                    {name: "제주 유동커피", address: "서귀동 중정로61번길 24-1", hours: "금요일 오전 8:00~오후 9:00 토요일 오전 8:00~오후 9:00 일요일 오전 8:00~오후 9:00 월요일 오전 8:00~오후 9:00 화요일 오전 8:00~오후 9:00 수요일 오전 8:00~오후 9:00 목요일 오전 8:00~오후 9:00", comment: "", image: "../static/JEJU/서귀포시 카페/유동커피.jpg", score: "4.4", time:"1분", distance:"110m"},
+                    {name: "서홍정원(cafe seojeong)", address: "제주특별자치도 서귀포시 특별자치도", hours: "", comment: "", image: "../static/JEJU/서귀포시 카페/서홍정원(cafe seojeong).jpg", score: "4.4", time:"14분", distance:"797m"},
+                    {name: "카페 메이비(Cafe mayB)", address: "서귀동 태평로 449", hours: "금요일 오전 10:30~오전 1:00 토요일 오전 10:30~오전 1:00 일요일 오전 10:30~오전 1:00 월요일 오전 10:30~오전 1:00 화요일 오전 10:30~오전 1:00 수요일 휴무일 목요일 오전 10:30~오전 1:00", comment: "", image: "../static/JEJU/서귀포시 카페/카페 메이비(Cafe mayB).jpg", score: "4.6", time:"1분", distance:"20m"}
+                ],
+                accommodations: [
+                    {name: "Mido Hostel", address: "제주특별자치도 서귀포시 특별자치도", hours: "", comment: "", image: "../static/JEJU/서귀포시 숙소/Mido Hostel.jpg", score: "4.5", time:"13분", distance:"759m"},
+                    {name: "백패커스홈", address: "중앙로 13", hours: "", comment: "", image: "../static/JEJU/서귀포시 숙소/백패커스홈.jpg", score: "4.4", time:"13분", distance:"747m"},
+                    {name: "카사로마호텔", address: "제주특별자치도 서귀포시 송산동 태평로 406-1", hours: "", comment: "", image: "../static/JEJU/서귀포시 숙소/카사로마호텔.jpg", score: "4.4", time:"13분", distance:"749m"}
+                ],
+
             },
             {
-                category: "시장",
-                place: "동문재래시장번영회",
+                
+                name: "동문재래시장번영회",
                 score: "4.1",
                 address: "제주시",
-                bushour: "금요일 오전 11:00~오후 8:00\n토요일 오전 11:00~오후 8:00\n일요일 오전 11:00~오후 8:00\n월요일 오전 11:00~오후 8:00\n화요일 오전 11:00~오후 8:00\n수요일 오전 11:00~오후 8:00\n목요일 오전 11:00~오후 8:00",
+                hours: "금요일 오전 11:00~오후 8:00\n토요일 오전 11:00~오후 8:00\n일요일 오전 11:00~오후 8:00\n월요일 오전 11:00~오후 8:00\n화요일 오전 11:00~오후 8:00\n수요일 오전 11:00~오후 8:00\n목요일 오전 11:00~오후 8:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/동문재래시장번영회.jpg",
+                image: "../static/JEJU/제주도 시장/동문재래시장번영회.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "연동종합시장",
+                
+                name: "연동종합시장",
                 score: "3.5",
                 address: "제주특별자치도 제주시 연동",
-                bushour: "금요일 오전 9:00~오후 8:00\n토요일 오전 9:00~오후 8:00\n일요일 오전 9:00~오후 8:00\n월요일 오전 9:00~오후 8:00\n화요일 오전 9:00~오후 8:00\n수요일 오전 9:00~오후 8:00\n목요일 오전 9:00~오후 8:00",
+                hours: "금요일 오전 9:00~오후 8:00\n토요일 오전 9:00~오후 8:00\n일요일 오전 9:00~오후 8:00\n월요일 오전 9:00~오후 8:00\n화요일 오전 9:00~오후 8:00\n수요일 오전 9:00~오후 8:00\n목요일 오전 9:00~오후 8:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/연동종합시장.jpg",
-                restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
+                image: "../static/JEJU/제주도 시장/연동종합시장.jpg",
+                cafes: [
+                    {name: "그러므로 part2", address: "제주특별자치도 제주시 특별자치도 수목원길 16-14", hours: "금요일 오전 10:00~오후 9:00 토요일 오전 10:00~오후 9:00 일요일 오전 10:00~오후 9:00 월요일 휴무일 화요일 오전 10:00~오후 9:00 수요일 오전 10:00~오후 9:00 목요일 오전 10:00~오후 9:00", comment: "", image: "../static/JEJU/제주시 카페/그러므로 part2.jpg", score: "4.3", time:"5분", distance:"287m"}
+                    
                 ]
             },
             {
-                category: "시장",
-                place: "신제주회어시장",
+                
+                name: "신제주회어시장",
                 score: "4.6",
                 address: "제주특별자치도 제주시 노형동 2684",
-                bushour: "금요일 오전 11:00~오후 11:00\n토요일 오전 11:00~오후 11:00\n일요일 오전 11:00~오후 11:00\n월요일 오전 11:00~오후 11:00\n화요일 오전 11:00~오후 11:00\n수요일 오전 11:00~오후 11:00\n목요일 오전 11:00~오후 11:00",
+                hours: "금요일 오전 11:00~오후 11:00\n토요일 오전 11:00~오후 11:00\n일요일 오전 11:00~오후 11:00\n월요일 오전 11:00~오후 11:00\n화요일 오전 11:00~오후 11:00\n수요일 오전 11:00~오후 11:00\n목요일 오전 11:00~오후 11:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/신제주회어시장.jpg",
+                image: "../static/JEJU/제주도 시장/신제주회어시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
+                    {name: "웅스키친", address: "제주특별자치도 제주시 대동길 대한민국 제주특별자치도 제주시 대동길 17-1 대일아파트 1층 17-1", hours: "금요일 오전 11:30~오후 8:30 토요일 오전 11:30~오후 8:30 일요일 오전 11:30~오후 8:30 월요일 오전 11:30~오후 8:30 화요일 휴무일 수요일 오전 11:30~오후 8:30 목요일 오전 11:30~오후 8:30", comment: "함박스테이크 잘 안먹는데 여기껀 너무잘먹는 1인", image: "../static/JEJU/제주시 맛집/웅스키친.jpg", score: "4.3", time:"19분", distance:"1.2km"}
                 ]
             },
             {
-                category: "시장",
-                place: "수목원길 야시장",
+                
+                name: "수목원길 야시장",
                 score: "4.0",
                 address: "제주특별자치도 제주시 특별자치도 은수길 69",
-                bushour: "금요일 오후 6:00~11:00\n토요일 오후 6:00~11:00\n일요일 오후 6:00~11:00\n월요일 오후 6:00~11:00\n화요일 오후 6:00~11:00\n수요일 오후 6:00~11:00\n목요일 오후 6:00~11:00",
+                hours: "금요일 오후 6:00~11:00\n토요일 오후 6:00~11:00\n일요일 오후 6:00~11:00\n월요일 오후 6:00~11:00\n화요일 오후 6:00~11:00\n수요일 오후 6:00~11:00\n목요일 오후 6:00~11:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/수목원길 야시장.jpg",
+                image: "../static/JEJU/제주도 시장/수목원길 야시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    ],
+                cafes: [
+                {name: "그러므로 part2", address: "제주특별자치도 제주시 특별자치도 수목원길 16-14", hours: "금요일 오전 10:00~오후 9:00 토요일 오전 10:00~오후 9:00 일요일 오전 10:00~오후 9:00 월요일 휴무일 화요일 오전 10:00~오후 9:00 수요일 오전 10:00~오후 9:00 목요일 오전 10:00~오후 9:00", comment: "", image: "../static/JEJU/제주주시 카페/그러므로 part2.jpg", score: "4.3", time:"5분", distance:"287m"}
+                ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "한림매일시장 ( JEJU HALLIMMAEIL MARKET ))",
+                
+                name: "한림매일시장 ( JEJU HALLIMMAEIL MARKET ))",
                 score: "3.6",
                 address: "제주특별자치도 제주시 한림읍 한림리 1315-7",
-                bushour: "금요일 오전 8:00~오후 8:00\n토요일 오전 8:00~오후 8:00\n일요일 오전 8:00~오후 8:00\n월요일 오전 8:00~오후 8:00\n화요일 오전 8:00~오후 8:00\n수요일 오전 8:00~오후 8:00\n목요일 오전 8:00~오후 8:00",
+                hours: "금요일 오전 8:00~오후 8:00\n토요일 오전 8:00~오후 8:00\n일요일 오전 8:00~오후 8:00\n월요일 오전 8:00~오후 8:00\n화요일 오전 8:00~오후 8:00\n수요일 오전 8:00~오후 8:00\n목요일 오전 8:00~오후 8:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/한림매일시장 ( JEJU HALLIMMAEIL MARKET )).jpg",
+                image: "../static/JEJU/제주도 시장/한림매일시장 ( JEJU HALLIMMAEIL MARKET )).jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
+                
             },
             {
-                category: "시장",
-                place: "제주동문시장3",
+                
+                name: "제주동문시장3",
                 score: "5.0",
                 address: "제주특별자치도 제주시 일도1동 1478-12 제주특별자치도 제주시",
-                bushour: "금요일 오전 8:00~오후 8:00\n토요일 오전 8:00~오후 8:00\n일요일 오전 9:00~오후 9:00\n월요일 오전 8:00~오후 8:00\n화요일 오전 8:00~오후 8:00\n수요일 오전 8:00~오후 8:00\n목요일 오전 9:00~오후 9:00",
+                hours: "금요일 오전 8:00~오후 8:00\n토요일 오전 8:00~오후 8:00\n일요일 오전 9:00~오후 9:00\n월요일 오전 8:00~오후 8:00\n화요일 오전 8:00~오후 8:00\n수요일 오전 8:00~오후 8:00\n목요일 오전 9:00~오후 9:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/제주동문시장3.jpg",
+                image: "../static/JEJU/제주도 시장/제주동문시장3.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "고집돌우럭 제주공항점", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:00~오후 2:50", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/제주시 맛집/고집돌우럭 제주공항점.jpg", score: "4.6", time:"7분", distance:"495m"},
+                    {name: "도토리키친 본점", address: "임항로 30", hours: "오후 5:00~9:30 토요일 오전 10:00~오후 2:50", comment: "개인적인 입맛에는 안맞았지만 좋았습니다!!!", image: "../static/JEJU/제주시 맛집/도토리키친 본점.jpg", score: "4.3", time:"11분", distance:"679m"},
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 일요일 오전 10:00~오후 2:50", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time:"18분", distance:"1.1km"},
+                    {name: "하루방보쌈", address: "북성로 59", hours: "오후 5:00~9:30 월요일 오전 10:00~오후 2:50", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", score: "4.4", time:"11분", distance:"746m"},
+                    {name: "말고기연구소", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 화요일 오전 10:00~오후 2:50", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다 😊", image: "../static/JEJU/제주시 맛집/말고기연구소.jpg", score: "4.7", time:"8분", distance:"525m"}
+                ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "한림민속오일시장",
+                
+                name: "한림민속오일시장",
                 score: "3.9",
                 address: "제주특별자치도 제주시 한림읍 한수풀로4길 10",
-                bushour: "",
+                hours: "",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/한림민속오일시장.jpg",
+                image: "../static/JEJU/제주도 시장/한림민속오일시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "신산종합시장",
+                
+                name: "신산종합시장",
                 score: "4.3",
                 address: "제주특별자치도 제주시 일도일동",
-                bushour: "금요일 오전 9:00~오후 8:00\n토요일 오전 9:00~오후 8:00\n일요일 오전 9:00~오후 8:00\n월요일 오전 9:00~오후 8:00\n화요일 오전 9:00~오후 8:00\n수요일 오전 9:00~오후 8:00\n목요일 오전 9:00~오후 8:00",
+                hours: "금요일 오전 9:00~오후 8:00\n토요일 오전 9:00~오후 8:00\n일요일 오전 9:00~오후 8:00\n월요일 오전 9:00~오후 8:00\n화요일 오전 9:00~오후 8:00\n수요일 오전 9:00~오후 8:00\n목요일 오전 9:00~오후 8:00",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/신산종합시장.jpg",
+                image: "../static/JEJU/제주도 시장/신산종합시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "고집돌우럭 제주공항점", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 10:00~오후 2:50", comment: "음식점 개인적인 감상으로는 3/5이였습니다.", image: "../static/JEJU/제주시 맛집/고집돌우럭 제주공항점.jpg", score: "4.6", time: "7분", distance: "495m"},
+                    {name: "도토리키친 본점", address: "임항로 30", hours: "오후 5:00~9:30 토요일 오전 10:00~오후 2:50", comment: "개인적인 입맛에는 안맞았지만 좋았습니다!!!", image: "../static/JEJU/제주시 맛집/도토리키친 본점.jpg", score: "4.3", time: "11분", distance: "679m"},
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 일요일 오전 10:00~오후 2:50", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time: "18분", distance: "1.1km"},
+                    {name: "하루방보쌈", address: "북성로 59", hours: "오후 5:00~9:30 월요일 오전 10:00~오후 2:50", comment: "가격이 조금 비싸지만 맛이 매우 흡족할만함", image: "../static/JEJU/제주시 맛집/하루방보쌈.jpg", score: "4.4", time: "11분", distance: "746m"},
+                    {name: "말고기연구소", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:00~9:30 화요일 오전 10:00~오후 2:50", comment: "지인추천으로 갔는데 맛있게 잘 먹었습니다 ~ 감사합니다 😊", image: "../static/JEJU/제주시 맛집/말고기연구소.jpg", score: "4.7", time: "8분", distance: "525m"}
+                ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "화북종합시장",
+                
+                name: "화북종합시장",
                 score: "4.0",
                 address: "제주특별자치도 제주시 화북일동 1947-24",
-                bushour: "금요일 오전 5:30~오후 8:00\n토요일 오전 5:30~오후 8:00\n일요일 오전 5:30~오후 8:00\n월요일 오전 5:30~오후 8:00\n화요일 오전 5:30~오후 8:00\n수요일 오전 5:30~오후 8:00\n목요일 휴무일",
+                hours: "금요일 오전 5:30~오후 8:00\n토요일 오전 5:30~오후 8:00\n일요일 오전 5:30~오후 8:00\n월요일 오전 5:30~오후 8:00\n화요일 오전 5:30~오후 8:00\n수요일 오전 5:30~오후 8:00\n목요일 휴무일",
                 summary: "",
-                image: "../static/JEJU/제주시 시장/화북종합시장.jpg",
+                image: "../static/JEJU/제주도 시장/화북종합시장.jpg",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    ],
+                cafes: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
+                    ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             },
             {
-                category: "시장",
-                place: "종합시장",
+                
+                name: "종합시장",
                 score: "4.5",
                 address: "제주특별자치도 제주시 이도일동",
-                bushour: "",
+                hours: "",
                 summary: "",
                 image: "",
                 restaurants: [
-                    { name: "산방산 식당1", address: "서귀포시 안덕면 사계리", hours: "10:00 ~ 20:00", comment: "산방산 근처의 맛집입니다. 제주도 특산물을 사용한 요리가 유명합니다.", image: "../static/JEJU/제주도 식당/식당1.jpg" },
-                    { name: "산방산 식당2", address: "서귀포시 안덕면 사계리", hours: "09:00 ~ 21:00", comment: "산방산에서 도보로 10분 거리에 있는 전통 한식당입니다.", image: "../static/JEJU/제주도 식당/식당2.jpg" }
-                ]
+                    {name: "제주보말칼국수", address: "제주특별자치도 제주시 특별자치도", hours: "금요일 오전 8:00~오후 3:30 토요일 오전 8:00~오후 3:30 일요일 오전 8:00~오후 3:30 월요일 오전 8:00~오후 3:30 화요일 오전 8:00~오후 3:30 수요일 오전 8:00~오후 3:30 목요일 오전 8:00~오후 3:30", comment: "저는 개인적으로 좋아하는 맛이라 맛있게 먹었습니다.", image: "../static/JEJU/제주시 맛집/제주보말칼국수.jpg", score: "4.6", time: "18분", distance: "1.1km"},
+                    {name: "제주미담", address: "삼도2동 관덕로8길 40 KR", hours: "금요일 오전 9:00~오후 4:30", comment: "고기국수도 양도 많고 고기도 푸짐하고 이 역시 좋았다.", image: "../static/JEJU/제주시 맛집/제주미담.jpg", score: "4.3", time: "19분", distance: "1.2km"},
+                    {name: "금복촌", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:30~9:30 토요일 오전 9:00~오후 4:30", comment: "서빙하시는 분의 친절에 맛이 1000배가 되는 곳입니다", image: "../static/JEJU/제주시 맛집/금복촌.jpg", score: "4.6", time: "34분", distance: "2.0km"},
+                    {name: "원담식당", address: "가령로 19 KR", hours: "오후 5:30~9:30 일요일 오전 9:00~오후 4:30", comment: "맛 : 5점 분위기 : 4점 너무 어수선하고 시끄러워요 서비스", image: "../static/JEJU/제주시 맛집/원담식당.jpg", score: "4.4", time: "11분", distance: "699m"},
+                    {name: "코코분식", address: "제주시", hours: "오후 5:30~9:30 월요일 오전 9:00~오후 4:30", comment: "우진해장국보다 좀 더 후추후추한 고사리 해장국.", image: "../static/JEJU/제주시 맛집/코코분식.jpg", score: "4.4", time: "14분", distance: "841m"}
+                ],
+                cafes: [
+                    {name: "커피파인더", address: "제주특별자치도 제주시 특별자치도", hours: "오후 5:30~9:30 화요일 휴무일 수요일 오전 9:00~오후 4:30", comment: "", image: "../static/JEJU/제주시 카페/커피파인더.jpg", score: "4.7", time: "20분", distance: "1.2km"}
+                ],
+                accommodations: [
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 숙소/숙소1.jpg" }
+                    ]
             }
         ];
-
 
         const museumList = document.getElementById("museumList");
         const museumInfo = document.getElementById("museumInfo");
         const mountainImage = document.getElementById("mountainImage");
-        const restaurantImage = document.getElementById("restaurantImage");
+        const placeImage = document.getElementById("placeImage");
 
         // 테마파크 목록 생성
         museums.forEach(museum => {
             const div = document.createElement("div");
             div.className = "museum-name";
-            div.textContent = museum.place;
+            div.textContent = museum.name;
             div.onclick = () => displayMuseumInfo(museum);
             museumList.appendChild(div);
         });
 
+        // 현재 선택된 테마파크 정보 저장
+        let currentMuseum = null;
+
         // 테마파크 정보 표시 함수
         function displayMuseumInfo(museum) {
+            currentMuseum = museum; // 현재 선택된 테마파크 정보 저장
             let summaryHTML = "";
             if (museum.summary) { // 개요 정보가 있는 경우에만 표시
                 summaryHTML = `<p><span style="color:blue;font-weight:bold" align="center">개요</br></span>${museum.summary}</p>`;
             }
             museumInfo.innerHTML = `
-                <h2>${museum.place}</h2>
+                <h2>${museum.name}</h2>
                 <p><span style="color:blue;font-weight:bold" align="center">주소</br></span>${museum.address}</p>
-                <p><span style="color:blue;font-weight:bold" align="center">영업시간</br></span>${museum.bushour.replace(/\n/g, "<br>")}</p>
+                <p><span style="color:blue;font-weight:bold" align="center">영업시간</br></span>${museum.hours.replace(/\n/g, "<br>")}</p>
                 ${summaryHTML}
-                <div class="restaurant-info">
-                    <h3>주변 식당</h3>
-                    ${museum.restaurants.map(restaurant => `
-                        <div class="restaurant-name" onclick="displayRestaurantInfo('${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.comment}', '${restaurant.image}')">
-                            ${restaurant.name}
-                        </div>
-                    `).join("")}
+                <div class="category-tabs" id="categoryTabs">
+                    <div class="category-tab" onclick="showCategory('restaurant')">식당</div>
+                    <div class="category-tab" onclick="showCategory('cafe')">카페</div>
+                    <div class="category-tab" onclick="showCategory('accommodation')">숙소</div>
                 </div>
+                <div id="restaurantInfo" class="restaurant-info"></div>
             `;
-            mountainImage.innerHTML = `<img src="${museum.image}" alt="${museum.place} 이미지">`;
-            restaurantImage.innerHTML = ""; // 테마파크를 선택할 때 식당 이미지 및 정보 초기화
+            mountainImage.innerHTML = `<img src="${museum.image}" alt="${museum.name} 이미지">`;
+            placeImage.innerHTML = ""; // 테마파크 선택할 때 장소 이미지 및 정보 초기화
+
+            // 기본적으로 식당 탭 표시
+            showCategory('restaurant');
         }
 
-        // 식당 정보 표시 함수
-        function displayRestaurantInfo(place, address, bushour, comment, image) {
-            restaurantImage.innerHTML = `
-                <h2>식당 사진 및 정보</h2>
-                <img src="${image}" alt="식당 이미지">
-                <div class="restaurant-details">
-                    <h3>${place}</h3>
+        // 카테고리 탭 표시 함수
+        function showCategory(category) {
+            if (!currentMuseum) return;
+
+            // 모든 탭 비활성화
+            Array.from(document.querySelectorAll(".category-tab")).forEach(tab => tab.classList.remove("active"));
+            document.querySelector(`.category-tab[onclick*="${category}"]`).classList.add("active");
+
+            const restaurantInfo = document.getElementById("restaurantInfo");
+            const cafeInfo = document.getElementById("cafeInfo");
+            const accommodationInfo = document.getElementById("accommodationInfo");
+
+            // 모두 숨김
+            restaurantInfo.classList.add("hidden");
+            cafeInfo.classList.add("hidden");
+            accommodationInfo.classList.add("hidden");
+
+            if (category === 'restaurant') {
+                restaurantInfo.classList.remove("hidden");
+                if (currentMuseum.restaurants.length === 0) {
+                    restaurantInfo.innerHTML = `<p>주변 식당 정보가 없습니다.</p>`;
+                } else {
+                    restaurantInfo.innerHTML = `
+                        <h3>주변 식당</h3>
+                        ${currentMuseum.restaurants.map(restaurant => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                               '${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.score}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
+                                ${restaurant.name || '식당 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
+            } else if (category === 'cafe') {
+                cafeInfo.classList.remove("hidden");
+                if (currentMuseum.cafes.length === 0) {
+                    cafeInfo.innerHTML = `<p>주변 카페 정보가 없습니다.</p>`;
+                } else {
+                    cafeInfo.innerHTML = `
+                        <h3>주변 카페</h3>
+                        ${currentMuseum.cafes.map(cafe => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                                '${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.score}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
+                                ${cafe.name || '카페 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
+            } else if (category === 'accommodation') {
+                accommodationInfo.classList.remove("hidden");
+                if (currentMuseum.accommodations.length === 0) {
+                    accommodationInfo.innerHTML = `<p>주변 숙소 정보가 없습니다.</p>`;
+                } else {
+                    accommodationInfo.innerHTML = `
+                        <h3>주변 숙소</h3>
+                        ${currentMuseum.accommodations.map(accommodation => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                               '${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.score}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
+                                ${accommodation.name || '숙소 이름 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
+            }
+        }
+
+
+        // 장소 정보 표시 함수
+        function displayPlaceInfo(name, address, hours, score, comment, time, distance, image) {
+            placeImage.innerHTML = `
+                <div class="place-details">
+                    <img src="${image}" alt="장소 이미지">
+                    <h3>${name}</h3>
                     <p><span style="color:blue;font-weight:bold">주소</span>: ${address}</p>
-                    <p><span style="color:blue;font-weight:bold">영업시간</span>: ${bushour.replace(/\n/g, "<br>")}</p>
-                    <p><span style="color:blue;font-weight:bold">설명</span>: ${comment}</p>
+                    <p><span style="color:blue;font-weight:bold">영업시간</span>: ${hours}</p>
+                    <p><span style="color:blue;font-weight:bold">별점</span>: ${score}</p>
+                    <p><span style="color:blue;font-weight:bold">리뷰</span>: ${comment}</p>
+                    <p><span style="color:blue;font-weight:bold">소요시간</span>: ${time}</p>
+                    <p><span style="color:blue;font-weight:bold">거리</span>: ${distance}</p>
                 </div>
             `;
         }
