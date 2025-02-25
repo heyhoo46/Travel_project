@@ -1,107 +1,194 @@
-.category-table td a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none; /* 링크 밑줄 제거 */
-    color: inherit; /* 링크 색상 부모 요소 상속 */
-}
-  
-  .category-table td a img {
-    width: 229.33px;
-    height: 247px;
-    /* background: url(image.png), #E3E3E3;  <- 이미지 없을 때 배경색상 (필요하면 사용) */
-    object-fit: cover; /* 이미지가 프레임에 맞춰 비율을 유지하며 채우도록 설정 */
-  }
-  
-  /* span 태그 스타일 (이미지 아래 텍스트) */
-  .category-table td a span {
-    margin-top: 8px; /* 이미지와 텍스트 간 간격 조절 */
-    /* 추가적인 텍스트 스타일 */
-  }
+/***** 텍스트를 위한 고급스럽고 깔끔한 스타일 *****/
 
-  .product-info-card {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%; /* 또는 max-width: 261.33px; 와 같이 적절한 값으로 설정 */
-    border: 1px solid #D9D9D9;
-    border-radius: 8px;
-    padding: 16px;
-    gap: 16px;
-  }
-  
-  .image {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .image img {
-    max-width: 100%;
-    height: 100;
-    object-fit: cover;
-    border-radius: 8px 8px 0 0;
-  }
-  
-  .product-info-card span {
-    margin-top: 8px;
-    font-size: 14px; /* 필요에 따라 조정 */
-    color: #333; /* 필요에 따라 조정 */
-  }
-  
-  body {
-    display: flex;
-    margin: 0;
-    font-family: sans-serif; /* 폰트 변경 (선택 사항) */
-    background-color: #f8f8f8; /* 페이지 배경색 */
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9fb; /* 깔끔한 밝은 배경 */
+  color: #333; /* 고급스러운 기본 텍스트 색상 */
+  line-height: 1.8;
 }
 
-.left-section {
-    width: 20%;
-    padding: 20px;
-    background-color: #fff; /* 왼쪽 섹션 배경색 */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 (선택 사항) */
+.main-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
 }
 
-.right-section {
-    width: 80%;
-    padding: 20px;
+.subtitle {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #555;
 }
 
-.search-box {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    border: 1px solid #ddd; /* 검색창 테두리 */
-    border-radius: 5px; /* 검색창 모서리 둥글게 */
+.feature-section {
+  text-align: center;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
 }
 
-.category-table {
-    width: 100%; /* 테이블 전체 너비 100% */
-    border-collapse: collapse; /* 셀 간격 없애기 */
+.section-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #222;
 }
 
-.category-table td {
-    padding: 0; /* 셀 padding 없애기 */
-    text-align: center;
-    vertical-align: top; /* 셀 내용 위쪽 정렬 (원하는 정렬 방식에 따라 변경) */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  max-width: 300px;
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.feature-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.feature-description {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.highlight-text {
+  font-size: 18px;
+  font-weight: 500;
+  color: #444;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.cta-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f7a8c;
+  text-align: center;
+  margin-top: 30px;
+}
+
+/***** 카테고리 및 카드 디자인 개선 *****/
+
+.category-table td a span {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.product-info-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 20px;
+  gap: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
 }
 
 .category-image {
-    width: 100px; 
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%; /* 이미지 동그랗게 */
-    margin-bottom: 5px; /* 이미지 아래 여백 */
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* 카테고리 텍스트 스타일 */
-.category-table span {
-    display: block; /* 텍스트를 이미지 아래에 배치 */
-    font-size: 14px;
-    color: #333;
+.center-content h2 {
+  font-size: 26px;
+  color: #222;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.center-content p {
+  color: #555;
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.center-content input[type="text"] {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f7f9fc;
+}
+
+.center-content button[type="submit"] {
+  background-color: #1f7a8c;
+  color: #fff;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.center-content button[type="submit"]:hover {
+  background-color: #166272;
+  transform: translateY(-2px);
+}
+
+.center-content button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/***** 텍스트 강조 효과 *****/
+
+.main-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background-color: #1f7a8c;
+  margin: 16px auto 0;
+  border-radius: 2px;
+}
+
+.highlight-text::before {
+  content: "✨ ";
+}
+
+.cta-text::after {
+  content: " 🌴";
 }
