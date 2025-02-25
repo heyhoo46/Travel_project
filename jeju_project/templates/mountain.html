@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -210,8 +211,7 @@
                 summary: "산방산은 대한민국 제주특별자치도 서귀포시 안덕면 사계리에 있는 산이다. '산방'이라는 말은 굴이 있는 산을 뜻한다. 높이는 해발 395m이며, 남쪽 해발 150m 쯤에 해식동굴이 있어서 산방산이라 이름을 지었다. 대한민국의 명승으로 지정되었다.",
                 image : "../static/JEJU/image/산방산.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
@@ -227,8 +227,7 @@
                 summary: "한라산은 대한민국 제주도 중앙부에 있는 해발 1,947.06m, 면적 약 1,820km²의 화산으로, 제주도의 면적 대부분을 차지하고 있다. 정상에 백록담이라는 화산호가 있는데, 백록담이라는 이름은 흰 사슴이 물을 먹는 곳이라는 뜻에서 왔다고 전해진다.",
                 image : "../static/JEJU/image/한라산.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
@@ -244,8 +243,7 @@
                 summary: "영주산은 제주특별자치도 서귀포시 표선면 성읍1리에 위치한 오름이다. 높이가 326.4m로 산체가 비교적 크고 동북쪽으로 터진 말굽형 분화구의 형태를 지니고 있다. 사면 전체가 초지로 이루어져 있고 동쪽 아래 기슭에는 성읍 마을 공동묘지가 있다.",
                 image : "../static/JEJU/image/영주산.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
@@ -261,8 +259,7 @@
                 summary: "고근산은 서귀포시 신시가지를 감싸고 있는 기생화산으로 정상에 깊지 않은 원형분화구를 갖고 있는 오름이다. 높이가 396m로 지표에서 171m, 둘레 4,324m로 되어 있는 산이다.",
                 image : "../static/JEJU/image/고근산.jpg",
                 restaurants: [
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" },
-                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당7.jpg" }
+                    { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 식당/식당6.jpg" }
                 ],
                 cafes: [
                     { name: "", address: "", hours: "", comment: "", image: "../static/JEJU/제주도 카페/카페1.jpg" }
@@ -278,7 +275,7 @@
         const mountainImage = document.getElementById("mountainImage");
         const placeImage = document.getElementById("placeImage");
 
-        // 산 목록 생성
+        // 테마파크 목록 생성
         museums.forEach(museum => {
             const div = document.createElement("div");
             div.className = "museum-name";
@@ -287,12 +284,12 @@
             museumList.appendChild(div);
         });
 
-        // 현재 선택된 산 정보 저장
+        // 현재 선택된 테마파크 정보 저장
         let currentMuseum = null;
 
-        // 산 정보 표시 함수
+        // 테마파크 정보 표시 함수
         function displayMuseumInfo(museum) {
-            currentMuseum = museum; // 현재 선택된 산 정보 저장
+            currentMuseum = museum; // 현재 선택된 테마파크 정보 저장
             let summaryHTML = "";
             if (museum.summary) { // 개요 정보가 있는 경우에만 표시
                 summaryHTML = `<p><span style="color:blue;font-weight:bold" align="center">개요</br></span>${museum.summary}</p>`;
@@ -308,9 +305,11 @@
                     <div class="category-tab" onclick="showCategory('accommodation')">숙소</div>
                 </div>
                 <div id="restaurantInfo" class="restaurant-info"></div>
+                <div id="cafeInfo" class="cafe-info"></div>
+                <div id="accommodationInfo" class="accommodation-info"></div>
             `;
             mountainImage.innerHTML = `<img src="${museum.image}" alt="${museum.name} 이미지">`;
-            placeImage.innerHTML = ""; // 산을 선택할 때 장소 이미지 및 정보 초기화
+            placeImage.innerHTML = ""; // 테마파크 선택할 때 장소 이미지 및 정보 초기화
 
             // 기본적으로 식당 탭 표시
             showCategory('restaurant');
@@ -318,56 +317,69 @@
 
         // 카테고리 탭 표시 함수
         function showCategory(category) {
-            if (!currentMuseum) return; // 현재 선택된 산이 없으면 종료
+            if (!currentMuseum) return;
 
             // 모든 탭 비활성화
             Array.from(document.querySelectorAll(".category-tab")).forEach(tab => tab.classList.remove("active"));
-            // 선택한 탭 활성화
             document.querySelector(`.category-tab[onclick*="${category}"]`).classList.add("active");
 
-            // 선택한 카테고리 정보 표시
             const restaurantInfo = document.getElementById("restaurantInfo");
-            const cafeInfo = document.getElementById("restaurantInfo");
-            const accommodationInfo = document.getElementById("restaurantInfo");
+            const cafeInfo = document.getElementById("cafeInfo");
+            const accommodationInfo = document.getElementById("accommodationInfo");
+
+            // 모두 숨김
+            restaurantInfo.classList.add("hidden");
+            cafeInfo.classList.add("hidden");
+            accommodationInfo.classList.add("hidden");
 
             if (category === 'restaurant') {
                 restaurantInfo.classList.remove("hidden");
-                cafeInfo.classList.add("hidden");
-                accommodationInfo.classList.add("hidden");
-                restaurantInfo.innerHTML = `
-                    <h3>주변 식당</h3>
-                    ${currentMuseum.restaurants.map(restaurant => `
-                        <div class="place-name" onclick="displayPlaceInfo('${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.star}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
-                            ${restaurant.name}
-                        </div>
-                    `).join("")}
-                `;
+                if (currentMuseum.restaurants.length === 0) {
+                    restaurantInfo.innerHTML = `<p>주변 식당 정보가 없습니다.</p>`;
+                } else {
+                    restaurantInfo.innerHTML = `
+                        <h3>주변 식당</h3>
+                        ${currentMuseum.restaurants.map(restaurant => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                               '${restaurant.name}', '${restaurant.address}', '${restaurant.hours}', '${restaurant.star}', '${restaurant.comment}', '${restaurant.time}', '${restaurant.distance}', '${restaurant.image}')">
+                                ${restaurant.name || '주변 식당 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
             } else if (category === 'cafe') {
                 cafeInfo.classList.remove("hidden");
-                restaurantInfo.classList.add("hidden");
-                accommodationInfo.classList.add("hidden");
-                cafeInfo.innerHTML = `
-                    <h3>주변 카페</h3>
-                    ${currentMuseum.cafes.map(cafe => `
-                        <div class="place-name" onclick="displayPlaceInfo('${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.star}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
-                            ${cafe.name}
-                        </div>
-                    `).join("")}
-                `;
+                if (currentMuseum.cafes.length === 0) {
+                    cafeInfo.innerHTML = `<p>주변 카페 정보가 없습니다.</p>`;
+                } else {
+                    cafeInfo.innerHTML = `
+                        <h3>주변 카페</h3>
+                        ${currentMuseum.cafes.map(cafe => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                                '${cafe.name}', '${cafe.address}', '${cafe.hours}', '${cafe.star}', '${cafe.comment}', '${cafe.time}', '${cafe.distance}', '${cafe.image}')">
+                                ${cafe.name || '주변 카페 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
             } else if (category === 'accommodation') {
                 accommodationInfo.classList.remove("hidden");
-                restaurantInfo.classList.add("hidden");
-                cafeInfo.classList.add("hidden");
-                accommodationInfo.innerHTML = `
-                    <h3>주변 숙소</h3>
-                    ${currentMuseum.accommodations.map(accommodation => `
-                        <div class="place-name" onclick="displayPlaceInfo('${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.star}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
-                            ${accommodation.name}
-                        </div>
-                    `).join("")}
-                `;
+                if (currentMuseum.accommodations.length === 0) {
+                    accommodationInfo.innerHTML = `<p>주변 숙소 정보가 없습니다.</p>`;
+                } else {
+                    accommodationInfo.innerHTML = `
+                        <h3>주변 숙소</h3>
+                        ${currentMuseum.accommodations.map(accommodation => `
+                            <div class="place-name" onclick="displayPlaceInfo(
+                               '${accommodation.name}', '${accommodation.address}', '${accommodation.hours}', '${accommodation.star}', '${accommodation.comment}', '${accommodation.time}', '${accommodation.distance}', '${accommodation.image}')">
+                                ${accommodation.name || '주변 숙소 없음'}
+                            </div>
+                        `).join("")}
+                    `;
+                }
             }
         }
+
 
         // 장소 정보 표시 함수
         function displayPlaceInfo(name, address, hours, star, comment, time, distance, image) {
