@@ -6,16 +6,17 @@ jeju_server.py는 서버 구동 코드 (포트번호 5001)
 
 
 ### 폴더 위치
-jeju_project/ 
-├── static/
-│   └── JEJU/
-│       ├── market.png
-│       ├── orem.png
-│       ├── ...      
-│       └── css
-│             └── styles.css
-├── templates/
-│   ├── jeju.html
-│   ├── market.html
-│   └── ...
-└── jeju_server.py
+
+    jeju_project/
+    ├── static/
+    │   └── JEJU/
+    │       ├── market.png
+    │       ├── orem.png
+    │       ├── ...
+    │       └── css/
+    │           └── styles.css
+    ├── templates/
+    │   ├── jeju.html
+    │   ├── market.html
+    │   └── ...
+    └── jeju_server.py
