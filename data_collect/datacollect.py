@@ -40,14 +40,14 @@ def collect_place(search, page_number):
 
         # 스폰서 인지 아닌지
         sponsor2 = driver.find_elements(By.CSS_SELECTOR, ".pXf2tf.U3A9Ac.qV8iec")
-        print("스폰서", len(sponsor2), "개 제외합니다.")
+        print("스폰서", len(sponsor2), "개 제외합니다.")  # 스폰서가 장소 목록의 위쪽에만 뜸
         sp = len(sponsor2)
         
-        for pl in place[sp:]:                
-            if category == "산":
+        for pl in place[sp:]:   # 장소 리스트에서 스폰서 개수만큼 건너뛰고 정보 수집함              
+            if category == "산": # 산과 오름을 구분하기 위한 파트
                 if "산" in pl.text:
                     print("산입니다.")
-                    pl.click()
+                    pl.click()  
                     time.sleep(1)
                 else:
                     print("산이 아닙니다.")
@@ -55,12 +55,10 @@ def collect_place(search, page_number):
             else:
                 pl.click()
                 time.sleep(1)
-                
-            # pl.click() # 클릭 후에 나머지 정보 추출
-            # time.sleep(1)
+
     
             try:
-                # 스폰서 인지 아닌지
+                # 스폰서 인지 아닌지 (앞에서 스폰서가 걸러지지 않는 경우)
                 sponsor = driver.find_element(By.CSS_SELECTOR, ".G9DTJe .QGUp7b")
                 print(sponsor.text)
                 time.sleep(0.5)
@@ -116,7 +114,7 @@ def collect_place(search, page_number):
                         time.sleep(0.5)   
                     except:
                         print("해당 장소에 대한 주소 없습니다.")
-                        address_list.append(pl.text)
+                        address_list.append(pl.text) # 주소가 없는 경우 장소 이름을 주소로 대신함함
                         pass  # 요소가 없으면 그냥 넘어감
                     
                     # 영업시간
@@ -140,7 +138,7 @@ def collect_place(search, page_number):
                     time.sleep(0.5)
                         
                     
-                    # 대표 이미지
+                    # 대표 이미지 저장장
                     try:
                         img = driver.find_element(By.CSS_SELECTOR, ".vwrQge")
                         img_text = img.get_attribute("style")
