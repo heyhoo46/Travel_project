@@ -235,7 +235,7 @@ def collect_restaurant(search, page_number, review_number, star_number):
                 comment_num_list.append(int(result))   
         # print(comment_num_list)
         
-        # 리뷰 개수가 150 넘으면 그 인덱스 기억해둠
+        # 리뷰 개수가 200 넘으면 그 인덱스 기억해둠
         index1 = []
         for num in comment_num_list:
             if num > review_number:
@@ -252,7 +252,7 @@ def collect_restaurant(search, page_number, review_number, star_number):
         # print(comment)
             
         
-        # 별점이 3.5가 넘으면
+        # 별점이 4.0이이 넘으면
         # 클릭!
         for i, idx1 in enumerate(index1):
             if float(score_str[idx1].text) > star_number:
@@ -266,7 +266,7 @@ def collect_restaurant(search, page_number, review_number, star_number):
                     time.sleep(0.5)
                 
                 except:
-                    print("스폰서 아닙니다.")
+                    print("스폰서 아닙니다.") # 스폰서가 아닌 경우 장소 정보 수집
                     time.sleep(0.5)
                 
                     try:
@@ -276,7 +276,7 @@ def collect_restaurant(search, page_number, review_number, star_number):
                         time.sleep(0.5)
                     
                     except:
-                        print("정상 영업합니다.")  
+                        print("정상 영업합니다.")  # 폐업이이 아닌 경우 장소 정보 수집
                         time.sleep(0.5)
                         # 맛집명, 별점, 주소, 리뷰, 영업시간, 대표이미지 추출
                         # 맛집명
@@ -297,8 +297,8 @@ def collect_restaurant(search, page_number, review_number, star_number):
                         time.sleep(0.5)
                 
                         # 리뷰 추출
-                        # 리뷰 150개 넘고 별점 3.5넘는 가게의 리뷰만 추출
-                        if comment == []:
+                        # 리뷰 200개 넘고 별점 4.0넘는 가게의 리뷰만 추출
+                        if comment == []: # 한 줄 리뷰가 없는 경우
                             print("한 줄 리뷰 생략합니다.")
                             comment_list.append("")
                             time.sleep(0.5)
@@ -308,7 +308,6 @@ def collect_restaurant(search, page_number, review_number, star_number):
                             time.sleep(0.5)
                 
                         # 영업시간
-                        # 영업시간 없는 경우 추가 해줘야됨!!!!!
                         try:
                             button = driver.find_element(By.CSS_SELECTOR, ".BTP3Ac")
                             button.click()
